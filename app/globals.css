@@ -281,3 +281,16 @@ a {
   text-decoration: none;
   color: inherit; /*inherit color from parent*/
 }
+
+/* QUILL EDITOR */
+
+.quill .ql-container {
+  font-size: 20px;
+}
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: var(--baseline-400) !important;
+}
+.quill data-placeholder {
+  color: var(--baseline-800) !important;
+  font-size: 100px;
+}

@@ -1,8 +1,17 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function AuthLinks() {
-  const status: 'authenticated' | 'unauthenticated' = 'unauthenticated';
+  const router = useRouter();
+  const { data, status } = useSession();
+
+  if (status === 'authenticated') {
+    router.push('/');
+  }
   return (
     <div className='flex gap-4 dark:text-baseline-200'>
       <Link href='/'>
@@ -16,14 +25,16 @@ function AuthLinks() {
       </Link>
       {status === 'authenticated' ? (
         <>
-          <Link href='/'>
+          <Link href='/new-article'>
             <p className='text-xs'>New article</p>
           </Link>
 
-          <p className=' cursor-pointer text-xs'>Logout</p>
+          <div onClick={() => signOut()} className=' cursor-pointer text-xs'>
+            <p>Logout</p>
+          </div>
         </>
       ) : (
-        <Link href='/'>
+        <Link href='/login'>
           <p className='text-xs'>Login</p>
         </Link>
       )}

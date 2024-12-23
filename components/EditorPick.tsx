@@ -6,7 +6,7 @@ import { Col, Row } from './UI/Grid';
 import { localDB } from '@/consts/localDB';
 import { cva } from 'class-variance-authority';
 
-const cardVariants = cva(
+const cardVariants: any = cva(
   [
     'flex pt-1 pb-1 pr-3 pl-3  items-center justify-center  rounded-full  text-white ',
   ],
@@ -28,7 +28,7 @@ function EditorPick() {
   return (
     <>
       <Spacer size={4} />
-      <p className='text-baseline-600'>Chosen by the editor</p>
+      <p className='text-baseline-400'>Chosen by the editor</p>
       <h5 className=' font-bold'>Editor Pick</h5>
       <Spacer size={6} />
       <Row className=' items-center'>
@@ -54,7 +54,7 @@ function EditorPick() {
                   <p className='text-lg font-bold'>{post.title}</p>
                   <Spacer size={2} />
                   <p className=' line-clamp-3'>{post.description}</p>
-                  <div className='flex gap-2 text-s text-baseline-600'>
+                  <div className='flex gap-2 text-s text-baseline-400'>
                     <p className='font-bold'>{post.author}</p>
                     <p>{post.date}</p>
                   </div>

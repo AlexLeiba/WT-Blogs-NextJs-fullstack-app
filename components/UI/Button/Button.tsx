@@ -7,7 +7,7 @@ import { Loader } from '../loader';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center whitespace-nowrap font-medium',
-    'disabled:pointer-events-none disabled:bg-baseline-50 disabled:text-baseline-300 rounded',
+    'disabled:pointer-events-none disabled:bg-baseline-50 disabled:text-baseline-400 rounded',
     // accessibility
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'transition-colors',

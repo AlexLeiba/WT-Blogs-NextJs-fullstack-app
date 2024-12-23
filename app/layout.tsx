@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Spacer } from '@/components/UI/spacer/spacer';
+import AuthSessionProvider from '@/providers/AuthProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,20 +32,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className='flex min-h-screen flex-col'>
-          {/* <ThemeContextProvider>
-          <ThemeProvider> */}
-          <header>
-            <Header />
-          </header>
-          <Spacer size={14} /> {/*Header size*/}
-          <main className='flex-grow'>{children}</main>
-          <footer>
-            <Footer />
-          </footer>
-        </div>
-        {/* </ThemeProvider>
-        </ThemeContextProvider> */}
+        <AuthSessionProvider>
+          <div className='flex min-h-screen flex-col'>
+            <header>
+              <Header />
+            </header>
+            <Spacer size={14} /> {/*Header size*/}
+            <main className='flex-grow'>{children}</main>
+            <footer>
+              <Footer />
+            </footer>
+          </div>
+        </AuthSessionProvider>
       </body>
     </html>
   );

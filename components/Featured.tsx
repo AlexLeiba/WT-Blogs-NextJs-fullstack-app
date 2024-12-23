@@ -7,12 +7,19 @@ import { Col, Row } from './UI/Grid';
 function Featured({ type }: { type: 'category' | 'home' }) {
   return (
     <div>
-      {type === 'home' && (
-        <h2>
-          <strong>Discover web development journey</strong> in these amazing dev
-          blogs
-        </h2>
-      )}
+      <Row>
+        <Col lg={9}>
+          {type === 'home' && (
+            <>
+              <h2 className=' '>Welcome on Web Tech Blogs</h2>
+              <h4>
+                <strong> Discover web development journey</strong> in these
+                amazing blogs.
+              </h4>
+            </>
+          )}
+        </Col>
+      </Row>
 
       <Spacer size={12} />
 

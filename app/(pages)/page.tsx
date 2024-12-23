@@ -35,11 +35,9 @@ export default function Home() {
             </Col>
 
             <Col lg={3} lgOffset={1} md={2}>
-              <MostPopularPosts />
-
-              <Spacer size={16} />
-
               <Categories />
+              <Spacer size={16} />
+              <MostPopularPosts />
 
               <Spacer size={16} />
 

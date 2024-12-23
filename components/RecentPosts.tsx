@@ -9,7 +9,12 @@ import Link from 'next/link';
 function RecentPosts() {
   return (
     <>
-      <h5 className='font-bold'>Recent posts</h5>
+      <div className='flex justify-between items-center font-bold'>
+        <h5>Recent posts</h5>
+        <Button variant={'secondary'} className='  font-bold '>
+          All posts
+        </Button>
+      </div>
       <Spacer size={6} />
       <Row className=' items-center'>
         {localDB.posts.map((post, index) => {
@@ -26,7 +31,7 @@ function RecentPosts() {
               </Col>
               <Col lg={6} md={2}>
                 <div>
-                  <div className='flex gap-2 text-s text-baseline-600'>
+                  <div className='flex gap-2 text-s text-baseline-400'>
                     <p>{post.date}</p>
                     <p>{post.category}</p>
                   </div>
@@ -40,7 +45,7 @@ function RecentPosts() {
                     <Button
                       variant={'link'}
                       size={'medium'}
-                      className={'dark:text-white'}
+                      // className={'dark:text-white'}
                     >
                       Read More
                     </Button>

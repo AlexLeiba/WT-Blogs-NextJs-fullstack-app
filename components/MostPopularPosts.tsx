@@ -28,7 +28,7 @@ const cardVariants: any = cva(
 function MostPopularPosts() {
   return (
     <>
-      <p className='text-baseline-600'>Discover the most popular posts</p>
+      <p className='text-baseline-400'>Discover the most popular posts</p>
       <h5 className='text-xl font-bold'>Most Popular</h5>
       <Spacer size={6} />
       <Row className=' items-center'>
@@ -45,7 +45,7 @@ function MostPopularPosts() {
                 <p className='text-lg font-bold'>{post.title}</p>
                 <Spacer size={2} />
                 <p className=' line-clamp-3'>{post.description}</p>
-                <div className='flex gap-2 text-s text-baseline-600'>
+                <div className='flex gap-2 text-s text-baseline-400'>
                   <p className='font-bold'>{post.author}</p>
                   <p>{post.date}</p>
                 </div>

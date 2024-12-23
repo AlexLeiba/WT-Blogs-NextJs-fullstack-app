@@ -17,7 +17,7 @@ type InputProps = {
   defaultValue?: string;
   readOnly?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+} & Pick<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 export function Input({
   type = 'text',
   placeholder,
@@ -34,7 +34,7 @@ export function Input({
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className={className}>
+    <div>
       <p className={cn([`${error && 'grow text-red-500'}`])}>{label}</p>
       <Spacer size={1} />
       <label
@@ -44,19 +44,35 @@ export function Input({
         ])}
       >
         {leftIcon}
-        <input
-          onChange={onChange}
-          defaultValue={defaultValue ? defaultValue : ''}
-          {...props}
-          disabled={disabled}
-          type={showPassword ? 'text' : type}
-          className={cn(' w-full  grow', [
-            `${error && ' text-red-500'}`,
-            `${inputType === 'search' && 'pl-4'}`,
-          ])}
-          placeholder={placeholder}
-          readOnly={readOnly}
-        />
+        {type == 'textarea' ? (
+          <textarea
+            onChange={onchange}
+            defaultValue={defaultValue ? defaultValue : ''}
+            {...props}
+            disabled={disabled}
+            className={cn(' w-full  grow', [
+              `${error && ' text-red-500'}`,
+              className,
+            ])}
+            placeholder={placeholder}
+            readOnly={readOnly}
+          />
+        ) : (
+          <input
+            onChange={onChange}
+            defaultValue={defaultValue ? defaultValue : ''}
+            {...props}
+            disabled={disabled}
+            type={showPassword ? 'text' : type}
+            className={cn(' w-full  grow', [
+              `${error && ' text-red-500'}`,
+              className,
+            ])}
+            placeholder={placeholder}
+            readOnly={readOnly}
+          />
+        )}
+
         {inputType === 'search' && (
           <Search
             className={cn('absolute w-5 h-5 cursor-pointer left-2 top-3', [

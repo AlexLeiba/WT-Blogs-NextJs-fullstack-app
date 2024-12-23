@@ -35,10 +35,24 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## USED SPACINGS:
+# USED SPACINGS:
 
-BETWEEN ROWS:
-24PX | 6
+### BETWEEN ROWS:
 
-BETWEEN SECTIONS:
-48PX | 12
+24PX | 8
+
+### BETWEEN SECTIONS:
+
+48PX | 16
+
+### SMALL SPACE BETWEEN ELEMENTS FROM THE SAME GROUP:
+
+4PX | 2
+
+# COLORS
+
+### TEXT COLORS:
+
+PRIMARY: white / black
+SECONDARY: baseline-400
+TERTIARY DARK MODE: baseline-200

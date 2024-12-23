@@ -5,10 +5,11 @@ import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import Link from 'next/link';
 import { Spacer } from './UI/spacer/spacer';
+import Image from 'next/image';
 
 const cardVariants: any = cva(
   [
-    'flex p-8 w-full h-4 items-center justify-center rounded-md  ',
+    'flex p-8 w-full h-4 items-center justify-center rounded-md  gap-2 ',
     // accessibility
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'transition-colors',
@@ -57,6 +58,13 @@ function PopularCategories() {
           <Col key={index} lg={2} md={2} className='md:mb-6 sm:mb-6'>
             <Link href={category.link}>
               <div className={cardVariants({ variant: category.variant })}>
+                <Image
+                  src={category.icon}
+                  alt='react'
+                  width={100}
+                  height={100}
+                  className='  w-8 h-8'
+                />
                 <p className='text-black dark:text-white'>{category.name}</p>
               </div>
             </Link>
