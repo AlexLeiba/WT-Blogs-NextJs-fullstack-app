@@ -3,14 +3,14 @@ import Link from 'next/link';
 import React from 'react';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 function AuthLinks() {
-  const router = useRouter();
+  // const router = useRouter();
   const { data, status } = useSession();
 
   if (status === 'authenticated') {
-    router.push('/');
+    // router.push('/');
   }
   return (
     <div className='flex gap-4 dark:text-baseline-200'>
@@ -34,8 +34,8 @@ function AuthLinks() {
           </div>
         </>
       ) : (
-        <Link href='/login'>
-          <p className='text-xs'>Login</p>
+        <Link href='/sign-in'>
+          <p className='text-xs'>Sign in</p>
         </Link>
       )}
     </div>

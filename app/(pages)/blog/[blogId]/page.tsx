@@ -5,8 +5,32 @@ import MostPopularPosts from '@/components/MostPopularPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import { SinglePostType } from '@/consts/types';
+import { format } from 'date-fns';
 
-function SingleBlog() {
+async function getPost(slug: string) {
+  const post = await fetch(`http://localhost:3000/api/post/${slug}`, {
+    cache: 'no-cache',
+  });
+  console.log('🚀 ~ getPost ~ post:\n\n\n\n\n', post);
+
+  if (!post.ok) {
+    // toast.error(post.statusText);
+    console.log(post.statusText);
+    // throw new Error(post.statusText);
+  }
+  //return data as JSON
+  return post.json();
+}
+
+async function SingleBlog({ params }: { params: { blogId: string } }) {
+  const { blogId } = await Promise.resolve(params);
+
+  const post: SinglePostType = await getPost(blogId);
+
+  console.log('🚀 ~ SingleBlog ~ slug:', blogId, post);
+
   return (
     <Container variant={'fluid'} className='dark:bg-black '>
       <Row>
@@ -16,9 +40,7 @@ function SingleBlog() {
               lg={6}
               className='flex flex-col justify-between dark:text-white'
             >
-              <h2 className='font-bold line-clamp-3'>
-                The selected blog tids dsds dsds dsdssd dsdstle
-              </h2>
+              <h2 className='font-bold line-clamp-3'>{post?.title}</h2>
 
               <div className='flex items-center gap-4'>
                 <Image
@@ -29,8 +51,12 @@ function SingleBlog() {
                   className='w-10 h-10 object-cover rounded-full'
                 />
                 <div className='text-baseline-400'>
-                  <p className='font-semibold '>Alex leiba</p>
-                  <p className='text-s '>25 apr 2023</p>
+                  <p className='font-semibold '>{post?.user?.name}</p>
+                  {post.createdAt && (
+                    <p className='text-s '>
+                      {format(new Date(post?.createdAt), 'MMM dd yyyy')}
+                    </p>
+                  )}
                 </div>
               </div>
             </Col>
@@ -48,26 +74,9 @@ function SingleBlog() {
           <Row>
             <Col lg={7} className=' dark:text-baseline-200 text:baseline-950'>
               <Spacer size={16} />
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-                sunt quia quisquam praesentium magnam adipisci, tempora corporis
-                commodi pariatur id eum repellat voluptatem doloribus
-                perspiciatis dolore reprehenderit suscipit sed. Illum sit ab
-                sapiente accusamus nihil deleniti nostrum ad, nesciunt aliquam
-                labore? Neque consequuntur ut accusamus quae ab incidunt
-                praesentium qui blanditiis quod impedit modi minus ullam
-                expedita quos voluptate iste ex exercitationem, alias, deserunt
-                consequatur explicabo optio? Modi veritatis iste dolorum est
-                debitis quas. Explicabo labore doloribus eaque alias eligendi
-                saepe commodi mollitia ullam voluptatibus. Autem quidem
-                excepturi laboriosam. Voluptate voluptates, maxime cupiditate
-                non corrupti numquam error facere quae! Ullam?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                dolor modi eius? Vel libero a voluptates fugit maxime molestias
-                autem?
-              </p>
+              {post.description && (
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+              )}
 
               <Spacer size={16} />
 

@@ -7,8 +7,32 @@ import Pagination from '@/components/Pagination';
 import RecentPosts from '@/components/RecentPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
+import { Button } from '@/components/UI/Button/Button';
+import toast from 'react-hot-toast';
+import { PostType } from '@/consts/types';
 
-export default function Home() {
+async function getPosts(page: number) {
+  const posts = await fetch(`http://localhost:3000/api/posts?page=${page}`, {
+    cache: 'no-cache',
+  });
+
+  if (!posts.ok) {
+    return toast.error(posts.statusText);
+  }
+  //return data as JSON
+  return posts.json();
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) {
+  const page = parseInt((await searchParams).page) || 1;
+
+  const posts: PostType = await getPosts(page);
+  console.log('🚀 ~ posts:', posts);
+
   return (
     <Container
       className='dark:bg-black dark:text-white '
@@ -27,11 +51,11 @@ export default function Home() {
 
           <Row>
             <Col lg={8} md={2}>
-              <RecentPosts />
+              <RecentPosts posts={posts.posts} type='home' />
 
               <Spacer size={16} />
 
-              <Pagination />
+              <Pagination page={page} numberOfPosts={posts.count} />
             </Col>
 
             <Col lg={3} lgOffset={1} md={2}>

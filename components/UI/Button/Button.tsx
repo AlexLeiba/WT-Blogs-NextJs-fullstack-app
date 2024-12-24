@@ -7,16 +7,16 @@ import { Loader } from '../loader';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center whitespace-nowrap font-medium',
-    'disabled:pointer-events-none disabled:bg-baseline-50 disabled:text-baseline-400 rounded',
+    'disabled:pointer-events-none disabled:bg-baseline-200 disabled:text-black rounded',
     // accessibility
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-    'transition-colors',
+    'transition-colors ',
   ],
   {
     variants: {
       variant: {
-        primary: ['bg-tertiary-500 text-white ', 'lg:hover:bg-tertiary-600'],
-        baseline: ['bg-baseline-950', 'lg:hover:bg-baseline-900', 'text-white'],
+        primary: ['bg-tertiary-500 text-white ', 'hover:bg-tertiary-600'],
+        baseline: ['bg-baseline-950', 'hover:opacity-90', 'text-white'],
         secondary: [
           'bg-baseline-100 text-baseline-950 dark:text-white hover:bg-baseline-200 ',
           'dark:bg-baseline-900 dark:hover:bg-baseline-200 dark:hover:text-black ',
@@ -68,12 +68,12 @@ const buttonVariants = cva(
       {
         variant: 'link',
         size: 'large',
-        className: 'p-0 h-fit',
+        className: 'p-0 ',
       },
       {
         variant: 'link',
         size: 'medium',
-        className: 'p-0 h-fit',
+        className: 'p-0 ',
       },
     ],
   }

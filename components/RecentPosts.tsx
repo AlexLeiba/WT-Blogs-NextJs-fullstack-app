@@ -3,58 +3,88 @@ import { Spacer } from './UI/spacer/spacer';
 import Image from 'next/image';
 import { Button } from './UI/Button/Button';
 import { Col, Row } from './UI/Grid';
-import { localDB } from '@/consts/localDB';
 import Link from 'next/link';
+import { PostArrayType } from '@/consts/types';
+import { format } from 'date-fns';
 
-function RecentPosts() {
+async function RecentPosts({
+  posts,
+  type,
+  numberOfPosts,
+}: {
+  posts: PostArrayType;
+  type?: 'home' | 'category';
+  numberOfPosts?: number;
+}) {
   return (
     <>
       <div className='flex justify-between items-center font-bold'>
-        <h5>Recent posts</h5>
-        <Button variant={'secondary'} className='  font-bold '>
-          All posts
-        </Button>
+        <h5>
+          {type === 'category' ? `Posts ${numberOfPosts}` : 'Recent posts'}{' '}
+        </h5>
+        {type === 'category' && (
+          <Link href='/'>
+            <Button variant={'secondary'} className='font-bold '>
+              All posts
+            </Button>
+          </Link>
+        )}
       </div>
       <Spacer size={6} />
       <Row className=' items-center'>
-        {localDB.posts.map((post, index) => {
-          return (
-            <React.Fragment key={index}>
-              <Col lg={6} md={2} className='mb-6'>
-                <Image
-                  className='w-full'
-                  src={'/colorful.jpeg'}
-                  alt='colorful'
-                  width={400}
-                  height={400}
-                />
-              </Col>
-              <Col lg={6} md={2}>
-                <div>
-                  <div className='flex gap-2 text-s text-baseline-400'>
-                    <p>{post.date}</p>
-                    <p>{post.category}</p>
-                  </div>
-                  <Spacer size={2} />
-                  <p className='text-xl font-bold'>{post.title}</p>
+        {posts.length > 0 ? (
+          posts?.map((post, index) => {
+            return (
+              <Col key={index} lg={12} md={2} className='mb-6'>
+                <Link href={`blog/${post.slug}`}>
+                  <Row>
+                    <Col lg={6} md={2}>
+                      <Image
+                        className='w-full'
+                        src={'/colorful.jpeg'}
+                        alt={post.title}
+                        width={400}
+                        height={400}
+                      />
+                    </Col>
+                    <Col lg={6} md={2} className='flex  items-center'>
+                      <div>
+                        <div className='flex gap-2 text-s text-baseline-400'>
+                          <p>
+                            {format(new Date(post.createdAt), 'MMM dd yyyy')}
+                          </p>{' '}
+                          -<p className=' text-error-500'>{post.catSlug}</p>
+                          {/* <p>{post.cat.title}</p> */}
+                        </div>
+                        <Spacer size={2} />
+                        <p className='text-xl font-bold'>{post.title}</p>
 
-                  <p className='line-clamp-4'>{post.description}</p>
+                        <p className='line-clamp-4'>{post.description}</p>
 
-                  <Spacer size={2} />
-                  <Link href={post.link}>
-                    <Button
-                      variant={'link'}
-                      size={'medium'}
-                      // className={'dark:text-white'}
-                    >
-                      Read More
-                    </Button>
-                  </Link>
-                </div>
+                        <Spacer size={2} />
+
+                        <Button
+                          variant={'link'}
+                          size={'medium'}
+                          // className={'dark:text-white'}
+                        >
+                          Read More
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </Link>
               </Col>
-            </React.Fragment>
-          );
-        })}
+            );
+          })
+        ) : (
+          <Col>
+            <Spacer size={8} />
+            <p className='text-xl font-bold'>
+              No posts found, try with other categories
+            </p>
+          </Col>
+        )}
       </Row>
     </>
   );
