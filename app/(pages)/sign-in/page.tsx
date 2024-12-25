@@ -1,8 +1,5 @@
 'use client';
 import React from 'react';
-import Categories from '@/components/Categories';
-import Comments from '@/components/Comments';
-import MostPopularPosts from '@/components/MostPopularPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import Image from 'next/image';
@@ -46,7 +43,7 @@ function Signin() {
                     leftIcon={
                       <Image
                         src='/social-icons/company=github.svg'
-                        alt='google'
+                        alt='github'
                         width={20}
                         height={20}
                       />
@@ -61,7 +58,7 @@ function Signin() {
                     leftIcon={
                       <Image
                         src='/social-icons/company=facebook.svg'
-                        alt='google'
+                        alt='facebook'
                         width={20}
                         height={20}
                       />

@@ -16,7 +16,10 @@ function SelectedCategory({
 
       <Col lg={12} md={2} className='md:mb-6 sm:mb-6'>
         <div
-          className={cardVariants({ variant: category.slug, size: 'large' })}
+          className={cardVariants({
+            variant: category.slug.toLowerCase(),
+            size: 'large',
+          })}
         >
           <p className='text-xl font-bold text-black dark:text-white'>
             {category.title}
