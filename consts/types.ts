@@ -10,7 +10,7 @@ export type PostType = {
   posts: {
     id: string;
     title: string;
-    description: string;
+    desc: string;
     img: string;
     views: number;
     catSlug: string;
@@ -26,7 +26,7 @@ export type PostType = {
 export type SinglePostType = {
   id: string;
   title: string;
-  description: string;
+  desc: string;
   img: string;
   views: number;
   catSlug: string;
@@ -41,10 +41,12 @@ export type PostArrayType = PostType['posts'];
 
 export type CommentType = {
   id: string;
-  name: string;
-  comment: string;
-  date: string;
-  avatar: string;
+  createdAt: string;
+  desc: string;
+  userEmail: string;
+  user: UserType;
+  postSlug: string;
+  post: string;
 };
 
 export type UserType = {

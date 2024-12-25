@@ -11,14 +11,14 @@ export async function GET(
   try {
     const post = await prisma.post.findUnique({
       where: {
-        slug: 'example-post', // Case-insensitive comparison
+        slug: blogId, // Case-insensitive comparison
       },
       include: {
         user: true,
         cat: true,
-        comments: true,
       },
     });
+    console.log('🚀 ~ \n\n\n\n\n post:', post);
 
     if (!post) {
       return NextResponse.json({ message: 'Post not found' }, { status: 404 });
@@ -26,7 +26,7 @@ export async function GET(
 
     return NextResponse.json({ post }, { status: 200 });
   } catch (error: any) {
-    console.log(error.message);
+    console.log('🚀 ~ \n\n\n\n\n post:', error);
 
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

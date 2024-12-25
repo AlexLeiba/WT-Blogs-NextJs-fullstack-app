@@ -294,3 +294,9 @@ a {
   color: var(--baseline-800) !important;
   font-size: 100px;
 }
+
+.EmojiPickerReact {
+  h2 {
+    display: none;
+  }
+}

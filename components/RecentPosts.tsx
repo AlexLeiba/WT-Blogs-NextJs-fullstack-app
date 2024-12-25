@@ -50,16 +50,20 @@ async function RecentPosts({
                     <Col lg={6} md={2} className='flex  items-center'>
                       <div>
                         <div className='flex gap-2 text-s text-baseline-400'>
+                          <p className=' text-baseline-400 font-bold'>
+                            {post.user?.name}
+                          </p>
+                          -
                           <p>
                             {format(new Date(post.createdAt), 'MMM dd yyyy')}
                           </p>{' '}
-                          -<p className=' text-error-500'>{post.catSlug}</p>
+                          -<p className=' text-error-500'>{post.cat?.title}</p>
                           {/* <p>{post.cat.title}</p> */}
                         </div>
                         <Spacer size={2} />
                         <p className='text-xl font-bold'>{post.title}</p>
 
-                        <p className='line-clamp-4'>{post.description}</p>
+                        <p className='line-clamp-4'>{post.desc}</p>
 
                         <Spacer size={2} />
 

@@ -10,26 +10,32 @@ import { SinglePostType } from '@/consts/types';
 import { format } from 'date-fns';
 
 async function getPost(slug: string) {
-  const post = await fetch(`http://localhost:3000/api/post/${slug}`, {
-    cache: 'no-cache',
-  });
-  console.log('🚀 ~ getPost ~ post:\n\n\n\n\n', post);
+  console.log('🚀 ~ getPost ~ slug:', slug);
+  try {
+    const post = await fetch(`http://localhost:3000/api/post/${slug}`, {
+      cache: 'no-cache',
+    });
 
-  if (!post.ok) {
-    // toast.error(post.statusText);
-    console.log(post.statusText);
-    // throw new Error(post.statusText);
+    if (!post.ok) {
+      throw new Error('This blog was not found');
+    }
+
+    //return data as JSON
+    return post.json();
+  } catch (error: any) {
+    console.log('🚀 ~ getPost ~ error:\n\n\n\n\n', error);
+    toast.error(error.message);
   }
-  //return data as JSON
-  return post.json();
 }
 
 async function SingleBlog({ params }: { params: { blogId: string } }) {
   const { blogId } = await Promise.resolve(params);
+  console.log('🚀 ~ SingleBlog ~ blogId:', blogId);
 
-  const post: SinglePostType = await getPost(blogId);
+  const postData: { post: SinglePostType } = await getPost(blogId);
+  console.log('🚀 ~ SingleBlog ~ post:', postData);
 
-  console.log('🚀 ~ SingleBlog ~ slug:', blogId, post);
+  const { post } = postData;
 
   return (
     <Container variant={'fluid'} className='dark:bg-black '>
@@ -43,16 +49,18 @@ async function SingleBlog({ params }: { params: { blogId: string } }) {
               <h2 className='font-bold line-clamp-3'>{post?.title}</h2>
 
               <div className='flex items-center gap-4'>
-                <Image
-                  src='/colorful.jpeg'
-                  alt='blog image'
-                  width={50}
-                  height={50}
-                  className='w-10 h-10 object-cover rounded-full'
-                />
+                {post?.user?.image && (
+                  <Image
+                    src={post?.user?.image}
+                    alt='blog image'
+                    width={50}
+                    height={50}
+                    className='w-10 h-10 object-cover rounded-full'
+                  />
+                )}
                 <div className='text-baseline-400'>
                   <p className='font-semibold '>{post?.user?.name}</p>
-                  {post.createdAt && (
+                  {post?.createdAt && (
                     <p className='text-s '>
                       {format(new Date(post?.createdAt), 'MMM dd yyyy')}
                     </p>
@@ -74,13 +82,13 @@ async function SingleBlog({ params }: { params: { blogId: string } }) {
           <Row>
             <Col lg={7} className=' dark:text-baseline-200 text:baseline-950'>
               <Spacer size={16} />
-              {post.description && (
-                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+              {post?.desc && (
+                <div dangerouslySetInnerHTML={{ __html: post.desc }} />
               )}
 
               <Spacer size={16} />
 
-              <Comments />
+              <Comments postSlug={post.slug} />
             </Col>
             <Col
               lg={4}
