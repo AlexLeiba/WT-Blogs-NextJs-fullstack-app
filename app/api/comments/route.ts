@@ -17,6 +17,7 @@ export async function GET(req: Request) {
       },
       include: {
         user: true,
+        post: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -46,7 +47,7 @@ export async function POST(req: Request) {
   try {
     if (!session) {
       return NextResponse.json(
-        { message: 'You must be logged in to create a post' },
+        { message: 'Your are not Authorized' },
         { status: 401 }
       );
     }
@@ -69,6 +70,50 @@ export async function POST(req: Request) {
 
     console.log('Post created:', post);
     return NextResponse.json(post);
+  } catch (error: any) {
+    console.error('Error creating post:', error);
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// DELETE A COMMENT
+export async function DELETE(req: Request) {
+  const session: SessionType | JWT | any = await getServerSession(req);
+  console.log('🚀 ~ POST ~ session:', session);
+
+  try {
+    if (!session) {
+      return NextResponse.json(
+        { message: 'Your are not Authorized' },
+        { status: 401 }
+      );
+    }
+
+    const body = await req.json();
+
+    console.log(
+      '🚀 ~ \n\n\n\n POST ~ body=>>>>:',
+      body,
+      '\n\n\n\n session=>>>>',
+      session
+    );
+
+    const post = await prisma.comment.delete({
+      where: {
+        id: body.id,
+      },
+    });
+
+    if (!post) {
+      return NextResponse.json(
+        { message: 'You are not Authorized' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(post, { status: 200 });
   } catch (error: any) {
     console.error('Error creating post:', error);
     return NextResponse.json({ message: error.message }, { status: 500 });

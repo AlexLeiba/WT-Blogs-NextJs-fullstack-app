@@ -1,20 +1,19 @@
 import Categories from '@/components/Categories';
-import CategoryList from '@/components/PopularCategories';
 import EditorPick from '@/components/EditorPick';
-import Featured from '@/components/Featured';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
 import RecentPosts from '@/components/RecentPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import SelectedCategory from '@/components/SelectedCategory';
-import { Params } from 'next/dist/server/request/params';
 import toast from 'react-hot-toast';
 import { PostType } from '@/consts/types';
 
 async function getPosts(category: string, page: number) {
   const posts = await fetch(
-    `http://localhost:3000/api/posts?category=${category || ''}&page=${page}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?category=${
+      category || ''
+    }&page=${page}`,
     {
       cache: 'no-cache',
     }

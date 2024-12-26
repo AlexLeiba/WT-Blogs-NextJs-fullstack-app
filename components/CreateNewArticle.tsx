@@ -1,0 +1,287 @@
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import { Col, Container, Row } from '@/components/UI/Grid';
+import { Spacer } from '@/components/UI/spacer/spacer';
+import { Button } from '@/components/UI/Button/Button';
+import { Input } from '@/components/UI/Input/Input';
+import { ImageDown, Info, Plus, Upload, Video } from 'lucide-react';
+
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.bubble.css';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { NewArticleSchema } from '@/lib/zodSchemas';
+import z from 'zod';
+import toast from 'react-hot-toast';
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/UI/dropdown/dropdown';
+import { CategoryType } from '@/consts/types';
+import Image from 'next/image';
+
+function CreateNewArticle() {
+  const uploadFileRef = useRef<HTMLInputElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [categoriesShown, setCategoriesShown] = useState(6);
+
+  const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
+
+  useEffect(() => {
+    async function getCategories() {
+      const categories = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+        {
+          cache: 'no-cache',
+        }
+      );
+
+      if (!categories.ok) {
+        return toast.error(categories.statusText);
+      }
+      const categoriesData = await categories.json(); //return data as JSON
+      setCategoriesData(categoriesData);
+    }
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  type FormType = z.infer<typeof NewArticleSchema>;
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    control,
+  } = useForm<FormType>({
+    resolver: zodResolver(NewArticleSchema),
+    defaultValues: {
+      desc: '',
+      title: '',
+      category: 'react',
+    },
+  });
+  console.log('🚀 ~ CreateNewArticle ~ errors:', errors);
+
+  async function onSubmit(data: FormType) {
+    console.log(data);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: data.title,
+            desc: data.desc,
+            slug: data.title.toLowerCase().replace(/\s+/g, '-'),
+            img: previewImageUrl,
+            catSlug: 'nextjs',
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('This blog was not found');
+      }
+
+      //return data as JSON
+      toast.success('Article created successfully');
+    } catch (error: any) {
+      console.log('🚀 ~ \n\n\n\n\n post:', error);
+      toast.error(error.message);
+    }
+  }
+
+  // HANDLE FILE UPLOAD
+  function handleFileUploadClick() {
+    uploadFileRef.current?.click();
+  }
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    const file = e.target.files?.[0];
+    console.log('🚀 ~ file:', file);
+    if (file) {
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = async () => {
+          const base64Image = reader.result as string;
+          // setPreviewImageUrl(base64Image);
+
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/upload-image`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ img: base64Image }),
+            }
+          );
+
+          const responseData = await response.json();
+          console.log(
+            '🚀 ~ reader.onload= ~ responseData \n\n\n\n:',
+            responseData
+          );
+          if (responseData.status === 200) {
+            setPreviewImageUrl(responseData.url);
+            toast.success('File uploaded successfully');
+          }
+        };
+      } catch (error: any) {
+        console.log('🚀 ~ \n\n\n\n\n post:', error);
+        toast.error(error.message);
+      }
+    }
+  }
+  return (
+    <Container spacing='none'>
+      <Row>
+        <Col lg={12}>
+          <div className='flex justify-between items-center '>
+            <h3 className='dark:text-white'>New Article</h3>
+            <div className='flex justify-end flex-col gap-2'>
+              <Button variant={'primary'} onClick={handleSubmit(onSubmit)}>
+                Save
+              </Button>
+            </div>
+          </div>
+
+          {/* SEPARATOR */}
+          <div className='w-full h-[2px] bg-baseline-200' />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={8}>
+          <Spacer size={8} />
+          <div className='flex items-center gap-2 dark:text-baseline-400'>
+            <Info className='dark:text-white' />
+            <p>To change the style of the article text, highlight the text.</p>
+          </div>
+          <Spacer size={8} />
+          <div>
+            <Button variant={'ghost'}>
+              <Plus className=' p-1 ring-2 rounded-full text-baseline-400 ring-baseline-400' />
+            </Button>
+            <Button variant={'ghost'} onClick={handleFileUploadClick}>
+              <ImageDown className='p-1 ring-2 rounded-full text-baseline-400 ring-baseline-400' />
+            </Button>
+            <Button variant={'ghost'} onClick={handleFileUploadClick}>
+              <Upload className='p-1 ring-2 rounded-full text-baseline-400 ring-baseline-400' />
+            </Button>
+            <Button variant={'ghost'}>
+              <Video className='p-1 ring-2 rounded-full text-baseline-400 ring-baseline-400' />
+            </Button>
+
+            {/* FILE UPLOAD HIDDEN INPUT */}
+            <input
+              ref={uploadFileRef}
+              type='file'
+              className='hidden'
+              onChange={handleFileChange}
+            />
+          </div>
+
+          <Spacer size={8} />
+
+          <Input
+            {...register('title')}
+            type={'text'}
+            placeholder={'Title...'}
+            className={' text-4xl dark:bg-black dark:text-white '}
+            label={''}
+            error={errors?.title?.message}
+          />
+
+          <Spacer size={4} />
+          {mounted && (
+            <Controller
+              name='desc'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <ReactQuill
+                  defaultValue={'Write your article here...'}
+                  className='w-full  text-[100px] text-baseline-950 dark:text-white'
+                  value={value}
+                  onChange={onChange}
+                  theme='bubble'
+                  placeholder='Write your article here...'
+                />
+              )}
+            />
+          )}
+          <p className='text-error-500 text-xs'>{errors?.desc?.message}</p>
+        </Col>
+
+        <Col lg={3} lgOffset={1}>
+          <Spacer size={8} />
+          <div>
+            <p className='text-xl font-bold dark:text-white'>Category</p>
+            <Spacer size={2} />
+            <Controller
+              name='category'
+              control={control}
+              render={({ field: { onChange } }) => {
+                return (
+                  <Select onValueChange={(e) => onChange(e)}>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Select category' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categoriesData.map((category, index) => {
+                        return (
+                          <SelectItem value={category.slug} key={index}>
+                            {category.title}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                );
+              }}
+            />
+            <Spacer size={8} />
+            <p className='text-xl font-bold dark:text-white'>Article cover</p>
+            <Spacer size={2} />
+            <div className='h-[150px] w-full relative border-[1px] border-baseline-300 rounded-lg dark:border-white flex items-center justify-center'>
+              <Button variant={'ghost'} onClick={handleFileUploadClick}>
+                <ImageDown
+                  width={40}
+                  height={40}
+                  className='p-2 ring-2 rounded-full dark:text-baseline-200  ring-baseline-400 text-black'
+                />
+              </Button>
+              {previewImageUrl && (
+                <>
+                  <Image
+                    fill
+                    src={previewImageUrl}
+                    alt='article cover'
+                    className='w-full h-full object-cover rounded-lg'
+                  />
+                </>
+              )}
+            </div>
+            <Spacer size={8} />
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+export default CreateNewArticle;

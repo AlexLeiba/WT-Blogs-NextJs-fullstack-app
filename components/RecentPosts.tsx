@@ -39,13 +39,16 @@ async function RecentPosts({
                 <Link href={`blog/${post.slug}`}>
                   <Row>
                     <Col lg={6} md={2}>
-                      <Image
-                        className='w-full'
-                        src={'/colorful.jpeg'}
-                        alt={post.title}
-                        width={400}
-                        height={400}
-                      />
+                      {post.img && (
+                        <div className='h-[200px] w-full relative'>
+                          <Image
+                            className='w-full object-contain'
+                            src={post.img}
+                            alt={post.title}
+                            fill
+                          />
+                        </div>
+                      )}
                     </Col>
                     <Col lg={6} md={2} className='flex  items-center'>
                       <div>

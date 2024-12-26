@@ -9,7 +9,7 @@ const loaderVariants = cva(
   {
     variants: {
       variant: {
-        primary: ['border-white'],
+        primary: ['border-black dark:border-white'],
         baseline: ['border-white'],
         secondary: ['border-baseline-950'],
         tonal: ['border-accent-700'],

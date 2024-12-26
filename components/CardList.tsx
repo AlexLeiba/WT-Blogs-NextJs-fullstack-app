@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 function CardList() {
   return (
     <div>
-      <Pagination />
+      <Pagination page={0} numberOfPosts={0} />
     </div>
   );
 }

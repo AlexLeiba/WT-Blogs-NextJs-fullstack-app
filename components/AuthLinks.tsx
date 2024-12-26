@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 
 function AuthLinks() {
   // const router = useRouter();
-  const { data, status } = useSession();
+  const { data: session, status } = useSession();
 
   if (status === 'authenticated') {
     // router.push('/');
@@ -23,20 +23,28 @@ function AuthLinks() {
       <Link href='/'>
         <p className='text-xs'>About</p>
       </Link>
-      {status === 'authenticated' ? (
-        <>
-          <Link href='/new-article'>
-            <p className='text-xs'>New article</p>
-          </Link>
 
-          <div onClick={() => signOut()} className=' cursor-pointer text-xs'>
-            <p>Logout</p>
-          </div>
+      <Link href={status === 'authenticated' ? '/new-article' : '/sign-in'}>
+        <p className='text-xs'>New article</p>
+      </Link>
+
+      {status !== 'loading' && (
+        <>
+          {status === 'authenticated' ? (
+            <>
+              <div
+                onClick={() => signOut()}
+                className=' cursor-pointer text-xs'
+              >
+                <p>Logout</p>
+              </div>
+            </>
+          ) : (
+            <Link href='/sign-in'>
+              <p className='text-xs'>Sign in</p>
+            </Link>
+          )}
         </>
-      ) : (
-        <Link href='/sign-in'>
-          <p className='text-xs'>Sign in</p>
-        </Link>
       )}
     </div>
   );

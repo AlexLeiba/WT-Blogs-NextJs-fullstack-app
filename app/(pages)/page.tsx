@@ -7,14 +7,16 @@ import Pagination from '@/components/Pagination';
 import RecentPosts from '@/components/RecentPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
-import { Button } from '@/components/UI/Button/Button';
 import toast from 'react-hot-toast';
 import { PostType } from '@/consts/types';
 
 async function getPosts(page: number) {
-  const posts = await fetch(`http://localhost:3000/api/posts?page=${page}`, {
-    cache: 'no-cache',
-  });
+  const posts = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?page=${page}`,
+    {
+      cache: 'no-cache',
+    }
+  );
 
   if (!posts.ok) {
     return toast.error(posts.statusText);

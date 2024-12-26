@@ -18,8 +18,8 @@ type InputProps = {
   defaultValue?: string;
   readOnly?: boolean;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | any>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement | any>) => void;
 } & Pick<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 export function Input({
   type = 'text',
@@ -56,7 +56,6 @@ export function Input({
               value={value}
               onKeyDown={onKeyDown}
               onChange={onChange}
-              defaultValue={defaultValue ? defaultValue : ''}
               {...props}
               disabled={disabled}
               className={cn(

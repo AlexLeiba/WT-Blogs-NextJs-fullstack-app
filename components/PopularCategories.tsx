@@ -22,9 +22,12 @@ function PopularCategories() {
 
   useEffect(() => {
     async function getCategories() {
-      const categories = await fetch('http://localhost:3000/api/categories', {
-        cache: 'no-cache',
-      });
+      const categories = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+        {
+          cache: 'no-cache',
+        }
+      );
 
       if (!categories.ok) {
         return toast.error(categories.statusText);
@@ -36,7 +39,7 @@ function PopularCategories() {
   }, []);
 
   function handleCreate() {
-    fetch('http://localhost:3000/api/create-post', {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/create-post`, {
       method: 'POST',
     });
   }
@@ -60,7 +63,7 @@ function PopularCategories() {
             >
               Front-end
             </Button>
-            <Button onClick={() => handleCreate()}>Create Post</Button>
+            {/* <Button onClick={() => handleCreate()}>Create Post</Button> */}
             <Button
               className={cn(
                 categoryType.name === 'backend'
@@ -85,10 +88,12 @@ function PopularCategories() {
             <Col key={index} lg={2} md={2} className='md:mb-6 sm:mb-6'>
               <Link href={`/blog?category=${category.slug}&page=1`}>
                 <div
-                  className={cardVariants({
-                    variant: category.title.toLowerCase().replace('.', ''),
-                    size: 'large',
-                  })}
+                  className={cn(
+                    'p-6',
+                    cardVariants({
+                      variant: category.title.toLowerCase().replace('.', ''),
+                    })
+                  )}
                 >
                   {category.img && (
                     <Image

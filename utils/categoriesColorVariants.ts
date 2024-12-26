@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const cardVariants: any = cva(
   [
-    'flex w-full items-center justify-center rounded-md  gap-2 ',
+    'flex w-full items-center justify-center rounded-md  gap-2  ',
     // accessibility
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'transition-colors',
@@ -62,7 +62,7 @@ export const cardVariants: any = cva(
         ],
       },
       size: {
-        large: 'p-8  h-4',
+        large: 'h-2 p-6 relative ',
         medium: 'h-4 p-5 relative ',
       },
     },

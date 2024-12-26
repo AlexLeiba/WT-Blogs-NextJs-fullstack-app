@@ -10,11 +10,13 @@ import { SinglePostType } from '@/consts/types';
 import { format } from 'date-fns';
 
 async function getPost(slug: string) {
-  console.log('🚀 ~ getPost ~ slug:', slug);
   try {
-    const post = await fetch(`http://localhost:3000/api/post/${slug}`, {
-      cache: 'no-cache',
-    });
+    const post = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
+      {
+        cache: 'no-cache',
+      }
+    );
 
     if (!post.ok) {
       throw new Error('This blog was not found');
@@ -28,12 +30,10 @@ async function getPost(slug: string) {
   }
 }
 
-async function SingleBlog({ params }: { params: { blogId: string } }) {
+async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = await Promise.resolve(params);
-  console.log('🚀 ~ SingleBlog ~ blogId:', blogId);
 
   const postData: { post: SinglePostType } = await getPost(blogId);
-  console.log('🚀 ~ SingleBlog ~ post:', postData);
 
   const { post } = postData;
 

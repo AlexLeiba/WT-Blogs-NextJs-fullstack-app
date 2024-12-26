@@ -46,7 +46,7 @@ export type CommentType = {
   userEmail: string;
   user: UserType;
   postSlug: string;
-  post: string;
+  post: SinglePostType;
 };
 
 export type UserType = {

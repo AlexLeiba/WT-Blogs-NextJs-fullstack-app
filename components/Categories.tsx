@@ -18,9 +18,12 @@ function Categories() {
 
   useEffect(() => {
     async function getCategories() {
-      const categories = await fetch('http://localhost:3000/api/categories', {
-        cache: 'no-cache',
-      });
+      const categories = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+        {
+          cache: 'no-cache',
+        }
+      );
 
       if (!categories.ok) {
         return toast.error(categories.statusText);
