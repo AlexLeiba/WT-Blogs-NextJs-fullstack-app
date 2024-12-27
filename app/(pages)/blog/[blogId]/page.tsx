@@ -8,6 +8,8 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { SinglePostType } from '@/consts/types';
 import { format } from 'date-fns';
+import { Eye } from 'lucide-react';
+import EditorPick from '@/components/EditorPick';
 
 async function getPost(slug: string) {
   try {
@@ -48,38 +50,44 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
             >
               <h2 className='font-bold line-clamp-3'>{post?.title}</h2>
 
-              <div className='flex items-center gap-4'>
-                {post?.user?.image && (
-                  <Image
-                    src={post?.user?.image}
-                    alt='blog image'
-                    width={50}
-                    height={50}
-                    className='w-10 h-10 object-cover rounded-full'
-                  />
-                )}
-                <div className='text-baseline-400'>
-                  <p className='font-semibold '>{post?.user?.name}</p>
-                  {post?.createdAt && (
-                    <p className='text-s '>
-                      {format(new Date(post?.createdAt), 'MMM dd yyyy')}
-                    </p>
+              <div className='flex items-center gap-4 justify-between'>
+                <div className='flex items-center gap-4'>
+                  {post?.user?.image && (
+                    <Image
+                      src={post?.user?.image}
+                      alt='blog image'
+                      width={50}
+                      height={50}
+                      className='w-10 h-10 object-cover rounded-full'
+                    />
                   )}
+                  <div className='text-baseline-400'>
+                    <p className='font-semibold '>{post?.user?.name}</p>
+                    {post?.createdAt && (
+                      <p className='text-s '>
+                        {format(new Date(post?.createdAt), 'MMM dd yyyy')}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className='flex gap-2 items-center'>
+                  <p className='text-sm'>{post.views}</p>
+                  <Eye />
                 </div>
               </div>
             </Col>
-            {post?.img && (
-              <Col lg={6}>
-                <div className='relative h-[300px] w-full'>
-                  <Image
-                    src={post?.img}
-                    alt='blog image'
-                    fill
-                    className='w-full h-full object-contain rounded-lg'
-                  />
-                </div>
-              </Col>
-            )}
+            {/* {post?.img && ( */}
+            <Col lg={6}>
+              <div className='relative h-[300px] w-full'>
+                <Image
+                  src={post?.img || '/default-image.jpg'}
+                  alt='blog image'
+                  fill
+                  className='w-full h-full object-contain rounded-lg'
+                />
+              </div>
+            </Col>
+            {/* )} */}
           </Row>
 
           <Row>
@@ -104,6 +112,9 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
 
               <Spacer size={16} />
 
+              <EditorPick postEditorEmail={post?.userEmail} />
+
+              <Spacer size={16} />
               <Categories />
             </Col>
           </Row>

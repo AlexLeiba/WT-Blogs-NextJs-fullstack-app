@@ -65,9 +65,9 @@ export default async function Home({
               <Spacer size={16} />
               <MostPopularPosts />
 
-              <Spacer size={16} />
+              {/* <Spacer size={16} />
 
-              <EditorPick />
+              <EditorPick /> */}
             </Col>
           </Row>
         </div>

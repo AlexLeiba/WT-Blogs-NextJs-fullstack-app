@@ -4,6 +4,7 @@ import { prisma } from '@/prisma';
 import { JWT } from '@auth/core/jwt';
 import { NextResponse } from 'next/server';
 
+// GET ALL POSTS
 export async function GET(req: Request) {
   const POST_PER_PAGE = 5;
   const { searchParams } = new URL(req.url);
@@ -76,6 +77,8 @@ export async function POST(req: Request) {
     await prisma.$disconnect();
   }
 }
+
+// UPDATE POST
 export async function PUT(req: Request) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:', session);

@@ -26,7 +26,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
     try {
       if (userEmail) {
         const posts = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles?page=${currentPage}`,
           {
             cache: 'no-cache',
           }

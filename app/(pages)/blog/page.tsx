@@ -85,9 +85,9 @@ export default async function CategoryPage({
               <Spacer size={12} />
               <MostPopularPosts />
 
-              <Spacer size={12} />
+              {/* <Spacer size={12} /> */}
 
-              <EditorPick />
+              {/* <EditorPick /> */}
             </Col>
           </Row>
         </div>

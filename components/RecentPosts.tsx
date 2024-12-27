@@ -7,7 +7,7 @@ import { Col, Row } from './UI/Grid';
 import Link from 'next/link';
 import { PostArrayType } from '@/consts/types';
 import { format } from 'date-fns';
-import { Edit, Newspaper, X } from 'lucide-react';
+import { Edit, Eye, Newspaper, X } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -116,23 +116,23 @@ function RecentPosts({
                 <Link href={`blog/${post.slug}`}>
                   <Row>
                     <Col lg={6} md={2}>
-                      {post.img && (
-                        <div className='h-[200px] w-full relative'>
-                          <Image
-                            className='w-full object-contain'
-                            src={post.img}
-                            alt={post.title}
-                            fill
-                          />
-                        </div>
-                      )}
+                      {/* {post.img && ( */}
+                      <div className='h-[200px] w-full relative'>
+                        <Image
+                          className='w-full object-contain'
+                          src={post.img || '/default-image.jpg'}
+                          alt={post.title}
+                          fill
+                        />
+                      </div>
+                      {/* )} */}
                     </Col>
                     <Col
                       lg={6}
                       md={2}
                       className='flex  items-center justify-between'
                     >
-                      <div className='flex justify-between flex-col items-start'>
+                      <div className='flex justify-between flex-col items-start max-w-[80%]'>
                         <div className='flex justify-between w-full '>
                           <div>
                             <div className='flex gap-2 text-s text-baseline-400'>
@@ -157,19 +157,22 @@ function RecentPosts({
                             <p className='text-xl font-bold'>{post.title}</p>
 
                             <div
-                              className='line-clamp-4'
+                              className='line-clamp-4  text-s max-w-[60%] '
                               dangerouslySetInnerHTML={{ __html: post.desc }}
-                            ></div>
+                            />
 
                             <Spacer size={2} />
 
-                            <Button
-                              variant={'link'}
-                              size={'medium'}
-                              // className={'dark:text-white'}
-                            >
-                              Read More
-                            </Button>
+                            <div className='flex gap-4'>
+                              <Button variant={'link'} size={'medium'}>
+                                Read More
+                              </Button>
+
+                              <div className='flex gap-2 items-center'>
+                                <p className='text-sm'>{post.views}</p>
+                                <Eye />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
