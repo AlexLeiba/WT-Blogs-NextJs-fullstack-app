@@ -24,8 +24,10 @@ function AuthLinks() {
         <p className='text-xs'>About</p>
       </Link>
 
-      <Link href={status === 'authenticated' ? '/new-article' : '/sign-in'}>
-        <p className='text-xs'>New article</p>
+      <Link
+        href={status === 'authenticated' ? '/my-articles?page=1' : '/sign-in'}
+      >
+        <p className='text-xs'>My articles</p>
       </Link>
 
       {status !== 'loading' && (

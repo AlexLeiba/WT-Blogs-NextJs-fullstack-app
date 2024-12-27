@@ -7,16 +7,21 @@ import { Spacer } from './UI/spacer/spacer';
 import Image from 'next/image';
 import { CommentType } from '@/consts/types';
 import toast from 'react-hot-toast';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
 import { useWindowSize } from '@/lib/useWindowSize';
 import breakpoints from '@/lib/breakpoint';
-import { Smile, X } from 'lucide-react';
+import { Newspaper, Smile, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Loader } from './UI/loader/loader';
 import { useSession } from 'next-auth/react';
-import { stat } from 'fs';
 import { useRouter } from 'next/navigation';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from '@/components/UI/Modal/modal';
 
 const MOBILE_MAX_BREAKPOINT = breakpoints.mobile.breakpoints.max;
 
@@ -56,6 +61,12 @@ function Comments({ postSlug }: { postSlug: string }) {
   const [showPicker, setShowPicker] = useState(false); // To toggle emoji picker
 
   const [commentsData, setCommentsData] = useState<CommentType[]>([]);
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState({
+    modal: false,
+    postSlug: '',
+    commentId: '',
+  });
 
   // SEND MESSAGE HANDLER
   async function handleSendComment() {
@@ -155,6 +166,13 @@ function Comments({ postSlug }: { postSlug: string }) {
   };
 
   async function handleDeleteComment(commentId: string, postSlug: string) {
+    setDeleteModalOpen({
+      modal: true,
+      postSlug: postSlug,
+      commentId: commentId,
+    });
+  }
+  async function handleConfirmDeleteComment() {
     setLoading(true);
     try {
       const response = await fetch(
@@ -165,11 +183,11 @@ function Comments({ postSlug }: { postSlug: string }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: commentId,
+            id: deleteModalOpen.commentId,
           }),
         }
       );
-      console.log('🚀 ~ handleDeleteComment ~ response:\n\n\n\n\n', response);
+
       if (response.ok) {
         toast.success('Comment deleted successfully');
 
@@ -182,11 +200,21 @@ function Comments({ postSlug }: { postSlug: string }) {
             setLoading(false);
           }
         }
+        setDeleteModalOpen({
+          modal: false,
+          postSlug: '',
+          commentId: '',
+        });
       }
     } catch (error: any) {
       setLoading(false);
-      console.log('🚀 ~ handleDeleteComment ~ error:\n\n\n\n\n', error);
+
       toast.error(error.message);
+      setDeleteModalOpen({
+        modal: false,
+        postSlug: '',
+        commentId: '',
+      });
     }
   }
 
@@ -201,6 +229,39 @@ function Comments({ postSlug }: { postSlug: string }) {
   return (
     <Row>
       <Col>
+        {/* MODAL DELETE POST */}
+        <Dialog
+          open={deleteModalOpen.modal}
+          onOpenChange={() =>
+            setDeleteModalOpen((prev) => {
+              return { ...prev, modal: !prev.modal };
+            })
+          }
+        >
+          <DialogContent className=' z-50 border border-baseline-100 bg-white dark:bg-baseline-700 '>
+            <DialogHeader
+              className='dark:text-white'
+              title={'  Are you absolutely sure?'}
+              position={'center-aligned'}
+              description={
+                'This action cannot be undone. This will permanently delete your account and remove your data from our servers.'
+              }
+              icon={<Newspaper />}
+            ></DialogHeader>
+            <DialogFooter
+              position='horizontal-fill'
+              onCancel={() =>
+                setDeleteModalOpen({
+                  modal: false,
+                  postSlug: '',
+                  commentId: '',
+                })
+              }
+              onConfirm={() => handleConfirmDeleteComment()}
+            ></DialogFooter>
+          </DialogContent>
+        </Dialog>
+
         <p className='text-xl font-bold'>Comments {commentsData?.length}</p>
         <Spacer size={2} />
         <div className='relative'>

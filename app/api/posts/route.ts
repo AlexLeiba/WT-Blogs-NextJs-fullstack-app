@@ -38,6 +38,7 @@ export async function GET(req: Request) {
   }
 }
 
+// CREATE NEW POST
 export async function POST(req: Request) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:', session);
@@ -62,7 +63,44 @@ export async function POST(req: Request) {
     const post = await prisma.post.create({
       data: {
         ...body,
-        userEmail: session?.email,
+        userEmail: session?.email, //this is the user email who created the post
+      },
+    });
+
+    console.log('Post created:', post);
+    return NextResponse.json(post, { status: 200 });
+  } catch (error: any) {
+    console.error('Error creating post:', error);
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+export async function PUT(req: Request) {
+  const session: SessionType | JWT | any = await getServerSession(req);
+  console.log('🚀 ~ POST ~ session:', session);
+
+  try {
+    if (!session) {
+      return NextResponse.json(
+        { message: 'You must be logged in to create a post' },
+        { status: 401 }
+      );
+    }
+
+    const body = await req.json();
+
+    console.log(
+      '🚀 ~ \n\n\n\n POST ~ body=>>>>:',
+      body,
+      '\n\n\n\n session=>>>>',
+      session
+    );
+
+    const post = await prisma.post.create({
+      data: {
+        ...body,
+        userEmail: session?.email, //this is the user email who created the post
       },
     });
 

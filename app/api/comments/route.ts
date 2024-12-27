@@ -6,6 +6,8 @@ import { NextResponse } from 'next/server';
 
 // GET COMMENTS BY POST SLUG
 export async function GET(req: Request) {
+  const session: SessionType | JWT | any = await getServerSession(req);
+  console.log('🚀 ~ GET ~ session:\n\n\n\n  comkmenrts', session);
   const { searchParams } = new URL(req.url);
 
   const postSlug: string = (searchParams.get('postSlug') as string) || '';
@@ -42,7 +44,7 @@ export async function GET(req: Request) {
 // CREATE A COMMENT
 export async function POST(req: Request) {
   const session: SessionType | JWT | any = await getServerSession(req);
-  console.log('🚀 ~ POST ~ session:', session);
+  console.log('🚀 ~ POST ~ session:\n\n\n\n', session);
 
   try {
     if (!session) {

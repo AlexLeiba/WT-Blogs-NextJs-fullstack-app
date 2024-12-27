@@ -13,20 +13,46 @@ function Pagination({
   page: number;
   numberOfPosts: number;
   category?: string;
-  type?: 'home' | 'category';
+  type?: 'home' | 'category' | 'my-articles';
 }) {
   const POSTS_PER_PAGE = 5;
 
   const router = useRouter();
+
+  function handleNavigations(navType: 'previous' | 'next') {
+    if (navType === 'previous') {
+      switch (type) {
+        case 'category':
+          return router.push(`/blog?category=${category}&page=${page - 1}`);
+        case 'home':
+          return router.push(`/?page=${page - 1}`);
+        case 'my-articles':
+          return router.push(`/my-articles?page=${page - 1}`);
+
+        default:
+          return router.push(`/?page=${page - 1}`);
+      }
+    } else if (navType === 'next') {
+      switch (type) {
+        case 'category':
+          return router.push(`/blog?category=${category}&page=${page + 1}`);
+        case 'home':
+          return router.push(`/?page=${page + 1}`);
+        case 'my-articles':
+          return router.push(`/my-articles?page=${page + 1}`);
+
+        default:
+          return router.push(`/?page=${page + 1}`);
+      }
+    }
+  }
   return (
     <Row>
       <Col className='flex justify-between'>
         <Button
           disabled={page === 1}
           onClick={() => {
-            type === 'category'
-              ? router.push(`/blog?category=${category}&page=${page - 1}`)
-              : router.push(`/?page=${page - 1}`);
+            handleNavigations('previous');
           }}
           variant={'baseline'}
           size={'medium'}
@@ -38,9 +64,7 @@ function Pagination({
         <Button
           disabled={numberOfPosts < page * POSTS_PER_PAGE}
           onClick={() => {
-            type === 'category'
-              ? router.push(`/blog?category=${category}&page=${page + 1}`)
-              : router.push(`/?page=${page + 1}`);
+            handleNavigations('next');
           }}
           variant={'baseline'}
           size={'medium'}

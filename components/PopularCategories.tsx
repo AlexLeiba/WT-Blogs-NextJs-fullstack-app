@@ -92,6 +92,7 @@ function PopularCategories() {
                     'p-6',
                     cardVariants({
                       variant: category.title.toLowerCase().replace('.', ''),
+                      size: 'large',
                     })
                   )}
                 >

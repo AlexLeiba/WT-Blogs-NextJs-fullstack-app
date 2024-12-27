@@ -68,15 +68,18 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 </div>
               </div>
             </Col>
-            <Col lg={6}>
-              <Image
-                src='/colorful.jpeg'
-                alt='blog image'
-                width={400}
-                height={400}
-                className='w-full h-full object-cover rounded-lg'
-              />
-            </Col>
+            {post?.img && (
+              <Col lg={6}>
+                <div className='relative h-[300px] w-full'>
+                  <Image
+                    src={post?.img}
+                    alt='blog image'
+                    fill
+                    className='w-full h-full object-contain rounded-lg'
+                  />
+                </div>
+              </Col>
+            )}
           </Row>
 
           <Row>

@@ -4,7 +4,7 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import { Button } from '@/components/UI/Button/Button';
 import { Input } from '@/components/UI/Input/Input';
-import { ImageDown, Info } from 'lucide-react';
+import { ImageDown, Info, Plus, Upload, Video } from 'lucide-react';
 
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.bubble.css';
@@ -21,19 +21,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/UI/dropdown/dropdown';
-import { CategoryType } from '@/consts/types';
+import { CategoryType, PostType, SinglePostType } from '@/consts/types';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
-// import { useRouter } from 'next/navigation';
 
-function EditArticle() {
-  // const router = useRouter();
+function EditArticle({ articleSlug }: { articleSlug: string }) {
   const uploadFileRef = useRef<HTMLInputElement>(null);
   const [mounted, setMounted] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
-  const [loading, setLoading] = useState(false);
+
+  const [postData, setPostData] = useState<SinglePostType>();
+  const [loading, setLoading] = useState(true);
   const [uploadImageLoading, setUploadImageLoading] = useState(false);
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
@@ -54,25 +54,55 @@ function EditArticle() {
       setCategoriesData(categoriesData);
     }
 
+    async function getPostsData() {
+      try {
+        if (userEmail) {
+          const posts = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles/${articleSlug}`,
+            {
+              cache: 'no-cache',
+            }
+          );
+
+          if (!posts.ok) {
+            return toast.error(posts.statusText);
+          }
+          //return data as JSON
+          const postsData = await posts.json();
+
+          setPostData(postsData);
+          setLoading(false);
+
+          setValue('title', postsData?.title);
+          setValue('desc', postsData?.desc);
+          setValue('category', postsData?.catSlug);
+        }
+      } catch (error: any) {
+        console.log('🚀 ~ error:', error);
+        toast.error(error.message);
+        setLoading(false);
+      }
+    }
+    getPostsData();
     getCategories();
-  }, [session, userEmail]);
+  }, [session, userEmail, articleSlug]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
   type FormType = z.infer<typeof NewArticleSchema>;
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
+    setValue,
   } = useForm<FormType>({
     resolver: zodResolver(NewArticleSchema),
     defaultValues: {
-      desc: '',
-      title: '',
-      category: '',
+      desc: postData?.desc,
+      title: postData?.title,
+      category: postData?.catSlug,
     },
   });
 
@@ -80,9 +110,9 @@ function EditArticle() {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles/${articleSlug}`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -90,7 +120,7 @@ function EditArticle() {
             title: data.title,
             desc: data.desc,
             slug: data.title.toLowerCase().replace(/\s+/g, '-'),
-            img: previewImageUrl || '',
+            img: previewImageUrl || postData?.img,
             catSlug: data.category,
           }),
         }
@@ -101,11 +131,8 @@ function EditArticle() {
       }
 
       //return data as JSON
-      toast.success('Article created successfully');
+      toast.success('Article was edited successfully');
       setLoading(false);
-      // setTimeout(() => {
-      //   router.push('my-articles', {  });
-      // }, 2000);
     } catch (error: any) {
       toast.error(error.message);
       setLoading(false);
@@ -147,7 +174,6 @@ function EditArticle() {
           setUploadImageLoading(false);
         };
       } catch (error: any) {
-        console.log('🚀 ~ \n\n\n\n\n post:', error);
         toast.error(error.message);
         setUploadImageLoading(false);
       }
@@ -155,7 +181,7 @@ function EditArticle() {
   }
 
   function handleShowImage() {
-    if (previewImageUrl) {
+    if (postData?.img || previewImageUrl) {
       return true;
     }
 
@@ -243,7 +269,13 @@ function EditArticle() {
                   return (
                     <Select onValueChange={(e) => onChange(e)}>
                       <SelectTrigger className='w-full'>
-                        <SelectValue placeholder={'Select category'} />
+                        <SelectValue
+                          placeholder={
+                            categoriesData.filter(
+                              (c) => c.slug === postData?.catSlug
+                            )[0]?.title
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         {categoriesData.map((category, index) => {
@@ -258,9 +290,6 @@ function EditArticle() {
                   );
                 }}
               />
-              <p className='text-xs text-error-500'>
-                {errors?.category?.message}
-              </p>
               <Spacer size={8} />
               <p className='text-xl font-bold dark:text-white'>Article cover</p>
               <Spacer size={2} />
@@ -283,7 +312,13 @@ function EditArticle() {
                     ) : (
                       <Image
                         fill
-                        src={previewImageUrl ? previewImageUrl : ''}
+                        src={
+                          previewImageUrl
+                            ? previewImageUrl
+                            : postData?.img
+                            ? postData?.img
+                            : ''
+                        }
                         alt='article cover'
                         className='w-full h-full object-contain rounded-lg'
                       />
