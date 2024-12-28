@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row } from '@/components/UI/Grid';
 import CreateNewArticle from '@/components/CreateNewArticle';
-import { Spacer } from '@/components/UI/spacer/spacer';
 
 function NewArticle() {
   return (

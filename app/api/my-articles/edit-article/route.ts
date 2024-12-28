@@ -5,10 +5,7 @@ import { JWT } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 
 // FETCH ALL MY ARTICLES
-export async function GET(
-  req: Request,
-  { params }: { params: { articleSlug: string } }
-) {
+export async function GET(req: Request, { params }: { params: any }) {
   const { articleSlug } = params;
   //   const { searchParams } = new URL(req.url);
 

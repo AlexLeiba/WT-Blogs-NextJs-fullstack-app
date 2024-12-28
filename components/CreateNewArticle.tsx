@@ -4,15 +4,21 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import { Button } from '@/components/UI/Button/Button';
 import { Input } from '@/components/UI/Input/Input';
-import { ImageDown, Info, Space } from 'lucide-react';
+import { ImageDown, Info } from 'lucide-react';
 
-import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.bubble.css';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NewArticleSchema } from '@/lib/zodSchemas';
 import z from 'zod';
 import toast from 'react-hot-toast';
+
+import dynamic from 'next/dynamic';
+
+// Dynamically import ReactQuill with SSR disabled
+const ReactQuill = dynamic(() => import('react-quill-new'), {
+  ssr: false, // This disables SSR for ReactQuill
+});
 
 import {
   Select,
@@ -23,7 +29,7 @@ import {
 } from '@/components/UI/dropdown/dropdown';
 import { CategoryType } from '@/consts/types';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
 import { Checkbox } from './UI/Checkbox/checkbox';
 // import { useRouter } from 'next/navigation';
@@ -31,13 +37,12 @@ import { Checkbox } from './UI/Checkbox/checkbox';
 function EditArticle() {
   // const router = useRouter();
   const uploadFileRef = useRef<HTMLInputElement>(null);
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploadImageLoading, setUploadImageLoading] = useState(false);
-  const { data: session } = useSession();
-  const userEmail = session?.user?.email;
+  // const { data: session } = useSession();
 
   useEffect(() => {
     async function getCategories() {
@@ -56,10 +61,6 @@ function EditArticle() {
     }
 
     getCategories();
-  }, [session, userEmail]);
-
-  useEffect(() => {
-    setMounted(true);
   }, []);
 
   type FormType = z.infer<typeof NewArticleSchema>;
@@ -79,7 +80,6 @@ function EditArticle() {
   });
 
   async function onSubmit(data: FormType) {
-    console.log('🚀 ~ onSubmit ~ data:', data);
     setLoading(true);
     try {
       const response = await fetch(
@@ -151,7 +151,6 @@ function EditArticle() {
           setUploadImageLoading(false);
         };
       } catch (error: any) {
-        console.log('🚀 ~ \n\n\n\n\n post:', error);
         toast.error(error.message);
         setUploadImageLoading(false);
       }
@@ -165,6 +164,7 @@ function EditArticle() {
 
     return false;
   }
+
   return (
     <Container spacing='none'>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -217,21 +217,19 @@ function EditArticle() {
             />
 
             <Spacer size={4} />
-            {mounted && (
-              <Controller
-                name='desc'
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <ReactQuill
-                    className='w-full  text-[100px] text-baseline-950 dark:text-white min-h-[100vh]'
-                    value={value}
-                    onChange={onChange}
-                    theme='bubble'
-                    placeholder='Write your article here...'
-                  />
-                )}
-              />
-            )}
+            <Controller
+              name='desc'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <ReactQuill
+                  className='w-full  text-[100px] text-baseline-950 dark:text-white min-h-[100vh]'
+                  value={value}
+                  onChange={onChange}
+                  theme='bubble'
+                  placeholder='Write your article here...'
+                />
+              )}
+            />
             <p className='text-error-500 text-xs'>{errors?.desc?.message}</p>
           </Col>
 

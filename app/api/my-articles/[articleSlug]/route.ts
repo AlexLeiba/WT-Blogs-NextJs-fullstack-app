@@ -2,13 +2,10 @@ import { getServerSession } from '@/auth';
 import { SessionType } from '@/consts/types';
 import { prisma } from '@/prisma';
 import { JWT } from 'next-auth/jwt';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // GET SINGLE POST
-export async function GET(
-  req: Request,
-  { params }: { params: { articleSlug: string } }
-) {
+export async function GET(req: NextRequest, { params }: { params: any }) {
   const { articleSlug } = params;
   console.log('🚀 ~ articleSlug \n\n\n\n\n:', articleSlug);
 
@@ -18,7 +15,7 @@ export async function GET(
     console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
 
     if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      throw new Error('Unauthorized');
     }
 
     const post = await prisma.post.findUnique({
@@ -37,10 +34,7 @@ export async function GET(
 }
 
 // UPDATE POST
-export async function PUT(
-  req: Request,
-  { params }: { params: { articleSlug: string } }
-) {
+export async function PUT(req: NextRequest, { params }: { params: any }) {
   const { articleSlug } = params;
 
   const session: SessionType | JWT | any = await getServerSession(req);
@@ -52,7 +46,7 @@ export async function PUT(
     console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
 
     if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      throw new Error('Unauthorized');
     }
 
     const updatedPost = await prisma.post.update({
@@ -66,7 +60,7 @@ export async function PUT(
         img: body.img,
         catSlug: body.catSlug,
         userEmail: session?.email,
-        public: body.public,
+        public: body.public || true,
       },
     });
     return NextResponse.json(updatedPost, { status: 200 });
@@ -78,10 +72,7 @@ export async function PUT(
 }
 
 // DELETE POST
-export async function DELETE(req: Request, params: { articleSlug: string }) {
-  const { articleSlug } = params;
-  console.log('🚀 ~ DELETE ~ articleSlug: \n\n', articleSlug);
-
+export async function DELETE(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   const body = await req.json();
 
@@ -89,7 +80,7 @@ export async function DELETE(req: Request, params: { articleSlug: string }) {
     console.log('🚀 ~ GET ~ session \n\n\n\n:', session, body);
 
     if (!session) {
-      return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+      throw new Error('Unauthorized');
     }
 
     const deletedPost = await prisma.post.delete({

@@ -44,7 +44,7 @@ export default async function CategoryPage({
       <Container>
         <SelectedCategory
           category={{
-            title: category,
+            title: category.at(0)?.toUpperCase() + category.slice(1) || '',
             img: '',
             slug: category,
           }}
