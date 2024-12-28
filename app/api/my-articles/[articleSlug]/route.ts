@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // GET SINGLE POST
 export async function GET(req: NextRequest, { params }: { params: any }) {
+  console.log('Request headers:\n\n\n\n', req.headers);
   const { articleSlug } = params;
   console.log('🚀 ~ articleSlug \n\n\n\n\n:', articleSlug);
 

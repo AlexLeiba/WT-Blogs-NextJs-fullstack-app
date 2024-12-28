@@ -75,8 +75,7 @@ function About() {
                       </li>
                     </ul>
                   </div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquam, magni?
+
                   <div>
                     <p className=' font-bold text-xl'>Back-end</p>
                     <ul>
