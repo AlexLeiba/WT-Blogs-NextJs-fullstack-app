@@ -6,10 +6,16 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 
 import { getToken } from 'next-auth/jwt';
 import { prisma } from '@/prisma';
+import { cookies } from 'next/headers';
+import { NextRequest } from 'next/server';
 
-export async function getServerSession(req: Request) {
-  const secret = process.env.NEXTAUTH_SECRET;
-  const token = await getToken({ req, secret });
+export async function getServerSession(req: NextRequest) {
+  // const secret = process.env.NEXTAUTH_SECRET;
+  // const token = await getToken({ req, secret });
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get('__Secure-authjs.session-token');
+
   console.log('🚀 ~ getServerSession ~ token:\n\n\n', token);
 
   return token; // Contains the user's session data if authenticated
@@ -40,25 +46,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         : '',
     }),
   ],
-
-  callbacks: {
-    async jwt({ token, account }: { token: any; account: any }) {
-      // On initial sign-in, store user info in the token
-      if (account) {
-        token.id = account.id;
-        token.email = account.email;
-      }
-      return token;
-    },
-    async session({ session, token }: { session: any; token: any }) {
-      // Add token info to session
-      session.user.id = token.id;
-      session.user.email = token.email;
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/sign-in',
-  },
   secret: process.env.NEXTAUTH_SECRET,
 });
