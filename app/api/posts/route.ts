@@ -2,10 +2,10 @@ import { getServerSession } from '@/auth';
 import { SessionType } from '@/consts/types';
 import { prisma } from '@/prisma';
 import { JWT } from '@auth/core/jwt';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // GET ALL POSTS
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   const POST_PER_PAGE = 5;
   const { searchParams } = new URL(req.url);
 
@@ -42,7 +42,7 @@ export async function GET(req: Request) {
 }
 
 // CREATE NEW POST
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:', session);
 
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
 }
 
 // UPDATE POST
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:', session);
 

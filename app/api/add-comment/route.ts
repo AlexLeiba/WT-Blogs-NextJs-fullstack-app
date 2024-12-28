@@ -1,8 +1,8 @@
 import { getServerSession } from '@/auth';
 import { prisma } from '@/prisma';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const session = await getServerSession(req);
 
   const { searchParams } = new URL(req.url);

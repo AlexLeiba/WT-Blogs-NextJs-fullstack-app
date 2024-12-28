@@ -2,10 +2,10 @@ import { getServerSession } from '@/auth';
 import { SessionType } from '@/consts/types';
 import { prisma } from '@/prisma';
 import { JWT } from 'next-auth/jwt';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // FETCH ALL MY ARTICLES
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
 
   const POST_PER_PAGE = 5;

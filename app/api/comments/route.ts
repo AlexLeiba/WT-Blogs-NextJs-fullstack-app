@@ -2,10 +2,10 @@ import { getServerSession } from '@/auth';
 import { SessionType } from '@/consts/types';
 import { prisma } from '@/prisma';
 import { JWT } from 'next-auth/jwt';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // GET COMMENTS BY POST SLUG
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ GET ~ session:\n\n\n\n  comkmenrts', session);
   const { searchParams } = new URL(req.url);
@@ -42,7 +42,7 @@ export async function GET(req: Request) {
 }
 
 // CREATE A COMMENT
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:\n\n\n\n', session);
 
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 }
 
 // DELETE A COMMENT
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession(req);
   console.log('🚀 ~ POST ~ session:', session);
 
