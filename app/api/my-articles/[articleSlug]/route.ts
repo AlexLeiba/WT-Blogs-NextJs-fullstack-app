@@ -66,6 +66,7 @@ export async function PUT(
         img: body.img,
         catSlug: body.catSlug,
         userEmail: session?.email,
+        public: body.public,
       },
     });
     return NextResponse.json(updatedPost, { status: 200 });

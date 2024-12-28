@@ -1,5 +1,4 @@
 import Categories from '@/components/Categories';
-import EditorPick from '@/components/EditorPick';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
 import RecentPosts from '@/components/RecentPosts';
@@ -50,11 +49,8 @@ export default async function CategoryPage({
             slug: category,
           }}
         />
-        {/* <Featured type='category' /> */}
 
         <div>
-          {/* <CategoryList /> */}
-
           <Spacer size={12} />
 
           <Row>
@@ -84,10 +80,6 @@ export default async function CategoryPage({
               <Categories />
               <Spacer size={12} />
               <MostPopularPosts />
-
-              {/* <Spacer size={12} /> */}
-
-              {/* <EditorPick /> */}
             </Col>
           </Row>
         </div>

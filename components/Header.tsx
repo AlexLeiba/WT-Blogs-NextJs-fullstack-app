@@ -27,9 +27,19 @@ function header() {
                       WT-BLOGS
                     </div>
                   </Link>
-                  <Github width={20} height={20} cursor={'pointer'} />{' '}
-                  <Mail width={20} height={20} cursor={'pointer'} />{' '}
-                  <Linkedin width={20} height={20} cursor={'pointer'} />
+                  <Link href={'href="https://github.com/AlexLeiba"'}>
+                    <Github width={20} height={20} cursor={'pointer'} />{' '}
+                  </Link>
+                  <Link href={'mailto:alexleiba@gmail.com'}>
+                    <Mail width={20} height={20} cursor={'pointer'} />{' '}
+                  </Link>
+                  <Link
+                    href={
+                      'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+                    }
+                  >
+                    <Linkedin width={20} height={20} cursor={'pointer'} />
+                  </Link>
                 </div>
 
                 {/* Links */}

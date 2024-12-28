@@ -13,6 +13,9 @@ export async function GET() {
           cat: true,
           user: true,
         },
+        // where: {
+        //   public: true,
+        // },
       }),
     ]);
 

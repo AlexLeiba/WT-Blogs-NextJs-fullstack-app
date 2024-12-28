@@ -45,7 +45,7 @@ const Checkbox = React.forwardRef<
     error?: string;
   }
 >(({ className, label, customLabel, helpText, name, error, ...props }, ref) => (
-  <div className='items-top group flex space-x-3'>
+  <div className='items-top group flex space-x-3 items-center'>
     <CheckboxPrimitive.Root
       ref={ref}
       className={cn(
@@ -62,14 +62,18 @@ const Checkbox = React.forwardRef<
       >
         <span className='sr-only'>Check</span>
 
-        <Check width={20} height={20} />
+        <Check
+          width={20}
+          height={20}
+          className=' text-black dark:text-white border-[1px] rounded-md'
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
     <div className='flex flex-col gap-1 leading-none'>
       {customLabel ? (
         <Slot className='truncate text-base font-medium'>{customLabel}</Slot>
       ) : label ? (
-        <p>{label}</p>
+        <p className='text-xl font-bold dark:text-white'>{label}</p>
       ) : null}
       {error ? (
         <p className={cn('text-xs text-error-600')}>{error}</p>

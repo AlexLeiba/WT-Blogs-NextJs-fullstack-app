@@ -294,6 +294,22 @@ a {
   color: var(--baseline-800) !important;
   font-size: 100px;
 }
+/* .quill {
+  min-height: 100vh;
+  z-index: 1;
+  overflow-y: auto;
+} */
+
+.ql-container {
+  height: auto; /* Allow dynamic height adjustment */
+  max-height: calc(100vh - 380px); /* Prevent overflow over footer */
+  overflow-y: auto; /* Add vertical scrolling if content is too long */
+}
+
+.ql-editor {
+  min-height: 200px; /* Ensure a minimum height for the editor */
+  padding-bottom: 1rem; /* Add space for readability */
+}
 
 .EmojiPickerReact {
   h2 {

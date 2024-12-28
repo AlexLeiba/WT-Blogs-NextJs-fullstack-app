@@ -62,7 +62,7 @@ function Pagination({
         </Button>
 
         <Button
-          disabled={numberOfPosts < page * POSTS_PER_PAGE}
+          disabled={numberOfPosts - 1 < page * POSTS_PER_PAGE}
           onClick={() => {
             handleNavigations('next');
           }}

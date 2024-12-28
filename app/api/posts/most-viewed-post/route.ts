@@ -2,25 +2,24 @@ import { prisma } from '@/prisma';
 import { NextResponse } from 'next/server';
 
 // GET SINGLE POST
-export async function GET(req: Request, { params }: { params: any }) {
-  const { blogId } = params;
-
+export async function GET(req: Request) {
   try {
-    const post = await prisma.post.update({
-      // will get the post and increment the views
+    const post = await prisma.post.findFirst({
       where: {
-        slug: blogId, // Case-insensitive comparison
+        views: {
+          gt: 0,
+        },
         // public: true,
+      },
+      orderBy: {
+        views: 'desc',
       },
       include: {
         user: true,
         cat: true,
       },
-      data: {
-        views: { increment: 1 },
-      },
+      take: 1,
     });
-    console.log('🚀 ~ \n\n\n\n\n post:', post);
 
     if (!post) {
       return NextResponse.json({ message: 'Post not found' }, { status: 404 });

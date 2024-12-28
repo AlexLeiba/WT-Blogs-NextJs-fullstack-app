@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { PostArrayType } from '@/consts/types';
 import { format } from 'date-fns';
 import { Loader } from './UI/loader/loader';
+import Link from 'next/link';
 
 export const cardVariants: any = cva(
   [
@@ -61,7 +62,7 @@ async function getPosts(postEditorEmail: string) {
 
 function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
   const [postsData, setPostsData] = useState<PostArrayType>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getPostsData() {
@@ -76,6 +77,7 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
         toast.error(error.message);
         setLoading(false);
       }
+      setLoading(false);
     }
 
     getPostsData();
@@ -99,44 +101,55 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
           postsData?.map((post, index) => {
             return (
               <Col key={index} className='mb-6'>
-                <div className='flex  gap-4 items-center'>
-                  {post.user.image && (
-                    <Image
-                      width={100}
-                      height={100}
-                      src={post.user.image}
-                      alt={post.title}
-                      className='w-16  h-16 rounded-full object-cover ring-2 dark:ring-white ring-baseline-900'
-                    />
-                  )}
+                <Link href={`/blog/${post.slug}`}>
+                  <div className='flex  gap-4 items-center'>
+                    {post.user.image && (
+                      <Image
+                        width={100}
+                        height={100}
+                        src={post.user.image}
+                        alt={post.title}
+                        className='w-16  h-16 rounded-full object-cover ring-2 dark:ring-white ring-baseline-900'
+                      />
+                    )}
 
-                  <div>
-                    <div className='flex justify-start'>
-                      <p className={cardVariants({ variant: post.catSlug })}>
-                        {post.cat.title}
-                      </p>
-                    </div>
-                    <Spacer size={2} />
-                    <p className='text-lg font-bold'>{post.title}</p>
-                    <Spacer size={2} />
+                    <div>
+                      <div className='flex justify-start'>
+                        <p className={cardVariants({ variant: post.catSlug })}>
+                          {post.cat.title}
+                        </p>
+                      </div>
+                      <Spacer size={2} />
+                      <p className='text-lg font-bold'>{post.title}</p>
+                      <Spacer size={2} />
 
-                    <div
-                      className=' line-clamp-3'
-                      dangerouslySetInnerHTML={{ __html: post.desc }}
-                    />
-                    <div className='flex gap-2 text-s text-baseline-400'>
-                      <p className='font-bold'>{post.user.name}</p>
-                      <p>{format(new Date(post.createdAt), 'MMM dd yyyy')} </p>
+                      <div
+                        className='line-clamp-3'
+                        dangerouslySetInnerHTML={{
+                          __html: post.desc.replace(
+                            /<(\/?)h[12](.*?)>|<img.*?>/g,
+                            '<$1p$2>'
+                          ),
+                        }}
+                      />
+                      <div className='flex gap-2 text-s text-baseline-400'>
+                        <p className='font-bold'>{post.user.name}</p>
+                        <p>
+                          {format(new Date(post.createdAt), 'MMM dd yyyy')}{' '}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </Col>
             );
           })
         ) : (
-          <Col lg={6} md={2}>
-            <p>No articles found</p>
-          </Col>
+          !loading && (
+            <Col lg={6} md={2}>
+              <p>No articles found</p>
+            </Col>
+          )
         )}
       </Row>
     </>

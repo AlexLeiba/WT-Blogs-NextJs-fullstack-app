@@ -8,6 +8,7 @@ import { PostArrayType } from '@/consts/types';
 import { Loader } from './UI/loader/loader';
 import { format } from 'date-fns';
 import { Eye } from 'lucide-react';
+import Link from 'next/link';
 
 export const cardVariants: any = cva(
   [
@@ -95,30 +96,37 @@ function MostPopularPosts() {
           postsData?.map((post, index) => {
             return (
               <Col key={index} className='mb-8'>
-                <div>
-                  <div className='flex justify-between'>
-                    <p className={cardVariants({ variant: post.catSlug })}>
-                      {post.cat.title}
-                    </p>
-                    <div className='flex gap-2'>
-                      <p>{post.views}</p>
-                      <Eye />
+                <Link href={`/blog/${post.slug}`}>
+                  <div>
+                    <div className='flex justify-between'>
+                      <p className={cardVariants({ variant: post.catSlug })}>
+                        {post.cat.title}
+                      </p>
+                      <div className='flex gap-2'>
+                        <p>{post.views}</p>
+                        <Eye />
+                      </div>
+                    </div>
+                    <Spacer size={2} />
+                    <p className='text-lg font-bold'>{post.title}</p>
+                    <Spacer size={2} />
+
+                    <div
+                      className=' line-clamp-3'
+                      dangerouslySetInnerHTML={{
+                        __html: post.desc.replace(
+                          /<(\/?)h[12](.*?)>|<img.*?>/g,
+                          '<$1p$2>'
+                        ),
+                      }}
+                    />
+
+                    <div className='flex gap-2 text-s text-baseline-400'>
+                      <p className='font-bold'>{post.user.name}</p>
+                      <p>{format(new Date(post.createdAt), 'MMM dd yyyy')} </p>
                     </div>
                   </div>
-                  <Spacer size={2} />
-                  <p className='text-lg font-bold'>{post.title}</p>
-                  <Spacer size={2} />
-
-                  <div
-                    className=' line-clamp-3'
-                    dangerouslySetInnerHTML={{ __html: post.desc }}
-                  />
-
-                  <div className='flex gap-2 text-s text-baseline-400'>
-                    <p className='font-bold'>{post.user.name}</p>
-                    <p>{format(new Date(post.createdAt), 'MMM dd yyyy')} </p>
-                  </div>
-                </div>
+                </Link>
               </Col>
             );
           })

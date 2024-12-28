@@ -17,10 +17,10 @@ function AuthLinks() {
       <Link href='/'>
         <p className='text-xs'>Homepage</p>
       </Link>
-      <Link href='/'>
+      <Link href='/contact'>
         <p className='text-xs'>Contact</p>
       </Link>
-      <Link href='/'>
+      <Link href='/about'>
         <p className='text-xs'>About</p>
       </Link>
 

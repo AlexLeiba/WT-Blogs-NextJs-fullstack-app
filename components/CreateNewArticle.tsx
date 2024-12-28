@@ -4,7 +4,7 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import { Button } from '@/components/UI/Button/Button';
 import { Input } from '@/components/UI/Input/Input';
-import { ImageDown, Info } from 'lucide-react';
+import { ImageDown, Info, Space } from 'lucide-react';
 
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.bubble.css';
@@ -25,6 +25,7 @@ import { CategoryType } from '@/consts/types';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
+import { Checkbox } from './UI/Checkbox/checkbox';
 // import { useRouter } from 'next/navigation';
 
 function EditArticle() {
@@ -73,10 +74,12 @@ function EditArticle() {
       desc: '',
       title: '',
       category: '',
+      public: true,
     },
   });
 
   async function onSubmit(data: FormType) {
+    console.log('🚀 ~ onSubmit ~ data:', data);
     setLoading(true);
     try {
       const response = await fetch(
@@ -92,6 +95,7 @@ function EditArticle() {
             slug: data.title.toLowerCase().replace(/\s+/g, '-'),
             img: previewImageUrl || '',
             catSlug: data.category,
+            public: data.public,
           }),
         }
       );
@@ -219,7 +223,7 @@ function EditArticle() {
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <ReactQuill
-                    className='w-full  text-[100px] text-baseline-950 dark:text-white'
+                    className='w-full  text-[100px] text-baseline-950 dark:text-white min-h-[100vh]'
                     value={value}
                     onChange={onChange}
                     theme='bubble'
@@ -261,6 +265,25 @@ function EditArticle() {
               <p className='text-xs text-error-500'>
                 {errors?.category?.message}
               </p>
+              <Spacer size={8} />
+
+              <Controller
+                name='public'
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  console.log('🚀 ~ EditArticle ~ value:', value);
+                  return (
+                    <Checkbox
+                      checked={value}
+                      defaultValue={'true'}
+                      onCheckedChange={onChange}
+                      label={'Public'}
+                      className='text-black dark:text-white'
+                    />
+                  );
+                }}
+              />
+
               <Spacer size={8} />
               <p className='text-xl font-bold dark:text-white'>Article cover</p>
               <Spacer size={2} />

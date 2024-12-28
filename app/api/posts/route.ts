@@ -18,6 +18,7 @@ export async function GET(req: Request) {
         skip: POST_PER_PAGE * (page - 1),
         where: {
           ...(categorySlug ? { catSlug: categorySlug } : {}), //is optional
+          // public: { equals: true },
         },
         include: {
           cat: true,
@@ -27,6 +28,7 @@ export async function GET(req: Request) {
       prisma.post.count({
         where: {
           ...(categorySlug ? { catSlug: categorySlug } : {}), //is optional
+          // public: { equals: true },
         },
       }),
     ]);
@@ -64,6 +66,12 @@ export async function POST(req: Request) {
     const post = await prisma.post.create({
       data: {
         ...body,
+        desc: body.desc,
+        title: body.title,
+        img: body.img,
+        catSlug: body.catSlug,
+        public: body.public,
+
         userEmail: session?.email, //this is the user email who created the post
       },
     });

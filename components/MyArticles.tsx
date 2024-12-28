@@ -95,10 +95,6 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
         <Categories />
         <Spacer size={12} />
         <MostPopularPosts />
-
-        <Spacer size={12} />
-
-        <EditorPick />
       </Col>
     </Row>
   );

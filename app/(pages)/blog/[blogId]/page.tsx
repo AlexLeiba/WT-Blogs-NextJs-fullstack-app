@@ -76,25 +76,28 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 </div>
               </div>
             </Col>
-            {/* {post?.img && ( */}
+
             <Col lg={6}>
               <div className='relative h-[300px] w-full'>
                 <Image
-                  src={post?.img || '/default-image.jpg'}
+                  src={post?.img || '/default-cover-image.webp'}
                   alt='blog image'
                   fill
                   className='w-full h-full object-contain rounded-lg'
                 />
               </div>
             </Col>
-            {/* )} */}
           </Row>
 
           <Row>
             <Col lg={7} className=' dark:text-baseline-200 text:baseline-950'>
               <Spacer size={16} />
               {post?.desc && (
-                <div dangerouslySetInnerHTML={{ __html: post.desc }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: post.desc.replace(/<(\/?)h[12](.*?)>/g, '<$1p$2>'),
+                  }}
+                />
               )}
 
               <Spacer size={16} />
@@ -108,11 +111,10 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
             >
               <Spacer size={16} />
 
-              <MostPopularPosts />
+              <EditorPick postEditorEmail={post?.userEmail} />
 
               <Spacer size={16} />
-
-              <EditorPick postEditorEmail={post?.userEmail} />
+              <MostPopularPosts />
 
               <Spacer size={16} />
               <Categories />

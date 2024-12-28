@@ -8,7 +8,7 @@ function footer() {
     <Container
       variant={'fluid'}
       spacing='none'
-      className=' p-4 bg-baseline-100 dark:bg-baseline-900 '
+      className=' p-4 bg-baseline-100 dark:bg-baseline-900 z-50 '
     >
       <Container>
         <Row className='dark:text-white'>

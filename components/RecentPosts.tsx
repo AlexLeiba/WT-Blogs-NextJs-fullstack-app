@@ -116,16 +116,14 @@ function RecentPosts({
                 <Link href={`blog/${post.slug}`}>
                   <Row>
                     <Col lg={6} md={2}>
-                      {/* {post.img && ( */}
                       <div className='h-[200px] w-full relative'>
                         <Image
                           className='w-full object-contain'
-                          src={post.img || '/default-image.jpg'}
+                          src={post.img || '/default-cover-image.webp'}
                           alt={post.title}
                           fill
                         />
                       </div>
-                      {/* )} */}
                     </Col>
                     <Col
                       lg={6}
@@ -150,15 +148,19 @@ function RecentPosts({
                               <p className=' text-error-500'>
                                 {post.cat?.title}
                               </p>
-                              {/* <p>{post.cat.title}</p> */}
                             </div>
 
                             <Spacer size={2} />
                             <p className='text-xl font-bold'>{post.title}</p>
 
                             <div
-                              className='line-clamp-4  text-s max-w-[60%] '
-                              dangerouslySetInnerHTML={{ __html: post.desc }}
+                              className='line-clamp-4  text-s! max-w-[70%] '
+                              dangerouslySetInnerHTML={{
+                                __html: post.desc.replace(
+                                  /<(\/?)h[12](.*?)>|<img.*?>/g,
+                                  '<$1p$2>'
+                                ),
+                              }}
                             />
 
                             <Spacer size={2} />
@@ -172,6 +174,12 @@ function RecentPosts({
                                 <p className='text-sm'>{post.views}</p>
                                 <Eye />
                               </div>
+
+                              {type === 'my-articles' && (
+                                <div className='ml-4 flex items-center'>
+                                  <p>{post.public ? 'Public' : 'Private'}</p>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>

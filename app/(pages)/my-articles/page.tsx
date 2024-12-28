@@ -8,7 +8,6 @@ export default async function MyArticlesPage({
 }) {
   const { page } = await searchParams;
   const currentPage = parseInt(page) || 1;
-  console.log('🚀 ~ currentPage:=>>>', currentPage);
 
   return (
     <Container

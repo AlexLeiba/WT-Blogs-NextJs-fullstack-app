@@ -25,6 +25,7 @@ import { CategoryType, PostType, SinglePostType } from '@/consts/types';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
+import { Checkbox } from './UI/Checkbox/checkbox';
 
 function EditArticle({ articleSlug }: { articleSlug: string }) {
   const uploadFileRef = useRef<HTMLInputElement>(null);
@@ -76,6 +77,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
           setValue('title', postsData?.title);
           setValue('desc', postsData?.desc);
           setValue('category', postsData?.catSlug);
+          setValue('public', postsData?.public);
         }
       } catch (error: any) {
         console.log('🚀 ~ error:', error);
@@ -103,6 +105,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
       desc: postData?.desc,
       title: postData?.title,
       category: postData?.catSlug,
+      public: postData?.public,
     },
   });
 
@@ -122,6 +125,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             slug: data.title.toLowerCase().replace(/\s+/g, '-'),
             img: previewImageUrl || postData?.img,
             catSlug: data.category,
+            public: data.public,
           }),
         }
       );
@@ -209,6 +213,8 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             <div className='w-full h-[2px] bg-baseline-200' />
           </Col>
         </Row>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, commodi
+        molestias minus optio libero aliquid quis fugit dolor natus obcaecati?\
         <Row>
           <Col lg={8}>
             <Spacer size={8} />
@@ -290,6 +296,25 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                   );
                 }}
               />
+
+              <Spacer size={8} />
+
+              <Controller
+                name='public'
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <Checkbox
+                      checked={value}
+                      defaultValue={'true'}
+                      onCheckedChange={onChange}
+                      label={'Public'}
+                      className='text-black dark:text-white'
+                    />
+                  );
+                }}
+              />
+
               <Spacer size={8} />
               <p className='text-xl font-bold dark:text-white'>Article cover</p>
               <Spacer size={2} />

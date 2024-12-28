@@ -13,6 +13,7 @@ export async function GET(req: Request, { params }: { params: any }) {
         take: 5,
         where: {
           userEmail: editorEmail,
+          // public: true,
         },
         include: {
           cat: true,

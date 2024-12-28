@@ -1,6 +1,6 @@
+import React from 'react';
 import Categories from '@/components/Categories';
 import PopularCategories from '@/components/PopularCategories';
-import EditorPick from '@/components/EditorPick';
 import Featured from '@/components/Featured';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
@@ -42,9 +42,13 @@ export default async function Home({
       spacing='none'
     >
       <Container>
-        <Featured type='home' />
+        {page === 1 && (
+          <>
+            <Featured type='home' />
 
-        <Spacer size={16} />
+            <Spacer size={16} />
+          </>
+        )}
 
         <div>
           <PopularCategories />
@@ -64,10 +68,6 @@ export default async function Home({
               <Categories />
               <Spacer size={16} />
               <MostPopularPosts />
-
-              {/* <Spacer size={16} />
-
-              <EditorPick /> */}
             </Col>
           </Row>
         </div>

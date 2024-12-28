@@ -20,6 +20,7 @@ export type PostType = {
     comments: CommentType[];
     createdAt: Date;
     slug: string;
+    public: boolean;
   }[];
 };
 
@@ -36,6 +37,7 @@ export type SinglePostType = {
   comments: CommentType[];
   createdAt: Date;
   slug: string;
+  public: boolean;
 };
 export type PostArrayType = PostType['posts'];
 
