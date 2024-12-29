@@ -3,7 +3,7 @@ import { prisma } from '@/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(req);
+  const session = await getServerSession();
 
   const { searchParams } = new URL(req.url);
   const postSlug = searchParams.get('postSlug') as string;
