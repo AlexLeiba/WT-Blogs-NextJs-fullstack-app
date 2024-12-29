@@ -6,15 +6,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // FETCH ALL MY ARTICLES
 export async function GET(req: NextRequest) {
-  const session: SessionType | JWT | any = await getServerSession(req);
-
-  const POST_PER_PAGE = 5;
-  const { searchParams } = new URL(req.url);
-
-  const page: number = parseInt(searchParams.get('page') as string) || 1;
-
+  const session: SessionType | JWT | any = await getServerSession();
+  console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
   try {
-    console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
+    const POST_PER_PAGE = 5;
+    const { searchParams } = new URL(req.url);
+
+    const page: number = parseInt(searchParams.get('page') as string) || 1;
 
     if (!session) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -23,7 +21,10 @@ export async function GET(req: NextRequest) {
     const [posts, count] = await prisma.$transaction([
       prisma.post.findMany({
         where: {
-          userEmail: session?.email,
+          userEmail: session.user?.email,
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
         take: POST_PER_PAGE,
         skip: POST_PER_PAGE * (page - 1),
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest) {
       }),
       prisma.post.count({
         where: {
-          userEmail: session?.email,
+          userEmail: session.user?.email,
         },
       }),
     ]);

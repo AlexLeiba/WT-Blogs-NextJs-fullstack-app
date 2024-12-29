@@ -9,20 +9,27 @@ import toast from 'react-hot-toast';
 import { PostType } from '@/consts/types';
 
 async function getPosts(category: string, page: number) {
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?category=${
-      category || ''
-    }&page=${page}`,
-    {
-      cache: 'no-cache',
-    }
-  );
+  if (category) {
+    try {
+      const posts = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?category=${
+          category || ''
+        }&page=${page}`,
+        {
+          cache: 'no-cache',
+        }
+      );
 
-  if (!posts.ok) {
-    return toast.error(posts.statusText);
+      if (!posts.ok) {
+        throw new Error(posts.statusText);
+      }
+      //return data as JSON
+      return posts.json();
+    } catch (error: any) {
+      console.log('🚀 ~ getPosts ~ error:\n\n\n\n\n', error);
+      // toast.error(error.message);
+    }
   }
-  //return data as JSON
-  return posts.json();
 }
 
 export default async function CategoryPage({
@@ -34,7 +41,7 @@ export default async function CategoryPage({
   const currentPage = parseInt(page) || 1;
 
   const posts: PostType = await getPosts(category, currentPage);
-  console.log('🚀 ~ posts:', posts, category);
+  console.log('🚀 ~ posts:>>>>>>>>\n\n\n', posts, category);
   return (
     <Container
       className='dark:bg-black dark:text-white '
@@ -44,9 +51,9 @@ export default async function CategoryPage({
       <Container>
         <SelectedCategory
           category={{
-            title: category.at(0)?.toUpperCase() + category.slice(1) || '',
+            title: category,
             img: '',
-            slug: category,
+            slug: posts?.posts[0]?.cat?.slug,
           }}
         />
 
@@ -56,19 +63,19 @@ export default async function CategoryPage({
           <Row>
             <Col lg={8} md={2}>
               <RecentPosts
-                posts={posts.posts}
+                posts={posts?.posts}
                 type='category'
-                numberOfPosts={posts.count}
+                numberOfPosts={posts?.count}
               />
 
               <Spacer size={12} />
 
-              {posts.posts.length > 0 && (
+              {posts?.posts.length > 0 && (
                 <div>
                   <Spacer size={12} />
                   <Pagination
                     page={currentPage}
-                    numberOfPosts={posts.count}
+                    numberOfPosts={posts?.count}
                     type='category'
                     category={category}
                   />

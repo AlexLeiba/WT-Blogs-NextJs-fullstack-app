@@ -10,18 +10,23 @@ import { SinglePostType } from '@/consts/types';
 import { format } from 'date-fns';
 import { Eye } from 'lucide-react';
 import EditorPick from '@/components/EditorPick';
+import { getServerSession } from '@/auth';
 
-async function getPost(slug: string) {
+async function getPost(slug: string, sessionData: any) {
   try {
     const post = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
       {
+        method: 'POST',
         cache: 'no-cache',
+        body: JSON.stringify({
+          userEmail: sessionData.user.email,
+        }),
       }
     );
 
     if (!post.ok) {
-      throw new Error('This blog was not found');
+      throw new Error(post.statusText);
     }
 
     //return data as JSON
@@ -34,10 +39,13 @@ async function getPost(slug: string) {
 
 async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = await Promise.resolve(params);
+  const sessionData = await getServerSession();
 
-  const postData: { post: SinglePostType } = await getPost(blogId);
+  const postData: { post: SinglePostType } = await getPost(blogId, sessionData);
 
-  const { post } = postData;
+  const post = postData?.post;
+
+  // console.log('🚀 ~ SingleBlog ~ post:=<<<<\n\n\n', postData);
 
   return (
     <Container variant={'fluid'} className='dark:bg-black '>
@@ -71,7 +79,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                   </div>
                 </div>
                 <div className='flex gap-2 items-center'>
-                  <p className='text-sm'>{post.views}</p>
+                  <p className='text-sm'>{post?.views}</p>
                   <Eye />
                 </div>
               </div>
@@ -102,7 +110,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
 
               <Spacer size={16} />
 
-              <Comments postSlug={post.slug} />
+              <Comments postSlug={post?.slug} />
             </Col>
             <Col
               lg={4}

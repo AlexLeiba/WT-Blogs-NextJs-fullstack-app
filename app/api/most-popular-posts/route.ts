@@ -5,6 +5,9 @@ export async function GET() {
   try {
     const [posts] = await prisma.$transaction([
       prisma.post.findMany({
+        where: {
+          public: { equals: true },
+        },
         orderBy: {
           views: 'desc', // Sort by the number of views in descending order
         },
@@ -13,9 +16,6 @@ export async function GET() {
           cat: true,
           user: true,
         },
-        // where: {
-        //   public: true,
-        // },
       }),
     ]);
 

@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // GET COMMENTS BY POST SLUG
 export async function GET(req: NextRequest) {
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
   console.log('🚀 ~ GET ~ session:\n\n\n\n  comkmenrts', session);
   const { searchParams } = new URL(req.url);
 
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
 
 // CREATE A COMMENT
 export async function POST(req: NextRequest) {
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
   console.log('🚀 ~ POST ~ session:\n\n\n\n', session);
 
   try {
@@ -56,21 +56,13 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    console.log(
-      '🚀 ~ \n\n\n\n POST ~ body=>>>>:',
-      body,
-      '\n\n\n\n session=>>>>',
-      session
-    );
-
     const post = await prisma.comment.create({
       data: {
         ...body,
-        userEmail: session?.email,
+        userEmail: session?.user?.email,
       },
     });
 
-    console.log('Post created:', post);
     return NextResponse.json(post);
   } catch (error: any) {
     console.error('Error creating post:', error);
@@ -82,7 +74,7 @@ export async function POST(req: NextRequest) {
 
 // DELETE A COMMENT
 export async function DELETE(req: NextRequest) {
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
   console.log('🚀 ~ POST ~ session:', session);
 
   try {

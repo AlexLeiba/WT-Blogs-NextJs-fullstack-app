@@ -15,7 +15,7 @@ function AuthLinks() {
   return (
     <div className='flex gap-4 dark:text-baseline-200'>
       <Link href='/'>
-        <p className='text-xs'>Homepage</p>
+        <p className='text-xs'>Blogs</p>
       </Link>
       <Link href='/contact'>
         <p className='text-xs'>Contact</p>
@@ -34,8 +34,11 @@ function AuthLinks() {
         <>
           {status === 'authenticated' ? (
             <>
+              <Link href={'/my-profile'}>
+                <p className='text-xs'>My profile</p>
+              </Link>
               <div
-                onClick={() => signOut()}
+                onClick={() => signOut({ redirectTo: '/sign-in' })}
                 className=' cursor-pointer text-xs'
               >
                 <p>Logout</p>

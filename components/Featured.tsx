@@ -17,13 +17,13 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
   );
 
   if (!response?.ok) {
-    return toast.error(response.statusText);
+    console.log('🚀 ~ response.statusText:\n\n\n\n', response.statusText);
   }
-
   const responseData = await response.json();
+  console.log('🚀 ~ Featured ~ responseData:', responseData);
   const post: SinglePostType = responseData.post;
-
   console.log('🚀 ~ Featured ~ post:', post);
+
   return (
     <div>
       <Row>
@@ -50,7 +50,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
           <Col lg={6} md={2}>
             <Image
               className='w-full'
-              src={post.img || '/default-cover-image.webp'}
+              src={post?.img || '/default-cover-image.webp'}
               alt='colorful'
               width={400}
               height={400}
@@ -58,17 +58,20 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
           </Col>
           <Col lg={6} md={2}>
             <div className='flex gap-2 text-s text-baseline-400'>
-              <p className=' text-baseline-400 font-bold'>{post.user?.name}</p>-
-              <p>{format(new Date(post.createdAt), 'MMM dd yyyy')}</p> -
-              <p className=' text-error-500'>{post.cat?.title}</p>
-              {/* <p>{post.cat.title}</p> */}
+              <p className=' text-baseline-400 font-bold'>{post?.user?.name}</p>
+              {post?.createdAt && (
+                <p>{format(new Date(post?.createdAt), 'MMM dd yyyy')}</p>
+              )}
+              <p className=' text-error-500'>{post?.cat?.title}</p>
             </div>
             <div>
               <h5 className='font-bold'>{post?.title}</h5>
 
               <div
                 className=' line-clamp-4'
-                dangerouslySetInnerHTML={{ __html: post.desc }}
+                dangerouslySetInnerHTML={{
+                  __html: post?.desc ? post.desc : '',
+                }}
               />
 
               <Spacer size={8} />

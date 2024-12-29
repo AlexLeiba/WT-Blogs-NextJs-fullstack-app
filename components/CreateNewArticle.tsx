@@ -29,20 +29,17 @@ import {
 } from '@/components/UI/dropdown/dropdown';
 import { CategoryType } from '@/consts/types';
 import Image from 'next/image';
-// import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
 import { Checkbox } from './UI/Checkbox/checkbox';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 function EditArticle() {
-  // const router = useRouter();
+  const router = useRouter();
   const uploadFileRef = useRef<HTMLInputElement>(null);
-  // const [mounted, setMounted] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploadImageLoading, setUploadImageLoading] = useState(false);
-  // const { data: session } = useSession();
 
   useEffect(() => {
     async function getCategories() {
@@ -80,10 +77,11 @@ function EditArticle() {
   });
 
   async function onSubmit(data: FormType) {
+    console.log('🚀 ~ onSubmit ~ data:', data);
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles/new-article`,
         {
           method: 'POST',
           headers: {
@@ -99,17 +97,17 @@ function EditArticle() {
           }),
         }
       );
+      console.log('🚀 ~ onSubmit ~ response:', response);
 
       if (!response.ok) {
-        throw new Error('This blog was not found');
+        throw new Error(response.statusText);
       }
 
       //return data as JSON
       toast.success('Article created successfully');
       setLoading(false);
-      // setTimeout(() => {
-      //   router.push('my-articles', {  });
-      // }, 2000);
+
+      router.push('/my-articles');
     } catch (error: any) {
       toast.error(error.message);
       setLoading(false);

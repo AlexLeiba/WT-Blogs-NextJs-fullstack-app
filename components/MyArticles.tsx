@@ -1,6 +1,5 @@
 'use client';
 import Categories from '@/components/Categories';
-import EditorPick from '@/components/EditorPick';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
 import RecentPosts from '@/components/RecentPosts';
@@ -22,6 +21,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
   const [loading, setLoading] = useState(true);
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
+  console.log('🚀 ~ MyArticles ~ userEmail:', session);
   async function getPostsData() {
     try {
       if (userEmail) {

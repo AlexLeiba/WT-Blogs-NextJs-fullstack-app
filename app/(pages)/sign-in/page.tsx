@@ -4,11 +4,18 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import Image from 'next/image';
 import { Button } from '@/components/UI/Button/Button';
-import { useSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+// import { redirect } from 'next/navigation';
 
 function Signin() {
-  const { data, status } = useSession();
-  console.log(data, status);
+  // const { status } = useSession();
+
+  // useEffect(() => {
+  //   if (status === 'authenticated') {
+  //     redirect('/');
+  //   }
+  // }, [status]);
+
   return (
     <Container variant={'fluid'} className='dark:bg-black '>
       <Row>
@@ -34,7 +41,7 @@ function Signin() {
                       />
                     }
                     variant={'tonal'}
-                    onClick={() => signIn('google')}
+                    onClick={() => signIn('google', { redirectTo: '/' })}
                   >
                     Sign in with Google
                   </Button>

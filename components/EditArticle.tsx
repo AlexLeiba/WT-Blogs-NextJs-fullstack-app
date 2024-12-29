@@ -4,7 +4,7 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import { Button } from '@/components/UI/Button/Button';
 import { Input } from '@/components/UI/Input/Input';
-import { ImageDown, Info, Plus, Upload, Video } from 'lucide-react';
+import { ImageDown, Info } from 'lucide-react';
 
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.bubble.css';
@@ -21,15 +21,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/UI/dropdown/dropdown';
-import { CategoryType, PostType, SinglePostType } from '@/consts/types';
+import { CategoryType, SinglePostType } from '@/consts/types';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Loader } from './UI/loader/loader';
 import { Checkbox } from './UI/Checkbox/checkbox';
+import { useRouter } from 'next/navigation';
 
 function EditArticle({ articleSlug }: { articleSlug: string }) {
+  const router = useRouter();
   const uploadFileRef = useRef<HTMLInputElement>(null);
-  const [mounted, setMounted] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
 
@@ -40,19 +41,26 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
   const userEmail = session?.user?.email;
 
   useEffect(() => {
+    setLoading(true);
     async function getCategories() {
-      const categories = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-        {
-          cache: 'no-cache',
-        }
-      );
+      try {
+        const categories = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+          {
+            cache: 'no-cache',
+          }
+        );
 
-      if (!categories.ok) {
-        return toast.error(categories.statusText);
+        if (!categories.ok) {
+          throw new Error('Something went wrong, please try again later');
+        }
+        const categoriesData = await categories.json(); //return data as JSON
+        setCategoriesData(categoriesData);
+        setLoading(false);
+      } catch (error: any) {
+        toast.error(error.message);
+        setLoading(false);
       }
-      const categoriesData = await categories.json(); //return data as JSON
-      setCategoriesData(categoriesData);
     }
 
     async function getPostsData() {
@@ -66,18 +74,19 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
           );
 
           if (!posts.ok) {
-            return toast.error(posts.statusText);
+            throw new Error('Something went wrong, please try again later');
           }
           //return data as JSON
           const postsData = await posts.json();
 
           setPostData(postsData);
-          setLoading(false);
 
           setValue('title', postsData?.title);
           setValue('desc', postsData?.desc);
           setValue('category', postsData?.catSlug);
           setValue('public', postsData?.public);
+
+          setLoading(false);
         }
       } catch (error: any) {
         console.log('🚀 ~ error:', error);
@@ -87,11 +96,8 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
     }
     getPostsData();
     getCategories();
-  }, [session, userEmail, articleSlug]);
+  }, [articleSlug, session]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   type FormType = z.infer<typeof NewArticleSchema>;
   const {
     handleSubmit,
@@ -131,12 +137,13 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
       );
 
       if (!response.ok) {
-        throw new Error('This blog was not found');
+        throw new Error(response.statusText);
       }
 
       //return data as JSON
       toast.success('Article was edited successfully');
       setLoading(false);
+      router.push('/my-articles');
     } catch (error: any) {
       toast.error(error.message);
       setLoading(false);
@@ -213,8 +220,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             <div className='w-full h-[2px] bg-baseline-200' />
           </Col>
         </Row>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, commodi
-        molestias minus optio libero aliquid quis fugit dolor natus obcaecati?\
+
         <Row>
           <Col lg={8}>
             <Spacer size={8} />
@@ -245,21 +251,21 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             />
 
             <Spacer size={4} />
-            {mounted && (
-              <Controller
-                name='desc'
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <ReactQuill
-                    className='w-full  text-[100px] text-baseline-950 dark:text-white'
-                    value={value}
-                    onChange={onChange}
-                    theme='bubble'
-                    placeholder='Write your article here...'
-                  />
-                )}
-              />
-            )}
+
+            <Controller
+              name='desc'
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <ReactQuill
+                  className='w-full  text-[100px] text-baseline-950 dark:text-white'
+                  value={value}
+                  onChange={onChange}
+                  theme='bubble'
+                  placeholder='Write your article here...'
+                />
+              )}
+            />
+
             <p className='text-error-500 text-xs'>{errors?.desc?.message}</p>
           </Col>
 

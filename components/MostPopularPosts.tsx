@@ -60,7 +60,7 @@ async function getPosts() {
 
 function MostPopularPosts() {
   const [postsData, setPostsData] = useState<PostArrayType>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getPostsData() {
@@ -92,7 +92,7 @@ function MostPopularPosts() {
             <Loader size='medium' variant={'primary'} />
             <Spacer size={8} />
           </div>
-        ) : (
+        ) : postsData.length > 0 ? (
           postsData?.map((post, index) => {
             return (
               <Col key={index} className='mb-8'>
@@ -130,6 +130,10 @@ function MostPopularPosts() {
               </Col>
             );
           })
+        ) : (
+          <Col>
+            <p>No posts found</p>
+          </Col>
         )}
       </Row>
     </>

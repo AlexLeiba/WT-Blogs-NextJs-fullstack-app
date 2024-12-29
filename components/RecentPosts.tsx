@@ -96,9 +96,9 @@ function RecentPosts({
         </DialogContent>
       </Dialog>
       <div className='flex justify-between items-center font-bold'>
-        <h5>
-          {type === 'category' ? `Posts ${numberOfPosts}` : 'Recent posts'}{' '}
-        </h5>
+        <div className='flex gap-4 items-center'>
+          <h5>{type === 'category' ? `Posts ${numberOfPosts}` : 'Posts'} </h5>
+        </div>
         {type === 'category' && (
           <Link href='/'>
             <Button variant={'secondary'} className='font-bold '>

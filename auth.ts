@@ -3,23 +3,7 @@ import Facebook from 'next-auth/providers/facebook';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-
-import { getToken } from 'next-auth/jwt';
 import { prisma } from '@/prisma';
-import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
-
-export async function getServerSession(req: NextRequest) {
-  // const secret = process.env.NEXTAUTH_SECRET;
-  // const token = await getToken({ req, secret });
-
-  const cookieStore = await cookies();
-  const token = cookieStore.get('__Secure-authjs.session-token');
-
-  console.log('🚀 ~ getServerSession ~ token:\n\n\n', token);
-
-  return token; // Contains the user's session data if authenticated
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -48,3 +32,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
 });
+
+export async function getServerSession() {
+  const token = await auth();
+
+  console.log(' \n\n\n 🚀 ~ USER SESSION ~ token:\n\n\n', token);
+
+  return token; // Contains the user's session data if authenticated
+}

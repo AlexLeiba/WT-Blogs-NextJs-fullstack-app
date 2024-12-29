@@ -1,4 +1,4 @@
-import { getServerSession } from '@/auth';
+import { auth, getServerSession } from '@/auth';
 import { SessionType } from '@/consts/types';
 import { prisma } from '@/prisma';
 import { JWT } from 'next-auth/jwt';
@@ -6,15 +6,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // GET SINGLE POST
 export async function GET(req: NextRequest, { params }: { params: any }) {
-  console.log('Request headers:\n\n\n\n', req.headers);
-  const { articleSlug } = params;
-  console.log('🚀 ~ articleSlug \n\n\n\n\n:', articleSlug);
+  const { articleSlug } = await params;
 
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await auth();
+  console.log('🚀 ~ GET ~ session: \n\n\n\n', session);
 
   try {
-    console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
-
     if (!session) {
       throw new Error('Unauthorized');
     }
@@ -36,16 +33,13 @@ export async function GET(req: NextRequest, { params }: { params: any }) {
 
 // UPDATE POST
 export async function PUT(req: NextRequest, { params }: { params: any }) {
-  const { articleSlug } = params;
+  const { articleSlug } = await params;
 
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
+  console.log('🚀 ~ PUT ~ session: =>>>>>\n\n', session);
   const body = await req.json();
 
-  console.log('🚀 ~ PUT ~ body:\n\n\n\n', body);
-
   try {
-    console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
-
     if (!session) {
       throw new Error('Unauthorized');
     }
@@ -61,7 +55,7 @@ export async function PUT(req: NextRequest, { params }: { params: any }) {
         img: body.img,
         catSlug: body.catSlug,
         userEmail: session?.email,
-        public: body.public || true,
+        public: body.public,
       },
     });
     return NextResponse.json(updatedPost, { status: 200 });
@@ -74,7 +68,7 @@ export async function PUT(req: NextRequest, { params }: { params: any }) {
 
 // DELETE POST
 export async function DELETE(req: NextRequest) {
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
   const body = await req.json();
 
   try {

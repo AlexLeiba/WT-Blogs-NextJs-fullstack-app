@@ -6,10 +6,7 @@ export async function GET(req: Request) {
   try {
     const post = await prisma.post.findFirst({
       where: {
-        views: {
-          gt: 0,
-        },
-        // public: true,
+        public: { equals: true },
       },
       orderBy: {
         views: 'desc',

@@ -6,15 +6,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // FETCH ALL MY ARTICLES
 export async function GET(req: NextRequest, { params }: { params: any }) {
-  const { articleSlug } = params;
+  const { articleSlug } = await params;
   //   const { searchParams } = new URL(req.url);
 
   //   const postSlug: string = (searchParams.get('postSlug') as string) || '';
   //   console.log('🚀 ~ GET ~ postSlug: \n\n\n', postSlug);
-  const session: SessionType | JWT | any = await getServerSession(req);
+  const session: SessionType | JWT | any = await getServerSession();
 
   try {
-    console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
+    console.log('🚀 ~ GET ~ session \n\n\n\n=>>>>>:', session);
 
     if (!session) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
