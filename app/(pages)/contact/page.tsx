@@ -9,10 +9,13 @@ function Contact() {
     <Container variant={'fluid'} className='dark:bg-black  h-[100vh]'>
       <Row className='dark:text-white'>
         <Container spacing='none'>
-          <h3>Contact</h3>
-          <Spacer size={4} />
+          <h3 className=' text-center'>Contact</h3>
+          <Spacer size={16} />
           <Row>
-            <Col lg={5} md={2} sm={3} className='flex flex-col gap-4'>
+            <Col
+              lg={12}
+              className='flex flex-col gap-4 text-center items-center justify-center '
+            >
               <div className='flex gap-4 dark:text-white items-center'></div>
               <Link href={'https://github.com/AlexLeiba'}>
                 <div className='flex gap-4 dark:text-white items-center'>

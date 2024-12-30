@@ -11,18 +11,24 @@ import toast from 'react-hot-toast';
 import { PostType } from '@/consts/types';
 
 async function getPosts(page: number) {
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?page=${page}`,
-    {
-      cache: 'no-cache',
-    }
-  );
+  try {
+    const posts = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts?page=${page}`,
+      {
+        cache: 'no-cache',
+      }
+    );
 
-  if (!posts.ok) {
-    return toast.error(posts.statusText);
+    if (!posts.ok) {
+      throw new Error(posts.statusText);
+    }
+    //return data as JSON
+    return posts.json();
+  } catch (error: any) {
+    console.log('🚀 ~ getPosts ~ error:\n\n\n\n\n', error);
+    toast.error(error.message);
+    return { posts: [], count: 0 };
   }
-  //return data as JSON
-  return posts.json();
 }
 
 export default async function Home({

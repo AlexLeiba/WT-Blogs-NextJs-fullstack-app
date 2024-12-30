@@ -81,6 +81,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
 
           setPostData(postsData);
 
+          // UPDATE FORM VALUES
           setValue('title', postsData?.title);
           setValue('desc', postsData?.desc);
           setValue('category', postsData?.catSlug);

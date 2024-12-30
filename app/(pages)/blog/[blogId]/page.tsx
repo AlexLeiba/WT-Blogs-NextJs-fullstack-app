@@ -34,6 +34,7 @@ async function getPost(slug: string, sessionData: any) {
   } catch (error: any) {
     console.log('🚀 ~ getPost ~ error:\n\n\n\n\n', error);
     toast.error(error.message);
+    return { post: null };
   }
 }
 
@@ -44,8 +45,6 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
   const postData: { post: SinglePostType } = await getPost(blogId, sessionData);
 
   const post = postData?.post;
-
-  // console.log('🚀 ~ SingleBlog ~ post:=<<<<\n\n\n', postData);
 
   return (
     <Container variant={'fluid'} className='dark:bg-black '>

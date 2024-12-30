@@ -12,8 +12,8 @@ async function MyProfile() {
     <Container variant={'fluid'} className='dark:bg-black  h-[100vh]'>
       <Row className='dark:text-white'>
         <Container spacing='none'>
-          <h3>My Profile</h3>
-          <Spacer size={4} />
+          <h3 className=' text-center'>My Profile</h3>
+          <Spacer size={16} />
           <Row>
             <Col
               lg={12}

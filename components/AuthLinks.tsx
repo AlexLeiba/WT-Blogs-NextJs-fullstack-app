@@ -35,7 +35,7 @@ function AuthLinks() {
           {status === 'authenticated' ? (
             <>
               <Link href={'/my-profile'}>
-                <p className='text-xs'>My profile</p>
+                <p className='text-xs'>Profile</p>
               </Link>
               <div
                 onClick={() => signOut({ redirectTo: '/sign-in' })}

@@ -18,11 +18,12 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
 
   if (!response?.ok) {
     console.log('🚀 ~ response.statusText:\n\n\n\n', response.statusText);
+    toast.error(response.statusText);
+    return;
   }
   const responseData = await response.json();
-  console.log('🚀 ~ Featured ~ responseData:', responseData);
+
   const post: SinglePostType = responseData.post;
-  console.log('🚀 ~ Featured ~ post:', post);
 
   return (
     <div>

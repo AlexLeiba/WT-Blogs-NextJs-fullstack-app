@@ -46,18 +46,24 @@ export const cardVariants: any = cva(
 );
 
 async function getPosts(postEditorEmail: string) {
-  const posts = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/most-popular-posts-viewed-by-editor/${postEditorEmail}`,
-    {
-      cache: 'no-cache',
-    }
-  );
+  try {
+    const posts = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/most-popular-posts-viewed-by-editor/${postEditorEmail}`,
+      {
+        cache: 'no-cache',
+      }
+    );
 
-  if (!posts.ok) {
-    return toast.error(posts.statusText);
+    if (!posts.ok) {
+      throw new Error(posts.statusText);
+    }
+    //return data as JSON
+    return posts.json();
+  } catch (error: any) {
+    console.log('🚀 ~ getPosts ~ error:\n\n\n\n\n', error);
+    toast.error(error.message);
+    return { posts: [] };
   }
-  //return data as JSON
-  return posts.json();
 }
 
 function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {

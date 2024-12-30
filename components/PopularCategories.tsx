@@ -20,27 +20,25 @@ function PopularCategories() {
 
   useEffect(() => {
     async function getCategories() {
-      const categories = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-        {
-          cache: 'no-cache',
-        }
-      );
+      try {
+        const categories = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+          {
+            cache: 'no-cache',
+          }
+        );
 
-      if (!categories.ok) {
-        return toast.error(categories.statusText);
+        if (!categories.ok) {
+          throw new Error(categories.statusText);
+        }
+        const categoriesData = await categories.json(); //return data as JSON
+        setCategoriesData(categoriesData);
+      } catch (error: any) {
+        toast.error(error.message);
       }
-      const categoriesData = await categories.json(); //return data as JSON
-      setCategoriesData(categoriesData);
     }
     getCategories();
   }, []);
-
-  function handleCreate() {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/create-post`, {
-      method: 'POST',
-    });
-  }
 
   return (
     <Row>

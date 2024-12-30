@@ -27,7 +27,8 @@ async function getPosts(category: string, page: number) {
       return posts.json();
     } catch (error: any) {
       console.log('🚀 ~ getPosts ~ error:\n\n\n\n\n', error);
-      // toast.error(error.message);
+      toast.error(error.message);
+      return { posts: [], count: 0 };
     }
   }
 }
@@ -41,7 +42,7 @@ export default async function CategoryPage({
   const currentPage = parseInt(page) || 1;
 
   const posts: PostType = await getPosts(category, currentPage);
-  console.log('🚀 ~ posts:>>>>>>>>\n\n\n', posts, category);
+
   return (
     <Container
       className='dark:bg-black dark:text-white '
@@ -53,7 +54,7 @@ export default async function CategoryPage({
           category={{
             title: category,
             img: '',
-            slug: posts?.posts[0]?.cat?.slug,
+            slug: category,
           }}
         />
 
