@@ -9,7 +9,6 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import toast from 'react-hot-toast';
 import { PostType } from '@/consts/types';
-import Head from 'next/head';
 
 async function getPosts(page: number) {
   try {
@@ -43,12 +42,6 @@ export default async function Home({
 
   return (
     <Container variant={'fluid'} spacing='none'>
-      <Head>
-        <meta
-          name='facebook-domain-verification'
-          content='s74sqo1gwaar8ywpumci3rx1vray8d'
-        />
-      </Head>
       <Container>
         {page === 1 && (
           <>
