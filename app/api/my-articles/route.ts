@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // FETCH ALL MY ARTICLES
 export async function GET(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession();
-  console.log('🚀 ~ GET ~ session \n\n\n\n:', session);
+
   try {
     const POST_PER_PAGE = 5;
     const { searchParams } = new URL(req.url);
@@ -43,6 +43,53 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ posts, count }, { status: 200 });
   } catch (error: any) {
     console.log(error.message);
+
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}
+
+// GET SINGLE POST
+export async function POST(req: NextRequest, { params }: { params: any }) {
+  const { blogId } = await params;
+  const { userEmail } = await req.json();
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        slug: blogId, // Case-insensitive comparison
+      },
+      include: {
+        user: true,
+        cat: true,
+      },
+    });
+
+    if (!post) {
+      return NextResponse.json(
+        { message: 'Something went wrong, please try again later' },
+        { status: 404 }
+      );
+    }
+
+    if (post && post.userEmail !== userEmail) {
+      await prisma.post.update({
+        where: {
+          slug: blogId, // Case-insensitive comparison
+          // public: true,
+        },
+        include: {
+          user: true,
+          cat: true,
+        },
+        data: {
+          views: { increment: 1 },
+        },
+      });
+    }
+
+    return NextResponse.json({ post }, { status: 200 });
+  } catch (error: any) {
+    console.log('🚀 ~ \n\n\n\n\n post:', error);
 
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

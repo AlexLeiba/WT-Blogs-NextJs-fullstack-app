@@ -15,12 +15,12 @@ import { getServerSession } from '@/auth';
 async function getPost(slug: string, sessionData: any) {
   try {
     const post = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/post/${slug}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles/${slug}`,
       {
         method: 'POST',
         cache: 'no-cache',
         body: JSON.stringify({
-          userEmail: sessionData?.user?.email ? sessionData.user.email : '',
+          userEmail: sessionData.user.email,
         }),
       }
     );

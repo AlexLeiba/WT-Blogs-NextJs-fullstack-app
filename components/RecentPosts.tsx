@@ -113,7 +113,13 @@ function RecentPosts({
           posts?.map((post, index) => {
             return (
               <Col key={index} lg={12} md={2} className='mb-8'>
-                <Link href={`blog/${post.slug}`}>
+                <Link
+                  href={
+                    type === 'my-articles'
+                      ? `/my-articles/${post.slug}`
+                      : `/blog/${post.slug}`
+                  }
+                >
                   <Row>
                     <Col lg={6} md={2}>
                       <div className='h-[200px] w-full relative'>

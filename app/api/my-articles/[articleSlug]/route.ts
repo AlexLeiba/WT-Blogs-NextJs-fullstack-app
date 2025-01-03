@@ -9,7 +9,6 @@ export async function GET(req: NextRequest, { params }: { params: any }) {
   const { articleSlug } = await params;
 
   const session: SessionType | JWT | any = await auth();
-  console.log('🚀 ~ GET ~ session: \n\n\n\n', session);
 
   try {
     if (!session) {
@@ -36,7 +35,7 @@ export async function PUT(req: NextRequest, { params }: { params: any }) {
   const { articleSlug } = await params;
 
   const session: SessionType | JWT | any = await getServerSession();
-  console.log('🚀 ~ PUT ~ session: =>>>>>\n\n', session);
+
   const body = await req.json();
 
   try {
@@ -56,6 +55,7 @@ export async function PUT(req: NextRequest, { params }: { params: any }) {
         catSlug: body.catSlug,
         userEmail: session?.email,
         public: body.public,
+        createdAt: new Date(),
       },
     });
     return NextResponse.json(updatedPost, { status: 200 });
@@ -72,8 +72,6 @@ export async function DELETE(req: NextRequest) {
   const body = await req.json();
 
   try {
-    console.log('🚀 ~ GET ~ session \n\n\n\n:', session, body);
-
     if (!session) {
       throw new Error('Unauthorized');
     }
@@ -87,6 +85,53 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json(deletedPost, { status: 200 });
   } catch (error: any) {
     console.log(error.message);
+
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}
+
+// GET SINGLE POST
+export async function POST(req: NextRequest, { params }: { params: any }) {
+  const { articleSlug } = await params;
+  const { userEmail } = await req.json();
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        slug: articleSlug, // Case-insensitive comparison
+      },
+      include: {
+        user: true,
+        cat: true,
+      },
+    });
+
+    if (!post) {
+      return NextResponse.json(
+        { message: 'Something went wrong, please try again later' },
+        { status: 404 }
+      );
+    }
+
+    if (post && post.userEmail !== userEmail) {
+      await prisma.post.update({
+        where: {
+          slug: articleSlug, // Case-insensitive comparison
+          // public: true,
+        },
+        include: {
+          user: true,
+          cat: true,
+        },
+        data: {
+          views: { increment: 1 },
+        },
+      });
+    }
+
+    return NextResponse.json({ post }, { status: 200 });
+  } catch (error: any) {
+    console.log('🚀 ~ \n\n\n\n\n post:', error);
 
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

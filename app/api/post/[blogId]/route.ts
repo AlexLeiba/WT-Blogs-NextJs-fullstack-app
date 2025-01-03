@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest, { params }: { params: any }) {
   const { blogId } = await params;
   const { userEmail } = await req.json();
-  console.log('🚀 ~ POST ~ body:=>>>>>>>', userEmail);
 
   try {
     const post = await prisma.post.findUnique({
@@ -25,22 +24,24 @@ export async function POST(req: NextRequest, { params }: { params: any }) {
       );
     }
 
-    if (post && post.userEmail !== userEmail) {
-      await prisma.post.update({
-        where: {
-          slug: blogId, // Case-insensitive comparison
-          // public: true,
-        },
-        include: {
-          user: true,
-          cat: true,
-        },
-        data: {
-          views: { increment: 1 },
-        },
-      });
+    // INCREMENT VIEWS ONLY WHEN USER IS LOGGED IN AND THE POST IS NOT HIS
+    if (userEmail) {
+      if (post && post.userEmail !== userEmail) {
+        await prisma.post.update({
+          where: {
+            slug: blogId, // Case-insensitive comparison
+            // public: true,
+          },
+          include: {
+            user: true,
+            cat: true,
+          },
+          data: {
+            views: { increment: 1 },
+          },
+        });
+      }
     }
-
     return NextResponse.json({ post }, { status: 200 });
   } catch (error: any) {
     console.log('🚀 ~ \n\n\n\n\n post:', error);

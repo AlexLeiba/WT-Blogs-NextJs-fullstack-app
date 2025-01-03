@@ -3,45 +3,80 @@ import Link from 'next/link';
 import React from 'react';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-// import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 function AuthLinks() {
-  // const router = useRouter();
-  const { data: session, status } = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  if (status === 'authenticated') {
-    // router.push('/');
+  const { status } = useSession();
+
+  if (status === 'unauthenticated') {
+    if (pathname === '/my-articles') {
+      router.push('/sign-in');
+    }
   }
+
+  const navLinks = [
+    { name: 'Blogs', link: '/', linkName: '/' },
+    { name: 'Contact', link: '/contact', linkName: '/contact' },
+    { name: 'About', link: '/about', linkName: '/about' },
+    {
+      name: 'My articles',
+      link: status === 'authenticated' ? '/my-articles?page=1' : '/sign-in',
+      linkName: '/my-articles',
+    },
+  ];
   return (
     <div className='flex gap-4 dark:text-baseline-200'>
-      <Link href='/'>
-        <p className='text-xs'>Blogs</p>
-      </Link>
-      <Link href='/contact'>
-        <p className='text-xs'>Contact</p>
-      </Link>
-      <Link href='/about'>
-        <p className='text-xs'>About</p>
-      </Link>
+      {navLinks.map((navLink, index) => {
+        return (
+          <Link key={index} href={navLink.link}>
+            <p
+              className={cn(
+                'text-xs hover:text-white',
+                navLink.linkName === pathname && 'font-bold'
+              )}
+            >
+              {navLink.name}
+            </p>
 
-      <Link
-        href={status === 'authenticated' ? '/my-articles?page=1' : '/sign-in'}
-      >
-        <p className='text-xs'>My articles</p>
-      </Link>
+            <div
+              className={cn(
+                'w-[0%] h-[1px] bg-white transition-all ease-in-out',
+                navLink.linkName === pathname && 'w-full'
+              )}
+            />
+          </Link>
+        );
+      })}
 
       {status !== 'loading' && (
         <>
           {status === 'authenticated' ? (
             <>
               <Link href={'/my-profile'}>
-                <p className='text-xs'>Profile</p>
+                <p
+                  className={cn(
+                    'text-xs hover:text-white',
+                    '/my-profile' === pathname && 'font-bold'
+                  )}
+                >
+                  Profile
+                </p>
+                <div
+                  className={cn(
+                    'w-[0%] h-[1px] bg-white transition-all ease-in-out',
+                    '/my-profile' === pathname && 'w-full'
+                  )}
+                />
               </Link>
               <div
                 onClick={() => signOut({ redirectTo: '/sign-in' })}
                 className=' cursor-pointer text-xs'
               >
-                <p>Logout</p>
+                <p className=' hover:text-white'>Logout</p>
               </div>
             </>
           ) : (
