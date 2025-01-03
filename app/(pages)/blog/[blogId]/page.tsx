@@ -47,7 +47,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
   const post = postData?.post;
 
   return (
-    <Container variant={'fluid'} className='dark:bg-black '>
+    <Container variant={'fluid'}>
       <Row>
         <Container spacing='none'>
           <Row>

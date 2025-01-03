@@ -6,7 +6,7 @@ import React from 'react';
 
 function Contact() {
   return (
-    <Container variant={'fluid'} className='dark:bg-black  h-[100vh]'>
+    <Container variant={'fluid'}>
       <Row className='dark:text-white'>
         <Container spacing='none'>
           <h3 className=' text-center'>Contact</h3>

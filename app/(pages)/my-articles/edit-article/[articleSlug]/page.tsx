@@ -10,7 +10,7 @@ async function EditArticlePage({
   const { articleSlug } = await params;
 
   return (
-    <Container variant={'fluid'} className='dark:bg-black h-[100vh] '>
+    <Container variant={'fluid'}>
       <Row>
         <EditArticle articleSlug={articleSlug} />
       </Row>

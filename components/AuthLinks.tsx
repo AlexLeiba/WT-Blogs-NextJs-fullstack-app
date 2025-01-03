@@ -29,14 +29,15 @@ function AuthLinks() {
     },
   ];
   return (
-    <div className='flex gap-4 dark:text-baseline-200'>
+    <div className='flex gap-4 dark:text-baseline-200 items-center'>
       {navLinks.map((navLink, index) => {
         return (
           <Link key={index} href={navLink.link}>
             <p
               className={cn(
-                'text-xs hover:text-white',
-                navLink.linkName === pathname && 'font-bold'
+                'text-sm  dark:text-baseline-100 dark:hover:text-baseline-200 hover:text-baseline-500',
+                navLink.linkName === pathname &&
+                  'font-bold dark:text-white text-black'
               )}
             >
               {navLink.name}
@@ -44,7 +45,7 @@ function AuthLinks() {
 
             <div
               className={cn(
-                'w-[0%] h-[1px] bg-white transition-all ease-in-out',
+                'w-[0%] h-[1px] dark:bg-white bg-black transition-all ease-in-out',
                 navLink.linkName === pathname && 'w-full'
               )}
             />
@@ -59,29 +60,34 @@ function AuthLinks() {
               <Link href={'/my-profile'}>
                 <p
                   className={cn(
-                    'text-xs hover:text-white',
-                    '/my-profile' === pathname && 'font-bold'
+                    ' transition-all text-sm  dark:text-baseline-100 dark:hover:text-baseline-200 hover:text-baseline-500 ',
+                    '/my-profile' === pathname &&
+                      'font-bold dark:text-white text-black '
                   )}
                 >
                   Profile
                 </p>
                 <div
                   className={cn(
-                    'w-[0%] h-[1px] bg-white transition-all ease-in-out',
+                    'w-[0%] h-[1px] dark:bg-white bg-black transition-all ease-in-out',
                     '/my-profile' === pathname && 'w-full'
                   )}
                 />
               </Link>
               <div
                 onClick={() => signOut({ redirectTo: '/sign-in' })}
-                className=' cursor-pointer text-xs'
+                className=' cursor-pointer '
               >
-                <p className=' hover:text-white'>Logout</p>
+                <p className='text-sm` dark:text-baseline-100 dark:hover:text-baseline-200  hover:text-baseline-500 text-black font-bold'>
+                  Logout
+                </p>
               </div>
             </>
           ) : (
             <Link href='/sign-in'>
-              <p className='text-xs'>Sign in</p>
+              <p className='text-sm dark:text-baseline-200 dark:hover:text-white hover:text-baseline-500 text-black font-bold'>
+                Sign in
+              </p>
             </Link>
           )}
         </>

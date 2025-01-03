@@ -4,7 +4,7 @@ import CreateNewArticle from '@/components/CreateNewArticle';
 
 function NewArticle() {
   return (
-    <Container variant={'fluid'} className='dark:bg-black min-h-[100vh] '>
+    <Container variant={'fluid'}>
       <Row>
         <CreateNewArticle />
       </Row>

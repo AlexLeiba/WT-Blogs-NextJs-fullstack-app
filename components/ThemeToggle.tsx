@@ -32,7 +32,7 @@ function ThemeToggle() {
         darkMode ? setIsDarkMode(false) : setIsDarkMode(true);
       }}
       className={cn(
-        'p-[0.5]  w-10 bg-black rounded-full hover:opacity-70 cursor-pointer transition-all flex items-center justify-between',
+        'h-5  w-10 bg-black rounded-full hover:opacity-70 cursor-pointer transition-all flex items-center justify-between',
         [darkMode ? ' bg-white' : ' bg-black ']
       )}
     >

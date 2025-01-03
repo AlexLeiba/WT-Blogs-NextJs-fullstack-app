@@ -4,7 +4,7 @@ import React from 'react';
 
 function About() {
   return (
-    <Container variant={'fluid'} className='dark:bg-black  h-[100vh]'>
+    <Container variant={'fluid'}>
       <Row className='dark:text-white'>
         <Container spacing='none'>
           <h3>About</h3>

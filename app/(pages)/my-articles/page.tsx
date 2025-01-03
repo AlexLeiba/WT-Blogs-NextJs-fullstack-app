@@ -10,11 +10,7 @@ export default async function MyArticlesPage({
   const currentPage = parseInt(page) || 1;
 
   return (
-    <Container
-      className='dark:bg-black dark:text-white '
-      variant={'fluid'}
-      spacing='none'
-    >
+    <Container variant={'fluid'} spacing='none'>
       <Container>
         <MyArticles currentPage={currentPage} />
       </Container>

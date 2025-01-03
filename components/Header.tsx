@@ -43,7 +43,7 @@ function header() {
                 </div>
 
                 {/* Links */}
-                <div className='flex gap-4'>
+                <div className='flex gap-4 items-center'>
                   <ThemeToggle />
                   <AuthLinks />
                 </div>

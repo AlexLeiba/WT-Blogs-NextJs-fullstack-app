@@ -44,11 +44,7 @@ export default async function CategoryPage({
   const posts: PostType = await getPosts(category, currentPage);
 
   return (
-    <Container
-      className='dark:bg-black dark:text-white '
-      variant={'fluid'}
-      spacing='none'
-    >
+    <Container variant={'fluid'} spacing='none'>
       <Container>
         <SelectedCategory
           category={{

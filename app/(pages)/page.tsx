@@ -41,11 +41,7 @@ export default async function Home({
   const posts: PostType = await getPosts(page);
 
   return (
-    <Container
-      className='dark:bg-black dark:text-white '
-      variant={'fluid'}
-      spacing='none'
-    >
+    <Container variant={'fluid'} spacing='none'>
       <Container>
         {page === 1 && (
           <>
