@@ -77,7 +77,6 @@ function EditArticle() {
   });
 
   async function onSubmit(data: FormType) {
-    console.log('🚀 ~ onSubmit ~ data:', data);
     setLoading(true);
     try {
       const response = await fetch(
@@ -97,7 +96,6 @@ function EditArticle() {
           }),
         }
       );
-      console.log('🚀 ~ onSubmit ~ response:', response);
 
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -267,7 +265,6 @@ function EditArticle() {
                 name='public'
                 control={control}
                 render={({ field: { onChange, value } }) => {
-                  console.log('🚀 ~ EditArticle ~ value:', value);
                   return (
                     <Checkbox
                       checked={value}

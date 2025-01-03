@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // GET COMMENTS BY POST SLUG
 export async function GET(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession();
-  console.log('🚀 ~ GET ~ session:\n\n\n\n  comkmenrts', session);
+
   const { searchParams } = new URL(req.url);
 
   const postSlug: string = (searchParams.get('postSlug') as string) || '';
@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
 // CREATE A COMMENT
 export async function POST(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession();
-  console.log('🚀 ~ POST ~ session:\n\n\n\n', session);
 
   try {
     if (!session) {
@@ -75,7 +74,6 @@ export async function POST(req: NextRequest) {
 // DELETE A COMMENT
 export async function DELETE(req: NextRequest) {
   const session: SessionType | JWT | any = await getServerSession();
-  console.log('🚀 ~ POST ~ session:', session);
 
   try {
     if (!session) {
@@ -86,13 +84,6 @@ export async function DELETE(req: NextRequest) {
     }
 
     const body = await req.json();
-
-    console.log(
-      '🚀 ~ \n\n\n\n POST ~ body=>>>>:',
-      body,
-      '\n\n\n\n session=>>>>',
-      session
-    );
 
     const post = await prisma.comment.delete({
       where: {

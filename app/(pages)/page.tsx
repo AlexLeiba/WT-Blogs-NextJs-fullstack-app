@@ -39,7 +39,6 @@ export default async function Home({
   const page = parseInt((await searchParams).page) || 1;
 
   const posts: PostType = await getPosts(page);
-  console.log('🚀 ~ posts:', posts);
 
   return (
     <Container

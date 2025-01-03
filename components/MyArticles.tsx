@@ -21,7 +21,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
   const [loading, setLoading] = useState(true);
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
-  console.log('🚀 ~ MyArticles ~ userEmail:', session);
+
   async function getPostsData() {
     try {
       if (userEmail) {

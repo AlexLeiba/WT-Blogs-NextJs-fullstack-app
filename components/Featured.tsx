@@ -17,7 +17,6 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
   );
 
   if (!response?.ok) {
-    console.log('🚀 ~ response.statusText:\n\n\n\n', response.statusText);
     toast.error(response.statusText);
     return;
   }

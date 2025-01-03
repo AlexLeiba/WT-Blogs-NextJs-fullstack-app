@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request, { params }: { params: any }) {
   const { editorEmail } = await params;
-  console.log('🚀 ~ GET ~ editorEmail: \n\n\n\n', editorEmail);
+
   try {
     const [posts] = await prisma.$transaction([
       prisma.post.findMany({
@@ -14,7 +14,6 @@ export async function GET(req: Request, { params }: { params: any }) {
         where: {
           public: { equals: true },
           userEmail: editorEmail,
-          // public: true,
         },
         include: {
           cat: true,

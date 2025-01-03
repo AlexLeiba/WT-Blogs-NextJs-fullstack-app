@@ -139,7 +139,6 @@ function Comments({ postSlug }: { postSlug: string }) {
     async function fetchComments() {
       setLoading(true);
       const commentData = await getComments(postSlug);
-      console.log('🚀 ~ fetchComments ~ commentData:', commentData);
 
       setCommentsData(commentData);
       if (commentData) {

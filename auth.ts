@@ -36,7 +36,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 export async function getServerSession() {
   const token = await auth();
 
-  console.log(' \n\n\n 🚀 ~ USER SESSION ~ token:\n\n\n', token);
-
   return token; // Contains the user's session data if authenticated
 }
