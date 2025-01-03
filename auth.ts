@@ -16,12 +16,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         : '',
     }),
     Facebook({
-      clientId: process.env.AUTH_FACEBOOK_ID
-        ? process.env.AUTH_FACEBOOK_ID
-        : '',
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET
-        ? process.env.AUTH_FACEBOOK_SECRET
-        : '',
+      clientId: process.env.AUTH_FACEBOOK_ID,
+      clientSecret: process.env.AUTH_FACEBOOK_SECRET,
     }),
     Google({
       clientId: process.env.AUTH_GOOGLE_ID ? process.env.AUTH_GOOGLE_ID : '',
