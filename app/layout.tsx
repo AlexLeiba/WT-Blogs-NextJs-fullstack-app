@@ -19,10 +19,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'facebook-domain-verification',
-  description: 's74sqo1gwaar8ywpumci3rx1vray8d',
-};
+// export const metadata: Metadata = {
+//   title: 'facebook-domain-verification',
+//   description: 's74sqo1gwaar8ywpumci3rx1vray8d',
+// };
 
 export default function RootLayout({
   children,
