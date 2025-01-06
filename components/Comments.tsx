@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Col, Row } from './UI/Grid';
 import { Input } from './UI/Input/Input';
 import { Button } from './UI/Button/Button';
@@ -67,6 +67,8 @@ function Comments({ postSlug }: { postSlug: string }) {
     postSlug: '',
     commentId: '',
   });
+
+  const emojiPickerRef = useRef<HTMLDivElement>(null);
 
   // SEND MESSAGE HANDLER
   async function handleSendComment() {
@@ -225,10 +227,25 @@ function Comments({ postSlug }: { postSlug: string }) {
     return false;
   }
 
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (
+      emojiPickerRef.current &&
+      !emojiPickerRef.current.contains(e.target as Node)
+    ) {
+      setShowPicker(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  });
+
   return (
     <Row>
       <Col>
-        {/* MODAL DELETE POST */}
+        {/* MODAL DELETE COMMENT */}
         <Dialog
           open={deleteModalOpen.modal}
           onOpenChange={() =>
@@ -263,7 +280,7 @@ function Comments({ postSlug }: { postSlug: string }) {
 
         <p className='text-xl font-bold'>Comments {commentsData?.length}</p>
         <Spacer size={2} />
-        <div className='relative'>
+        <div className='relative' ref={emojiPickerRef}>
           <Input
             disabled={
               loading || status === 'loading' || status === 'unauthenticated'

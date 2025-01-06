@@ -14,7 +14,7 @@ const nextConfig = {
       'lh3.googleusercontent.com',
       'wt-blogs.vercel.app',
       'facebook.com',
-      'github.com',
+      'avatars.githubusercontent.com',
     ],
   },
 };

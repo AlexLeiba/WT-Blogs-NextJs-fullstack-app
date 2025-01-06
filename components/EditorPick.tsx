@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Spacer } from './UI/spacer/spacer';
 import Image from 'next/image';
-import { Button } from './UI/Button/Button';
 import { Col, Row } from './UI/Grid';
-import { localDB } from '@/consts/localDB';
 import { cva } from 'class-variance-authority';
 import toast from 'react-hot-toast';
 import { PostArrayType } from '@/consts/types';
@@ -108,7 +106,11 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
             return (
               <Col key={index} className='mb-6'>
                 <Link href={`/blog/${post.slug}`}>
-                  <div className='flex  gap-4 items-center'>
+                  <div
+                    className='flex  gap-4 items-center'
+                    data-aos='fade-up'
+                    data-aos-delay={index * 50}
+                  >
                     {post.user.image && (
                       <Image
                         width={100}

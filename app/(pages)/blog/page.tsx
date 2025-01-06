@@ -46,13 +46,7 @@ export default async function CategoryPage({
   return (
     <Container variant={'fluid'} spacing='none'>
       <Container>
-        <SelectedCategory
-          category={{
-            title: category,
-            img: '',
-            slug: category,
-          }}
-        />
+        <SelectedCategory categorySlug={category} />
 
         <div>
           <Spacer size={12} />

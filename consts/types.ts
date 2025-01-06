@@ -3,6 +3,8 @@ export type CategoryType = {
   img: string;
   title: string;
   slug: string;
+  Posts: PostType[];
+  domain: string;
 };
 
 export type PostType = {

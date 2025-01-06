@@ -59,7 +59,7 @@ function PopularCategories() {
             >
               Front-end
             </Button>
-            {/* <Button onClick={() => handleCreate()}>Create Post</Button> */}
+
             <Button
               className={cn(
                 categoryType.name === 'backend'
@@ -84,6 +84,8 @@ function PopularCategories() {
             <Col key={index} lg={2} md={2} className='md:mb-6 sm:mb-6'>
               <Link href={`/blog?category=${category.slug}&page=1`}>
                 <div
+                  data-aos='fade-up'
+                  data-aos-delay={index * 50}
                   className={cn(
                     'p-6',
                     cardVariants({
@@ -102,6 +104,8 @@ function PopularCategories() {
                     />
                   )}
                   <p className='text-black dark:text-white'>{category.title}</p>
+
+                  <p>{category?.Posts?.length}</p>
                 </div>
               </Link>
             </Col>
@@ -123,7 +127,7 @@ export const cardVariants: any = cva(
   {
     variants: {
       variant: {
-        react: [
+        reactjs: [
           'bg-primary-100  hover:bg-primary-300',
           'dark:bg-primary-900 dark:hover:bg-primary-700',
         ],

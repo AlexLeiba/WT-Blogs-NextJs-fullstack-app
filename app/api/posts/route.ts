@@ -19,7 +19,12 @@ export async function GET(req: NextRequest) {
         },
         where: {
           public: { equals: true },
-          ...(categorySlug ? { catSlug: categorySlug } : {}), //is optional
+
+          ...(categorySlug === 'frontend' || categorySlug === 'backend' //or filter by domain
+            ? { catDomain: categorySlug }
+            : categorySlug
+            ? { catSlug: categorySlug } //or filter by category slug
+            : {}), //is optional
         },
         include: {
           cat: true,
@@ -28,7 +33,11 @@ export async function GET(req: NextRequest) {
       }),
       prisma.post.count({
         where: {
-          ...(categorySlug ? { catSlug: categorySlug } : {}), //is optional
+          ...(categorySlug === 'frontend' || categorySlug === 'backend' //or filter by domain
+            ? { catDomain: categorySlug }
+            : categorySlug
+            ? { catSlug: categorySlug } //or filter by category slug
+            : {}), //is optional
         },
       }),
     ]);

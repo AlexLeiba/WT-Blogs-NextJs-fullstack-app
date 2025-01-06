@@ -63,6 +63,7 @@ model Category {
   title String
   img   String?
   Posts Post[]
+  domain String
 }
 
 
@@ -76,6 +77,7 @@ model Post {
   img       String?
   views     Int       @default(0)
   catSlug   String
+  catDomain String
   cat       Category  @relation(fields: [catSlug], references: [slug])
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])

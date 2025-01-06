@@ -20,7 +20,6 @@ function AuthLinks() {
 
   const navLinks = [
     { name: 'Blogs', link: '/', linkName: '/' },
-    { name: 'Contact', link: '/contact', linkName: '/contact' },
     { name: 'About', link: '/about', linkName: '/about' },
     {
       name: 'My articles',

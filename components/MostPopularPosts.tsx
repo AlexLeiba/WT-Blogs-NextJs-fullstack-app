@@ -58,7 +58,6 @@ async function getPosts() {
     //return data as JSON
     return posts.json();
   } catch (error: any) {
-    console.log('🚀 ~ getPosts ~ error:\n\n\n\n\n', error);
     toast.error(error.message);
     return { posts: [] };
   }
@@ -87,11 +86,13 @@ function MostPopularPosts() {
   }, []);
   return (
     <>
-      <p className='text-baseline-400'>Discover the most popular posts</p>
-      <h5 className='text-xl font-bold'>Most Popular</h5>
+      <p className='text-baseline-400 '>Discover the most popular posts</p>
+      <h5 className='text-xl font-bold dark:text-baseline-200 '>
+        Most Popular
+      </h5>
       <Spacer size={6} />
 
-      <Row className='flex items-center'>
+      <Row className='flex items-center dark:text-white'>
         {loading ? (
           <div className='w-full flex justify-center items-center'>
             <Spacer size={8} />
@@ -103,7 +104,7 @@ function MostPopularPosts() {
             return (
               <Col key={index} className='mb-8'>
                 <Link href={`/blog/${post.slug}`}>
-                  <div>
+                  <div data-aos='fade-up' data-aos-delay={index * 50}>
                     <div className='flex justify-between'>
                       <p className={cardVariants({ variant: post.catSlug })}>
                         {post.cat.title}

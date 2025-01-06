@@ -30,15 +30,20 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
         <Col lg={9}>
           {type === 'home' && (
             <>
-              <h2 className=' '>Welcome on Web Tech Blogs</h2>
-              <h4>
+              <h2 data-aos='fade-up' className=' '>
+                Welcome on Web Tech Blogs
+              </h2>
+              <p
+                data-aos='fade-up'
+                className='text-xl text-baseline-400 dark:text-baseline-200 '
+              >
                 <strong> Discover web development journey</strong> in these
                 amazing blogs.
-              </h4>
+              </p>
             </>
           )}
           <Spacer size={12} />
-          <h5>
+          <h5 data-aos='fade-up'>
             The most viewed blog post with <strong>{post?.views}</strong> views
           </h5>
           <Spacer size={6} />
@@ -48,23 +53,32 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
       <Link href={`/blog/${post?.slug}`}>
         <Row className=' items-center'>
           <Col lg={6} md={2}>
-            <Image
-              className='w-full'
-              src={post?.img || '/default-cover-image.webp'}
-              alt='colorful'
-              width={400}
-              height={400}
-            />
+            <div
+              className='w-full h-[400px] relative overflow-hidden rounded-md'
+              data-aos='fade-up'
+              data-aos-delay={50}
+            >
+              <Image
+                className='w-full object-cover'
+                src={post?.img || '/default-cover-image.webp'}
+                alt='colorful'
+                fill
+              />
+            </div>
           </Col>
           <Col lg={6} md={2}>
-            <div className='flex gap-2 text-s text-baseline-400'>
+            <div
+              className='flex gap-2 text-s text-baseline-400'
+              data-aos='fade-up'
+              data-aos-delay={100}
+            >
               <p className=' text-baseline-400 font-bold'>{post?.user?.name}</p>
               {post?.createdAt && (
                 <p>{format(new Date(post?.createdAt), 'MMM dd yyyy')}</p>
               )}
               <p className=' text-error-500'>{post?.cat?.title}</p>
             </div>
-            <div>
+            <div data-aos='fade-up' data-aos-delay={200}>
               <h5 className='font-bold'>{post?.title}</h5>
 
               <div

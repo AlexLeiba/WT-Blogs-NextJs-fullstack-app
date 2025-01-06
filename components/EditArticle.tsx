@@ -4,10 +4,10 @@ import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import { Button } from '@/components/UI/Button/Button';
 import { Input } from '@/components/UI/Input/Input';
-import { ImageDown, Info } from 'lucide-react';
+import { ImageDown } from 'lucide-react';
 
 import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.bubble.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NewArticleSchema } from '@/lib/zodSchemas';
@@ -118,6 +118,11 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
 
   async function onSubmit(data: FormType) {
     setLoading(true);
+
+    const selectedCategoryDomain = categoriesData.filter(
+      (cat) => cat.slug === data.category
+    )[0].domain;
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/my-articles/${articleSlug}`,
@@ -133,6 +138,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             img: previewImageUrl || postData?.img,
             catSlug: data.category,
             public: data.public,
+            catDomain: selectedCategoryDomain,
           }),
         }
       );
@@ -205,7 +211,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
         <Row>
           <Col lg={12}>
             <div className='flex justify-between items-center '>
-              <h3 className='dark:text-white'>New Article</h3>
+              <h3 className='dark:text-white'>Edit Article</h3>
               <div className='flex justify-end flex-col gap-2'>
                 <Button
                   variant={'primary'}
@@ -225,12 +231,6 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
         <Row>
           <Col lg={8}>
             <Spacer size={8} />
-            <div className='flex items-center gap-2 dark:text-baseline-400'>
-              <Info className='dark:text-white' />
-              <p>
-                To change the style of the article text, highlight the text.
-              </p>
-            </div>
 
             {/* FILE UPLOAD HIDDEN INPUT */}
             <input
@@ -258,10 +258,10 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <ReactQuill
-                  className='w-full  text-[100px] text-baseline-950 dark:text-white'
+                  className='w-full  text-baseline-950 dark:text-white min-h-[300px]'
                   value={value}
                   onChange={onChange}
-                  theme='bubble'
+                  theme='snow'
                   placeholder='Write your article here...'
                 />
               )}

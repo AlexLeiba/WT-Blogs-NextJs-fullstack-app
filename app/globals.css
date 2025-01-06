@@ -224,7 +224,6 @@
     h5 {
       font-size: 20px;
       line-height: 30px;
-      /* font-weight: 500; */
     }
     /* PARAGRAPHS */
 
@@ -271,9 +270,6 @@
 body {
   max-width: 100vw; /*prevent overflowing */
   overflow-x: hidden;
-  /* 
-  color: var(--foreground);
-  background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -289,16 +285,11 @@ a {
 }
 .quill > .ql-container > .ql-editor.ql-blank::before {
   color: var(--baseline-400) !important;
+  font-style: normal !important;
 }
 .quill data-placeholder {
   color: var(--baseline-800) !important;
-  font-size: 100px;
 }
-/* .quill {
-  min-height: 100vh;
-  z-index: 1;
-  overflow-y: auto;
-} */
 
 .ql-container {
   height: auto; /* Allow dynamic height adjustment */

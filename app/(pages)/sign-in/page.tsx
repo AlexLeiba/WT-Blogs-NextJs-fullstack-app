@@ -47,12 +47,12 @@ function Signin() {
                           height={20}
                         />
                       }
-                      onClick={() => signIn('github')}
+                      onClick={() => signIn('github', { redirectTo: '/' })}
                       variant={'baseline'}
                     >
                       Sign in with Github
                     </Button>
-                    <Spacer size={6} />
+                    {/* <Spacer size={6} />
                     <Button
                       leftIcon={
                         <Image
@@ -67,7 +67,7 @@ function Signin() {
                       variant={'primary'}
                     >
                       Sign in with Facebook
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>

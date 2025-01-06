@@ -10,7 +10,11 @@ export const cardVariants: any = cva(
   {
     variants: {
       variant: {
-        react: [
+        frontend: [
+          'bg-success-100  hover:bg-success-300',
+          'dark:bg-success-900 dark:hover:bg-success-700',
+        ],
+        reactjs: [
           'bg-primary-100  hover:bg-primary-300',
           'dark:bg-primary-900 dark:hover:bg-primary-700',
         ],
@@ -34,8 +38,16 @@ export const cardVariants: any = cva(
           'bg-success-100  hover:bg-success-300',
           'dark:bg-success-900 dark:hover:bg-success-700',
         ],
+        html: [
+          'bg-primary-100  hover:bg-primary-300',
+          'dark:bg-primary-900 dark:hover:bg-primary-700',
+        ],
 
         // BACKEND
+        backend: [
+          'bg-baseline-100 hover:bg-baseline-300',
+          'dark:bg-baseline-900',
+        ],
         nodejs: [
           'bg-primary-100  hover:bg-primary-300',
           ' dark:bg-primary-900 dark:hover:bg-primary-700',
@@ -60,6 +72,16 @@ export const cardVariants: any = cva(
           'bg-success-100  hover:bg-success-300',
           'dark:bg-success-900 dark:hover:bg-success-700',
         ],
+        database: [
+          'bg-primary-100  hover:bg-primary-300',
+          ' dark:bg-primary-900 dark:hover:bg-primary-700',
+        ],
+        sql: [
+          'bg-secondary-100  hover:bg-secondary-300',
+          'dark:bg-secondary-900 dark:hover:bg-secondary-700',
+        ],
+
+        auth: ['bg-baseline-100 hover:bg-baseline-300', 'dark:bg-baseline-900'],
       },
       size: {
         large: 'h-2 p-6 relative ',

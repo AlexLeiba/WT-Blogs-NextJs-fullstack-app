@@ -46,28 +46,26 @@ export default async function Home({
         {page === 1 && (
           <>
             <Featured type='home' />
-
             <Spacer size={16} />
           </>
         )}
 
         <div>
           <PopularCategories />
-
           <Spacer size={16} />
 
           <Row>
             <Col lg={8} md={2}>
               <RecentPosts posts={posts.posts} type='home' />
-
               <Spacer size={16} />
-
               <Pagination page={page} numberOfPosts={posts.count} />
             </Col>
 
             <Col lg={3} lgOffset={1} md={2}>
               <Categories />
+
               <Spacer size={16} />
+
               <MostPopularPosts />
             </Col>
           </Row>
