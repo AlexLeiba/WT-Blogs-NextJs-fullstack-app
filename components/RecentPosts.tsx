@@ -172,7 +172,7 @@ function RecentPosts({
                                 className='line-clamp-4  text-s! max-w-[70%]  dark:text-baseline-300 text-baseline-500'
                                 dangerouslySetInnerHTML={{
                                   __html: post.desc.replace(
-                                    /<(\/?)h[12](.*?)>|<img.*?>/g,
+                                    /<(\/?)h[12345](.*?)>|<img.*?>/g,
                                     '<$1p$2>'
                                   ),
                                 }}
