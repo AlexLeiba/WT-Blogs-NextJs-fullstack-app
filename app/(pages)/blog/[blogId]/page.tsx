@@ -39,21 +39,13 @@ async function getPost(slug: string, sessionData: any) {
   }
 }
 
-async function SingleBlog({
-  params,
-  headers,
-}: {
-  params: Promise<{ blogId: string }>;
-  headers: any;
-}) {
+async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = await Promise.resolve(params);
   const sessionData = await getServerSession();
 
   const postData: { post: SinglePostType } = await getPost(blogId, sessionData);
 
   const post = postData?.post;
-
-  const referer = headers?.referer || '/'; // Fallback to home if no referer
 
   return (
     <>
