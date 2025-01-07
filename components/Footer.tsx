@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from './UI/Grid';
 import { Code2 } from 'lucide-react';
 import Link from 'next/link';
+import { Spacer } from './UI/spacer/spacer';
 
 function Footer() {
   return (
@@ -12,15 +13,18 @@ function Footer() {
     >
       <Container spacing='medium'>
         <Row className='dark:text-white'>
-          <Col lg={5} md={2} className='flex gap-4'>
+          <Col lg={5} md={2}>
             {/* Logo */}
             <Link href='/'>
               <div className='flex font-bold '>
                 <Code2 />
-                Tech-Blogs
+                WT-BLOGS
               </div>
             </Link>
-            •<p>{new Date().getFullYear()}</p>
+            <Spacer size={2} />
+            <div className='flex gap-4'>
+              <p>{new Date().getFullYear()}</p>•<p>Alexandru Leiba</p>
+            </div>
           </Col>
           <Col lg={2} lgOffset={1} md={2}>
             <p className='text-xl font-bold'>Links</p>

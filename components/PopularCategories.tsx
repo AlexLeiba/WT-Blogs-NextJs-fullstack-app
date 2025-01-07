@@ -9,34 +9,42 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { Button } from './UI/Button/Button';
 import { CategoryType } from '@/consts/types';
+import { useRouter } from 'next/navigation';
+import { Loader } from './UI/loader/loader';
 
 function PopularCategories() {
+  const [loading, setLoading] = useState(true);
+  async function getCategories(category?: string) {
+    try {
+      const categories = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BASE_URL
+        }/api/categories/most-popular-categories?category=${
+          category ? category : 'frontend'
+        }`,
+        {
+          cache: 'no-cache',
+        }
+      );
+
+      if (!categories.ok) {
+        throw new Error(categories.statusText);
+      }
+      const categoriesData = await categories.json(); //return data as JSON
+      setCategoriesData(categoriesData);
+      setLoading(false);
+    } catch (error: any) {
+      toast.error(error.message);
+      setLoading(false);
+    }
+  }
+
   const [categoryType, setCategoryType] = useState({
     name: 'frontend',
-    slice1: 0,
-    slice2: 6,
   });
   const [categoriesData, setCategoriesData] = useState<CategoryType[]>([]);
 
   useEffect(() => {
-    async function getCategories() {
-      try {
-        const categories = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-          {
-            cache: 'no-cache',
-          }
-        );
-
-        if (!categories.ok) {
-          throw new Error(categories.statusText);
-        }
-        const categoriesData = await categories.json(); //return data as JSON
-        setCategoriesData(categoriesData);
-      } catch (error: any) {
-        toast.error(error.message);
-      }
-    }
     getCategories();
   }, []);
 
@@ -47,9 +55,10 @@ function PopularCategories() {
           <h5 className='text-xl font-bold'>Popular Categories</h5>
           <div className='flex gap-2'>
             <Button
-              onClick={() =>
-                setCategoryType({ name: 'frontend', slice1: 0, slice2: 6 })
-              }
+              onClick={() => {
+                setCategoryType({ name: 'frontend' });
+                getCategories('frontend');
+              }}
               variant={'link'}
               className={cn(
                 categoryType.name === 'frontend'
@@ -66,9 +75,10 @@ function PopularCategories() {
                   ? 'underline text-black dark:text-white'
                   : ''
               )}
-              onClick={() =>
-                setCategoryType({ name: 'backend', slice1: 6, slice2: 12 })
-              }
+              onClick={() => {
+                setCategoryType({ name: 'backend' });
+                getCategories('backend');
+              }}
               variant={'link'}
             >
               Back-end
@@ -77,19 +87,24 @@ function PopularCategories() {
         </div>
         <Spacer size={6} />
       </Col>
-      {categoriesData
-        ?.slice(categoryType.slice1, categoryType.slice2)
-        .map((category, index) => {
+      {loading && (
+        <div className='flex justify-center w-full'>
+          <Loader variant={'primary'} size={'medium'} />{' '}
+        </div>
+      )}
+
+      {!loading &&
+        categoriesData?.map((category, index) => {
           return (
             <Col key={index} lg={2} md={2} className='md:mb-6 sm:mb-6'>
               <Link href={`/blog?category=${category.slug}&page=1`}>
                 <div
-                  data-aos='fade-up'
-                  data-aos-delay={index * 50}
+                  // data-aos='fade-up'
+                  // data-aos-delay={index * 50}
                   className={cn(
                     'p-6',
                     cardVariants({
-                      variant: category.title.toLowerCase().replace('.', ''),
+                      variant: category.slug.toLowerCase().replace('.', ''),
                       size: 'large',
                     })
                   )}
@@ -127,6 +142,10 @@ export const cardVariants: any = cva(
   {
     variants: {
       variant: {
+        frontend: [
+          'bg-success-100  hover:bg-success-300',
+          'dark:bg-success-900 dark:hover:bg-success-700',
+        ],
         reactjs: [
           'bg-primary-100  hover:bg-primary-300',
           'dark:bg-primary-900 dark:hover:bg-primary-700',
@@ -151,8 +170,16 @@ export const cardVariants: any = cva(
           'bg-success-100  hover:bg-success-300',
           'dark:bg-success-900 dark:hover:bg-success-700',
         ],
+        html: [
+          'bg-primary-100  hover:bg-primary-300',
+          'dark:bg-primary-900 dark:hover:bg-primary-700',
+        ],
 
         // BACKEND
+        backend: [
+          'bg-baseline-100 hover:bg-baseline-300',
+          'dark:bg-baseline-900',
+        ],
         nodejs: [
           'bg-primary-100  hover:bg-primary-300',
           ' dark:bg-primary-900 dark:hover:bg-primary-700',
@@ -177,6 +204,16 @@ export const cardVariants: any = cva(
           'bg-success-100  hover:bg-success-300',
           'dark:bg-success-900 dark:hover:bg-success-700',
         ],
+        database: [
+          'bg-primary-100  hover:bg-primary-300',
+          ' dark:bg-primary-900 dark:hover:bg-primary-700',
+        ],
+        sql: [
+          'bg-secondary-100  hover:bg-secondary-300',
+          'dark:bg-secondary-900 dark:hover:bg-secondary-700',
+        ],
+
+        auth: ['bg-baseline-100 hover:bg-baseline-300', 'dark:bg-baseline-900'],
       },
       size: {
         large: 'h-2 p-6 relative ',

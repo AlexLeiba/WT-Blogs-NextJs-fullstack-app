@@ -56,7 +56,12 @@ export default async function Home({
 
           <Row>
             <Col lg={8} md={2}>
-              <RecentPosts posts={posts.posts} type='home' />
+              <RecentPosts
+                posts={posts.posts}
+                type='home'
+                page={page}
+                numberOfPosts={posts.count}
+              />
               <Spacer size={16} />
               <Pagination page={page} numberOfPosts={posts.count} />
             </Col>

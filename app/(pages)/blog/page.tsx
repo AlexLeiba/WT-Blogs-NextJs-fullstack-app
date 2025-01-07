@@ -57,6 +57,7 @@ export default async function CategoryPage({
                 posts={posts?.posts}
                 type='category'
                 numberOfPosts={posts?.count}
+                page={currentPage}
               />
 
               <Spacer size={12} />

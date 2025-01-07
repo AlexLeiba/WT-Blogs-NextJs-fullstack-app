@@ -70,6 +70,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
           </div>
         ) : (
           <RecentPosts
+            page={currentPage}
             refetchPosts={getPostsData}
             posts={postsData.posts}
             type='my-articles'

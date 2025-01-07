@@ -21,11 +21,13 @@ function RecentPosts({
   posts,
   type,
   numberOfPosts,
+  page,
   refetchPosts,
 }: {
   posts: PostArrayType;
   type?: 'home' | 'category' | 'my-articles';
   numberOfPosts?: number;
+  page?: number;
   refetchPosts?: () => void;
 }) {
   const router = useRouter();
@@ -96,20 +98,25 @@ function RecentPosts({
         </DialogContent>
       </Dialog>
       <div className='flex justify-between items-center font-bold'>
-        <div className='flex gap-4 items-center'>
-          <h5>
-            {type === 'category' || type === 'my-articles'
-              ? `Posts ${numberOfPosts}`
-              : 'Posts'}{' '}
-          </h5>
+        <div className='flex justify-between w-full gap-4 '>
+          <div className='flex gap-4 items-center justify-between w-full'>
+            <h5>{`Posts ${numberOfPosts} `}</h5>
+            <p className='text-xl'>
+              {numberOfPosts && numberOfPosts > 5
+                ? `Page:${page} / ${Math.ceil(numberOfPosts / 5)}`
+                : ''}
+            </p>
+          </div>
+          <div>
+            {type === 'category' && (
+              <Link href='/'>
+                <Button variant={'secondary'} className='font-bold '>
+                  All posts
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
-        {type === 'category' && (
-          <Link href='/'>
-            <Button variant={'secondary'} className='font-bold '>
-              All posts
-            </Button>
-          </Link>
-        )}
       </div>
       <Spacer size={6} />
       <Row className=' items-center'>

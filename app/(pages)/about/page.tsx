@@ -14,7 +14,7 @@ function About() {
               <section>
                 <h5>About Web Tech Blogs</h5>
                 <p>
-                  This is a blog app focussed on web tech topics for Sharing the
+                  This is a blog app focused on web tech topics for sharing the
                   world of web dev the experiences and knowledge useful for the
                   community.
                 </p>
@@ -25,10 +25,13 @@ function About() {
                 <h5>Features</h5>
                 <ul>
                   <li>
-                    <p>Authentication with Google/Github/Facebook</p>
+                    <p>Authentication with Google/Github</p>
                   </li>
                   <li>
                     <p>Create / Update / Delete posts</p>
+                  </li>
+                  <li>
+                    <p>Write comment under post</p>
                   </li>
 
                   <li>
@@ -38,6 +41,9 @@ function About() {
                     <p>
                       Posts Views / Most Viewed posts / Most viewed by editor
                     </p>
+                  </li>
+                  <li>
+                    <p>Most popular categories</p>
                   </li>
                   <li>
                     <p>Sort by category</p>
@@ -84,6 +90,9 @@ function About() {
                       </li>
                       <li>
                         <p>Prisma</p>
+                      </li>
+                      <li>
+                        <p>Next Auth</p>
                       </li>
                     </ul>
                   </div>
