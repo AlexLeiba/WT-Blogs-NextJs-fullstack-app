@@ -68,7 +68,7 @@ function Categories() {
       </Col>
       {categoriesData.slice(0, categoriesShown).map((category, index) => {
         return (
-          <Col key={index} lg={4} md={2} className='mb-6 relative'>
+          <Col key={index} lg={4} md={2} sm={2} className='mb-6 relative'>
             <Link href={`/blog?category=${category.slug}&page=1`}>
               <div
                 data-aos='fade-up'

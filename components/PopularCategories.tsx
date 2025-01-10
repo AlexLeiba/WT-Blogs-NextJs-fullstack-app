@@ -96,7 +96,7 @@ function PopularCategories() {
       {!loading &&
         categoriesData?.map((category, index) => {
           return (
-            <Col key={index} lg={2} md={2} className='md:mb-6 sm:mb-6'>
+            <Col key={index} lg={2} md={1} sm={2} className='md:mb-6 sm:mb-6'>
               <Link href={`/blog?category=${category.slug}&page=1`}>
                 <div
                   // data-aos='fade-up'

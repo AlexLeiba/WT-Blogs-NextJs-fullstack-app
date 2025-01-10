@@ -52,7 +52,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
 
       <Link href={`/blog/${post?.slug}`}>
         <Row className=' items-center'>
-          <Col lg={6} md={2}>
+          <Col lg={6} md={4}>
             <div
               className='w-full h-[400px] relative overflow-hidden rounded-md'
               data-aos='fade-up'
@@ -65,6 +65,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
                 fill
               />
             </div>
+            <Spacer md={2} sm={2} />
           </Col>
           <Col lg={6} md={2}>
             <div

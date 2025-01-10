@@ -11,9 +11,16 @@ function Footer() {
       spacing='none'
       className='  bg-baseline-100 dark:bg-baseline-900   '
     >
-      <Container spacing='medium'>
+      <Container
+        spacing='medium'
+        className='md:text-left lg:text-left text-center'
+      >
         <Row className='dark:text-white'>
-          <Col lg={5} md={2}>
+          <Col
+            lg={5}
+            md={2}
+            className='flex lg:justify-start md:justify-start justify-center'
+          >
             {/* Logo */}
             <Link href='/'>
               <div className='flex font-bold '>
@@ -27,6 +34,7 @@ function Footer() {
             </div>
           </Col>
           <Col lg={2} lgOffset={1} md={2}>
+            <Spacer sm={4} />
             <p className='text-xl font-bold'>Links</p>
             <div className='dark:text-baseline-200'>
               <Link href='/'>
@@ -42,6 +50,7 @@ function Footer() {
             </div>
           </Col>
           <Col lg={2} md={2}>
+            <Spacer sm={4} md={4} />
             <p className='text-xl font-bold'>Categories</p>
             <div className='dark:text-baseline-200'>
               <Link href='/blog?category=react&page=1'>
@@ -59,6 +68,7 @@ function Footer() {
             </div>
           </Col>
           <Col lg={2} md={2}>
+            <Spacer sm={4} md={4} />
             <p className='text-xl font-bold'>Social</p>
             <div className='dark:text-baseline-200'>
               <Link href={'href="https://github.com/AlexLeiba"'}>

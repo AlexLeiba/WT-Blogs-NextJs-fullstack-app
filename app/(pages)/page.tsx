@@ -55,21 +55,22 @@ export default async function Home({
           <Spacer size={16} />
 
           <Row>
-            <Col lg={8} md={2}>
+            <Col lg={8} md={3}>
               <RecentPosts
                 posts={posts.posts}
                 type='home'
                 page={page}
                 numberOfPosts={posts.count}
               />
-              <Spacer size={16} />
+              <Spacer size={16} sm={12} md={12} />
               <Pagination page={page} numberOfPosts={posts.count} />
             </Col>
 
-            <Col lg={3} lgOffset={1} md={2}>
+            <Col lg={3} lgOffset={1} md={1}>
+              <Spacer sm={12} md={12} />
               <Categories />
 
-              <Spacer size={16} />
+              <Spacer size={16} sm={12} md={12} />
 
               <MostPopularPosts />
             </Col>

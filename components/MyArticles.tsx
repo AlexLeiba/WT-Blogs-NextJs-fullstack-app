@@ -78,11 +78,11 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
           />
         )}
 
-        <Spacer size={12} />
+        <Spacer size={16} md={12} sm={12} />
 
         {postsData?.posts?.length > 0 && (
           <div>
-            <Spacer size={12} />
+            <Spacer size={16} md={12} sm={12} />
             <Pagination
               page={currentPage}
               numberOfPosts={postsData.count}
@@ -93,8 +93,9 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
       </Col>
 
       <Col lg={3} lgOffset={1} md={2}>
+        <Spacer md={12} sm={12} />
         <Categories />
-        <Spacer size={12} />
+        <Spacer size={16} md={12} sm={12} />
         <MostPopularPosts />
       </Col>
     </Row>

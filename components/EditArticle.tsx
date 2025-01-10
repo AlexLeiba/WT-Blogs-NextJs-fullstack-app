@@ -56,7 +56,6 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
         }
         const categoriesData = await categories.json(); //return data as JSON
         setCategoriesData(categoriesData);
-        setLoading(false);
       } catch (error: any) {
         toast.error(error.message);
         setLoading(false);
@@ -211,7 +210,12 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
         <Row>
           <Col lg={12}>
             <div className='flex justify-between items-center '>
-              <h3 className='dark:text-white'>Edit Article</h3>
+              <div className='flex gap-4 items-center'>
+                <h3 className='dark:text-white'>Edit Article</h3>
+
+                {loading && <Loader variant={'primary'} size={'medium'} />}
+              </div>
+
               <div className='flex justify-end flex-col gap-2'>
                 <Button
                   variant={'primary'}
@@ -230,7 +234,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
 
         <Row>
           <Col lg={8}>
-            <Spacer size={8} />
+            <Spacer size={8} md={4} sm={4} />
 
             {/* FILE UPLOAD HIDDEN INPUT */}
             <input
@@ -240,7 +244,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
               onChange={handleFileChange}
             />
 
-            <Spacer size={8} />
+            <Spacer size={8} md={4} sm={4} />
 
             <Input
               {...register('title')}
@@ -271,7 +275,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
           </Col>
 
           <Col lg={3} lgOffset={1}>
-            <Spacer size={8} />
+            <Spacer size={8} md={4} sm={4} />
             <div>
               <p className='text-xl font-bold dark:text-white'>Category</p>
               <Spacer size={2} />
@@ -304,7 +308,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                 }}
               />
 
-              <Spacer size={8} />
+              <Spacer size={8} md={4} sm={4} />
 
               <Controller
                 name='public'
@@ -322,7 +326,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                 }}
               />
 
-              <Spacer size={8} />
+              <Spacer size={8} md={4} sm={4} />
               <p className='text-xl font-bold dark:text-white'>Article cover</p>
               <Spacer size={2} />
               <div className=' h-[150px] w-full relative border-[1px] border-baseline-300 rounded-lg dark:border-white flex items-center justify-center'>
@@ -362,7 +366,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                   )
                 )}
               </div>
-              <Spacer size={8} />
+              <Spacer size={8} md={4} sm={4} />
             </div>
           </Col>
         </Row>

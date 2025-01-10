@@ -123,7 +123,7 @@ function RecentPosts({
         {posts?.length > 0 ? (
           posts?.map((post, index) => {
             return (
-              <Col key={index} lg={12} md={2} className='mb-8'>
+              <Col key={index} lg={12} md={4} className='mb-8'>
                 <div data-aos='fade-up' data-aos-delay={index * 50}>
                   <Link
                     href={
@@ -132,7 +132,7 @@ function RecentPosts({
                         : `/blog/${post.slug}`
                     }
                   >
-                    <Row className='dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 scale-100 hover:scale-105 transition-all duration-200 ease-in-out'>
+                    <Row className='dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out'>
                       <Col lg={6} md={2}>
                         <Row>
                           <div className='h-[250px] w-full relative '>
@@ -144,6 +144,7 @@ function RecentPosts({
                             />
                           </div>
                         </Row>
+                        <Spacer md={2} sm={2} />
                       </Col>
                       <Col
                         lg={6}

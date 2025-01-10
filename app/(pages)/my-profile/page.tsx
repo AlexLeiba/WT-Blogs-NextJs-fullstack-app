@@ -17,8 +17,6 @@ async function MyProfile() {
           <Row>
             <Col
               lg={12}
-              md={4}
-              sm={2}
               className='flex flex-col gap-8 items-center justify-center '
             >
               <Image

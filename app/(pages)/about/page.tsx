@@ -8,11 +8,11 @@ function About() {
       <Row className='dark:text-white'>
         <Container spacing='none'>
           <h3>About</h3>
-          <Spacer size={4} />
+          <Spacer size={8} md={4} sm={4} />
           <Row>
             <Col lg={5} md={2} sm={3}>
               <section>
-                <h5>About Web Tech Blogs</h5>
+                <h5 className='font-bold'>About Web Tech Blogs</h5>
                 <p>
                   This is a blog app focused on web tech topics for sharing the
                   world of web dev the experiences and knowledge useful for the
@@ -21,8 +21,10 @@ function About() {
               </section>
             </Col>
             <Col lg={5} lgOffset={1} md={2} sm={3}>
+              <Spacer sm={4} />
+
               <section>
-                <h5>Features</h5>
+                <h5 className='font-bold'>Features</h5>
                 <ul>
                   <li>
                     <p>Authentication with Google/Github</p>
@@ -55,9 +57,12 @@ function About() {
               </section>
             </Col>
             <Col lg={5} md={2} sm={4}>
+              <Spacer sm={4} />
+
               <section>
-                <h5>Technologies used</h5>
-                <Spacer size={2} />
+                <h5 className='font-bold'>Technologies used</h5>
+                <Spacer size={4} />
+
                 <div className='flex gap-8'>
                   <div>
                     <p className='text-xl font-bold '>Front-end</p>
