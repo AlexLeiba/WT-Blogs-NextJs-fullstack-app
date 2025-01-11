@@ -49,10 +49,10 @@ export default async function CategoryPage({
         <SelectedCategory categorySlug={category} />
 
         <div>
-          <Spacer size={12} />
+          <Spacer size={12} sm={6} md={6} />
 
           <Row>
-            <Col lg={8} md={2}>
+            <Col lg={8} md={3}>
               <RecentPosts
                 posts={posts?.posts}
                 type='category'
@@ -60,11 +60,9 @@ export default async function CategoryPage({
                 page={currentPage}
               />
 
-              <Spacer size={12} />
-
               {posts?.posts.length > 0 && (
                 <div>
-                  <Spacer size={12} />
+                  <Spacer size={12} sm={6} md={6} />
                   <Pagination
                     page={currentPage}
                     numberOfPosts={posts?.count}
@@ -75,7 +73,8 @@ export default async function CategoryPage({
               )}
             </Col>
 
-            <Col lg={3} lgOffset={1} md={2}>
+            <Col lg={3} lgOffset={1} md={1}>
+              <Spacer sm={12} md={12} />
               <Categories />
               <Spacer size={12} />
               <MostPopularPosts />

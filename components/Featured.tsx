@@ -42,11 +42,12 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
               </p>
             </>
           )}
-          <Spacer size={12} />
+          <Spacer size={12} md={6} sm={6} />
           <h5 data-aos='fade-up'>
-            The most viewed blog post with <strong>{post?.views}</strong> views
+            • The most viewed blog post with <strong>{post?.views}</strong>{' '}
+            views •
           </h5>
-          <Spacer size={6} />
+          <Spacer size={6} sm={3} md={3} />
         </Col>
       </Row>
 
@@ -54,7 +55,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
         <Row className=' items-center'>
           <Col lg={6} md={4}>
             <div
-              className='w-full h-[400px] relative overflow-hidden rounded-md'
+              className='w-full lg:h-[400px] md:h-[350px] h-[200px] relative overflow-hidden rounded-md'
               data-aos='fade-up'
               data-aos-delay={50}
             >
@@ -89,7 +90,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
                 }}
               />
 
-              <Spacer size={8} />
+              <Spacer size={8} sm={4} md={4} />
               <Button
                 variant={'primary'}
                 size={'medium'}

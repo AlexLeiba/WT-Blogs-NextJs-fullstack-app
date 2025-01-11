@@ -246,10 +246,12 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
 
             <Spacer size={8} md={4} sm={4} />
 
+            <p className='text-xl font-bold dark:text-white'>Title:</p>
+            <Spacer size={1} />
             <Input
               {...register('title')}
               type={'text'}
-              placeholder={'Title...'}
+              placeholder={'Type title here...'}
               className={' text-4xl dark:bg-black dark:text-white '}
               label={''}
               error={errors?.title?.message}
@@ -257,6 +259,10 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
 
             <Spacer size={4} />
 
+            <p className='text-xl font-bold dark:text-white'>
+              Article description:
+            </p>
+            <Spacer size={1} />
             <Controller
               name='desc'
               control={control}

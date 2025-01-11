@@ -54,7 +54,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
 
   return (
     <Row>
-      <Col lg={8} md={2}>
+      <Col lg={8} md={3}>
         <div className='flex justify-between items-center'>
           <h3>My articles</h3>
 
@@ -62,10 +62,10 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
             <Button variant={'primary'}>Add new article</Button>
           </Link>
         </div>
-        <Spacer size={8} />
+        <Spacer size={8} sm={4} md={4} />
         {loading ? (
           <div className='flex justify-center items-center'>
-            <Spacer size={8} />
+            <Spacer size={8} sm={4} md={4} />
             <Loader size='medium' variant={'primary'} />
           </div>
         ) : (
@@ -77,8 +77,6 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
             numberOfPosts={postsData.count}
           />
         )}
-
-        <Spacer size={16} md={12} sm={12} />
 
         {postsData?.posts?.length > 0 && (
           <div>
@@ -92,7 +90,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
         )}
       </Col>
 
-      <Col lg={3} lgOffset={1} md={2}>
+      <Col lg={3} lgOffset={1} md={1}>
         <Spacer md={12} sm={12} />
         <Categories />
         <Spacer size={16} md={12} sm={12} />

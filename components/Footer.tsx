@@ -22,15 +22,17 @@ function Footer() {
             className='flex lg:justify-start md:justify-start justify-center'
           >
             {/* Logo */}
-            <Link href='/'>
-              <div className='flex font-bold '>
-                <Code2 />
-                WT-BLOGS
+            <div className='flex flex-col lg:items-start   lg:justify-start md:justify-start md:items-start justify-center items-center'>
+              <Link href='/'>
+                <div className='flex font-bold '>
+                  <Code2 />
+                  WT-BLOGS
+                </div>
+              </Link>
+              <Spacer size={2} />
+              <div className='flex gap-4'>
+                <p>{new Date().getFullYear()}</p>•<p>Alexandru Leiba</p>
               </div>
-            </Link>
-            <Spacer size={2} />
-            <div className='flex gap-4'>
-              <p>{new Date().getFullYear()}</p>•<p>Alexandru Leiba</p>
             </div>
           </Col>
           <Col lg={2} lgOffset={1} md={2}>
@@ -54,16 +56,16 @@ function Footer() {
             <p className='text-xl font-bold'>Categories</p>
             <div className='dark:text-baseline-200'>
               <Link href='/blog?category=react&page=1'>
-                <p>React</p>
+                <p>React.js</p>
               </Link>
               <Link href='/blog?category=nextjs&page=1'>
                 <p>Next.js</p>
               </Link>
-              <Link href='/blog?category=typescript&page=1'>
-                <p>TypeScript</p>
+              <Link href='/blog?category=frontend&page=1'>
+                <p>Front-end</p>
               </Link>
-              <Link href='/blog?category=tailwind&page=1'>
-                <p>Tailwind</p>
+              <Link href='/blog?category=backend&page=1'>
+                <p>Back-end</p>
               </Link>
             </div>
           </Col>

@@ -46,13 +46,13 @@ export default async function Home({
         {page === 1 && (
           <>
             <Featured type='home' />
-            <Spacer size={16} />
+            <Spacer size={16} sm={12} md={12} />
           </>
         )}
 
         <div>
           <PopularCategories />
-          <Spacer size={16} />
+          <Spacer size={16} sm={12} md={12} />
 
           <Row>
             <Col lg={8} md={3}>

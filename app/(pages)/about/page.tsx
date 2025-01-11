@@ -20,6 +20,7 @@ function About() {
                 </p>
               </section>
             </Col>
+
             <Col lg={5} lgOffset={1} md={2} sm={3}>
               <Spacer sm={4} />
 
@@ -27,31 +28,31 @@ function About() {
                 <h5 className='font-bold'>Features</h5>
                 <ul>
                   <li>
-                    <p>Authentication with Google/Github</p>
+                    <p>• Authentication with Google/Github</p>
                   </li>
                   <li>
-                    <p>Create / Update / Delete posts</p>
+                    <p>• Create / Update / Delete posts</p>
                   </li>
                   <li>
-                    <p>Write comment under post</p>
+                    <p>• Write comment under post</p>
                   </li>
 
                   <li>
-                    <p>Private / Public posts</p>
+                    <p>• Private / Public posts</p>
                   </li>
                   <li>
                     <p>
-                      Posts Views / Most Viewed posts / Most viewed by editor
+                      • Posts Views / Most Viewed posts / Most viewed by editor
                     </p>
                   </li>
                   <li>
-                    <p>Most popular categories</p>
+                    <p>• Most popular categories</p>
                   </li>
                   <li>
-                    <p>Sort by category</p>
+                    <p>• Sort by category</p>
                   </li>
                   <li>
-                    <p>Pagination</p>
+                    <p>• Pagination</p>
                   </li>
                 </ul>
               </section>
@@ -61,11 +62,10 @@ function About() {
 
               <section>
                 <h5 className='font-bold'>Technologies used</h5>
-                <Spacer size={4} />
 
                 <div className='flex gap-8'>
                   <div>
-                    <p className='text-xl font-bold '>Front-end</p>
+                    <p className='text-lg font-bold '>Front-end</p>
                     <ul>
                       <li>
                         <p>Next.js 15</p>
@@ -88,7 +88,7 @@ function About() {
                   </div>
 
                   <div>
-                    <p className=' font-bold text-xl'>Back-end</p>
+                    <p className=' font-bold text-lg'>Back-end</p>
                     <ul>
                       <li>
                         <p>MongoDB</p>

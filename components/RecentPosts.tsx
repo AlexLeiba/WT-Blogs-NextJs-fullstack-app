@@ -66,6 +66,13 @@ function RecentPosts({
       toast.error(error.message);
     }
   }
+
+  function showCategoryType() {
+    if (type === 'category' || type === 'home') {
+      return true;
+    }
+    return false;
+  }
   return (
     <>
       {/* MODAL DELETE POST */}
@@ -100,7 +107,7 @@ function RecentPosts({
       <div className='flex justify-between items-center font-bold'>
         <div className='flex justify-between w-full gap-4 '>
           <div className='flex gap-4 items-center justify-between w-full'>
-            <h5>{`Posts ${numberOfPosts} `}</h5>
+            <h5 className='font-bold'>{`Posts ${numberOfPosts} `}</h5>
             <p className='text-xl'>
               {numberOfPosts && numberOfPosts > 5
                 ? `Page:${page} / ${Math.ceil(numberOfPosts / 5)}`
@@ -132,31 +139,32 @@ function RecentPosts({
                         : `/blog/${post.slug}`
                     }
                   >
-                    <Row className='dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out'>
+                    <Row className='p-2 dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out'>
                       <Col lg={6} md={2}>
                         <Row>
-                          <div className='h-[250px] w-full relative '>
+                          <div className='h-[250px] w-full relative rounded'>
                             <Image
-                              className='w-full object-cover'
+                              className='w-full object-cover rounded'
                               src={post.img || '/default-cover-image.webp'}
                               alt={post.title}
                               fill
                             />
                           </div>
                         </Row>
-                        <Spacer md={2} sm={2} />
                       </Col>
                       <Col
                         lg={6}
                         md={2}
                         className='flex  items-center justify-between'
                       >
-                        <div className='flex justify-between flex-col items-start max-w-[80%]'>
+                        <div className='flex justify-between flex-col items-start max-w-[100%] p-1'>
                           <div className='flex justify-between w-full '>
                             <div>
-                              <div className='flex gap-2 text-s text-baseline-400'>
+                              <div className='flex  gap-1 text-s text-baseline-400'>
                                 <p className=' text-baseline-400 font-bold'>
-                                  {post.user?.name}
+                                  {post.user?.name.length > 12
+                                    ? post.user?.name.slice(0, 12) + '...'
+                                    : post.user?.name}
                                 </p>
                                 -
                                 <p>
@@ -164,11 +172,15 @@ function RecentPosts({
                                     new Date(post.createdAt),
                                     'MMM dd yyyy'
                                   )}
-                                </p>{' '}
-                                -
-                                <p className=' text-error-500 line-clamp-2'>
-                                  {post.cat?.title}
                                 </p>
+                                {type === 'my-articles' && (
+                                  <>
+                                    <p> -</p>
+                                    <p className=' text-error-500 line-clamp-1'>
+                                      {post.cat?.title}
+                                    </p>
+                                  </>
+                                )}
                               </div>
 
                               <Spacer size={2} />
@@ -189,20 +201,27 @@ function RecentPosts({
 
                               <Spacer size={2} />
 
-                              <div className='flex gap-4'>
+                              <div className='flex gap-4 items-center'>
                                 <Button variant={'link'} size={'medium'}>
                                   Read More
                                 </Button>
-
                                 <div className='flex gap-2 items-center'>
                                   <p className='text-sm'>{post.views}</p>
                                   <Eye />
                                 </div>
-
                                 {type === 'my-articles' && (
                                   <div className='ml-4 flex items-center'>
                                     <p>{post.public ? 'Public' : 'Private'}</p>
                                   </div>
+                                )}
+
+                                {showCategoryType() && (
+                                  <>
+                                    <p> -</p>
+                                    <p className=' text-error-500 line-clamp-1'>
+                                      {post.cat?.title}
+                                    </p>
+                                  </>
                                 )}
                               </div>
                             </div>
@@ -240,7 +259,7 @@ function RecentPosts({
           })
         ) : (
           <Col>
-            <Spacer size={8} />
+            <Spacer size={8} sm={4} md={4} />
             <p className='text-xl font-bold'>
               No posts found, try with other categories
             </p>
