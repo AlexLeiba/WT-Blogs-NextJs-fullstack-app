@@ -48,7 +48,7 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectTriggerVariant = cva(
-  'group data-[disabled]:border-none data-[disabled]:bg-baseline-50 data-[disabled]:text-baseline-300 data-[state=open]:ring-primary-100 group flex h-11 w-full gap-2 items-center justify-between rounded border border-baseline-300 bg-white py-2.5 pl-4 pr-3 text-base text-baseline-950 placeholder:text-baseline-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed data-[state=open]:border-accent-600 data-[state=open]:outline-0 data-[state=open]:ring-2 data-[state=open]:ring-accent-100 data-[state=open]:ring-offset-0 [&>span]:line-clamp-1 [&>span]:text-left',
+  'group data-[disabled]:border-none data-[disabled]:bg-baseline-50 data-[disabled]:text-baseline-300 data-[state=open]:ring-primary-100 group flex h-11 w-full gap-2 items-center justify-between rounded border border-baseline-300 bg-white py-2.5 pl-4 pr-3 text-base text-baseline-950 placeholder:text-baseline-500 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed data-[state=open]:border-baseline-600 data-[state=open]:outline-0 data-[state=open]:ring-2 data-[state=open]:ring-baseline-100 data-[state=open]:ring-offset-0 [&>span]:line-clamp-1 [&>span]:text-left',
   {
     variants: {
       variant: {
@@ -88,7 +88,7 @@ const SelectTrigger = React.forwardRef<
       <ChevronDown
         size={20}
         className={cn(
-          'text-[20px] text-baseline-950 transition-transform group-data-[state=open]:rotate-180 group-data-[disabled]:border-none group-data-[disabled]:text-baseline-300',
+          'dark:text-white text-[20px] text-baseline-950 transition-transform group-data-[state=open]:rotate-180 group-data-[disabled]:border-none group-data-[disabled]:text-baseline-300',
           variant === 'chip' && 'group-data-[state=open]:text-white'
         )}
       />
@@ -185,7 +185,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border border-baseline-100 bg-white py-1.5 text-baseline-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border border-baseline-100  bg-white py-1.5 text-baseline-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className
@@ -255,7 +255,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex w-full cursor-pointer select-none items-center py-2.5 pl-[37px] pr-2 text-base outline-none hover:bg-baseline-50 focus:bg-baseline-50 data-[disabled]:pointer-events-none data-[disabled]:text-baseline-300',
+      'relative flex w-full cursor-pointer select-none items-center py-2.5 pl-[37px] pr-2 text-base outline-none hover:bg-baseline-50 dark:hover:bg-baseline-300 focus:bg-baseline-50 dark:focus:bg-baseline-400 data-[disabled]:pointer-events-none data-[disabled]:text-baseline-300',
       className
     )}
     {...props}

@@ -184,13 +184,13 @@ export default {
       '7xl': ['3.6rem', { lineHeight: '4.8rem', letterSpacing: '-0.4px' }],
 
       // h2 mobile
-      '6xl': ['1.6rem', { lineHeight: '2rem', letterSpacing: '-0.36px' }],
+      '6xl': ['1.8rem', { lineHeight: '2rem', letterSpacing: '-0.36px' }],
 
       // h3 desktop
       '5xl': ['3.6rem', { lineHeight: '4.8rem', letterSpacing: '-0.32px' }],
 
       // h3 mobile
-      '4xl': ['1.5rem', { lineHeight: '1.9rem', letterSpacing: '-0.3px' }],
+      '4xl': ['2rem', { lineHeight: '2rem', letterSpacing: '-0.3px' }],
 
       // h4 desktop
       '3xl': ['2.8rem', { lineHeight: '3.8rem' }],

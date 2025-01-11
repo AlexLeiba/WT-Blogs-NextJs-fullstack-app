@@ -228,6 +228,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
             </div>
 
             {/* SEPARATOR */}
+            <Spacer size={2} />
             <div className='w-full h-[2px] bg-baseline-200' />
           </Col>
         </Row>
@@ -291,8 +292,9 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                 render={({ field: { onChange } }) => {
                   return (
                     <Select onValueChange={(e) => onChange(e)}>
-                      <SelectTrigger className='w-full'>
+                      <SelectTrigger className='w-full dark:bg-black dark:text-white'>
                         <SelectValue
+                          className=' dark:bg-black dark:text-white'
                           placeholder={
                             categoriesData.filter(
                               (c) => c.slug === postData?.catSlug
@@ -300,10 +302,14 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
                           }
                         />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className=' dark:bg-black dark:text-white'>
                         {categoriesData.map((category, index) => {
                           return (
-                            <SelectItem value={category.slug} key={index}>
+                            <SelectItem
+                              value={category.slug}
+                              key={index}
+                              className='dark:bg-black dark:text-white'
+                            >
                               {category.title}
                             </SelectItem>
                           );
