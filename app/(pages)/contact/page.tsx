@@ -9,7 +9,7 @@ function Contact() {
     <Container variant={'fluid'}>
       <Row className='dark:text-white'>
         <Container spacing='none'>
-          <h3 className=' text-center'>Contact</h3>
+          <h2 className='text-center sm:text-6xl'>Contact</h2>
           <Spacer size={16} />
           <Row>
             <Col

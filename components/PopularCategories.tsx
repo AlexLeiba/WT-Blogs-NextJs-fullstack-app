@@ -51,7 +51,7 @@ function PopularCategories() {
   return (
     <Row>
       <Col>
-        <div className='flex justify-between gap-4 items-center '>
+        <div className='flex justify-between gap-4 items-center sm:flex-col'>
           <h5 className='text-xl font-bold'>Popular Categories</h5>
           <div className='flex gap-2'>
             <Button
@@ -118,9 +118,11 @@ function PopularCategories() {
                       className='  w-8 h-8'
                     />
                   )}
-                  <p className='text-black dark:text-white'>{category.title}</p>
+                  <p className='text-black dark:text-white sm:text-xs'>
+                    {category.title}
+                  </p>
 
-                  <p>{category?.Posts?.length}</p>
+                  <p className='sm:text-xs'>{category?.Posts?.length}</p>
                 </div>
               </Link>
             </Col>

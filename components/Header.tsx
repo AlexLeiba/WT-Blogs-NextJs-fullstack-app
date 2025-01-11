@@ -5,6 +5,7 @@ import AuthLinks from './AuthLinks';
 import ThemeToggle from './ThemeToggle';
 import { Col, Container, Row } from './UI/Grid';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function Header() {
   return (
@@ -23,23 +24,29 @@ function Header() {
                   {/* Logo */}
                   <Link href={'/'}>
                     <div className='flex font-bold dark:text-white'>
-                      <Code2 />
-                      WT-BLOGS
+                      <Image
+                        src={'/favicon.ico'}
+                        alt='logo'
+                        width={25}
+                        height={25}
+                      />
                     </div>
                   </Link>
-                  <Link href={'href="https://github.com/AlexLeiba"'}>
-                    <Github width={20} height={20} cursor={'pointer'} />{' '}
-                  </Link>
-                  <Link href={'mailto:alexleiba@gmail.com'}>
-                    <Mail width={20} height={20} cursor={'pointer'} />{' '}
-                  </Link>
-                  <Link
-                    href={
-                      'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
-                    }
-                  >
-                    <Linkedin width={20} height={20} cursor={'pointer'} />
-                  </Link>
+                  <div className='sm:hidden flex gap-4 items-center'>
+                    <Link href={'href="https://github.com/AlexLeiba"'}>
+                      <Github width={20} height={20} cursor={'pointer'} />{' '}
+                    </Link>
+                    <Link href={'mailto:alexleiba@gmail.com'}>
+                      <Mail width={20} height={20} cursor={'pointer'} />{' '}
+                    </Link>
+                    <Link
+                      href={
+                        'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+                      }
+                    >
+                      <Linkedin width={20} height={20} cursor={'pointer'} />
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Links */}

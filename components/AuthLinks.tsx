@@ -5,7 +5,7 @@ import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 
 function AuthLinks() {
   const [isOpen, setIsOpen] = useState(false);
@@ -125,6 +125,21 @@ function AuthLinks() {
         )}
         {isOpen && (
           <div className=' fixed top-[56px] left-0 right-0 z-50 bg-baseline-100 dark:bg-baseline-900 h-full w-full text-center flex justify-center items-center flex-col gap-12'>
+            <div className='flex gap-8 items-center'>
+              <Link href={'href="https://github.com/AlexLeiba"'}>
+                <Github width={20} height={20} cursor={'pointer'} />{' '}
+              </Link>
+              <Link href={'mailto:alexleiba@gmail.com'}>
+                <Mail width={20} height={20} cursor={'pointer'} />{' '}
+              </Link>
+              <Link
+                href={
+                  'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
+                }
+              >
+                <Linkedin width={20} height={20} cursor={'pointer'} />
+              </Link>
+            </div>
             {navLinks.map((navLink, index) => {
               return (
                 <div

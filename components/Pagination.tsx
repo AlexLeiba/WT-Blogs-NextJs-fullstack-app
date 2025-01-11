@@ -46,33 +46,41 @@ function Pagination({
       }
     }
   }
+  function handleDisabledBothPaginationDirections() {
+    if (numberOfPosts - 1 < page * POSTS_PER_PAGE && page === 1) {
+      return true;
+    }
+    return false;
+  }
   return (
     <Row>
-      <Col className='flex justify-between'>
-        <Button
-          disabled={page === 1}
-          onClick={() => {
-            handleNavigations('previous');
-          }}
-          variant={'baseline'}
-          size={'medium'}
-          className={'dark:text-white'}
-        >
-          Previous
-        </Button>
+      {!handleDisabledBothPaginationDirections() && (
+        <Col className='flex justify-between'>
+          <Button
+            disabled={page === 1}
+            onClick={() => {
+              handleNavigations('previous');
+            }}
+            variant={'baseline'}
+            size={'medium'}
+            className={'dark:text-white'}
+          >
+            Previous
+          </Button>
 
-        <Button
-          disabled={numberOfPosts - 1 < page * POSTS_PER_PAGE}
-          onClick={() => {
-            handleNavigations('next');
-          }}
-          variant={'baseline'}
-          size={'medium'}
-          className={'dark:text-white'}
-        >
-          Next
-        </Button>
-      </Col>
+          <Button
+            disabled={numberOfPosts - 1 < page * POSTS_PER_PAGE}
+            onClick={() => {
+              handleNavigations('next');
+            }}
+            variant={'baseline'}
+            size={'medium'}
+            className={'dark:text-white'}
+          >
+            Next
+          </Button>
+        </Col>
+      )}
     </Row>
   );
 }

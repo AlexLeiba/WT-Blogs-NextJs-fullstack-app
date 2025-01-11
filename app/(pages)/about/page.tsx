@@ -7,7 +7,7 @@ function About() {
     <Container variant={'fluid'}>
       <Row className='dark:text-white'>
         <Container spacing='none'>
-          <h3>About</h3>
+          <h2 className='sm:text-6xl'>About</h2>
           <Spacer size={8} md={4} sm={4} />
           <Row>
             <Col lg={5} md={2} sm={3}>

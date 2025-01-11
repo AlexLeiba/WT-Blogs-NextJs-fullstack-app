@@ -30,23 +30,29 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
         <Col lg={9}>
           {type === 'home' && (
             <>
-              <h2 data-aos='fade-up' className=' '>
+              <h2 data-aos='fade-up' className='text-6xl sm:hidden'>
                 Welcome on Web Tech Blogs
+              </h2>
+
+              <h2 data-aos='fade-up' className='text-6xl md:hidden lg:hidden'>
+                Welcome on{' '}
+              </h2>
+              <h2 data-aos='fade-up' className='text-6xl md:hidden lg:hidden'>
+                Web Tech Blogs
               </h2>
               <p
                 data-aos='fade-up'
-                className='text-xl text-baseline-400 dark:text-baseline-200 '
+                className=' text-baseline-400 dark:text-baseline-200 '
               >
                 <strong> Discover web development journey</strong> in these
                 amazing blogs.
               </p>
             </>
           )}
-          <Spacer size={12} md={6} sm={6} />
-          <h5 data-aos='fade-up'>
-            • The most viewed blog post with <strong>{post?.views}</strong>{' '}
-            views •
-          </h5>
+          <Spacer size={24} />
+          <p data-aos='fade-up' className='sm:text-md md:text-xl lg:text-xl'>
+            • The most viewed blog <strong>{post?.views} views </strong> •
+          </p>
           <Spacer size={6} sm={3} md={3} />
         </Col>
       </Row>
@@ -86,7 +92,10 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
               <div
                 className=' line-clamp-4'
                 dangerouslySetInnerHTML={{
-                  __html: post?.desc ? post.desc : '',
+                  __html: post.desc.replace(
+                    /<(\/?)h[12345](.*?)>|<img.*?>/g,
+                    '<$1p$2>'
+                  ),
                 }}
               />
 

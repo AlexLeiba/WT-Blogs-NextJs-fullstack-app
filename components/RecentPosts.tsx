@@ -107,8 +107,8 @@ function RecentPosts({
       <div className='flex justify-between items-center font-bold'>
         <div className='flex justify-between w-full gap-4 '>
           <div className='flex gap-4 items-center justify-between w-full'>
-            <h5 className='font-bold'>{`Posts ${numberOfPosts} `}</h5>
-            <p className='text-xl'>
+            <h5 className='sm:text-xl font-bold'>{`Posts ${numberOfPosts} `}</h5>
+            <p className='text-base '>
               {numberOfPosts && numberOfPosts > 5
                 ? `Page:${page} / ${Math.ceil(numberOfPosts / 5)}`
                 : ''}
@@ -126,11 +126,11 @@ function RecentPosts({
         </div>
       </div>
       <Spacer size={6} />
-      <Row className=' items-center'>
+      <Row className=' items-center '>
         {posts?.length > 0 ? (
           posts?.map((post, index) => {
             return (
-              <Col key={index} lg={12} md={4} className='mb-8'>
+              <Col key={index} lg={12} md={4} className='mb-8 '>
                 <div data-aos='fade-up' data-aos-delay={index * 50}>
                   <Link
                     href={
@@ -139,10 +139,10 @@ function RecentPosts({
                         : `/blog/${post.slug}`
                     }
                   >
-                    <Row className='p-2 dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out'>
+                    <Row className='p-2 dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out max-h-[400px]'>
                       <Col lg={6} md={2}>
                         <Row>
-                          <div className='h-[250px] w-full relative rounded'>
+                          <div className='h-[250px] sm:h-[200px] w-full relative rounded'>
                             <Image
                               className='w-full object-cover rounded'
                               src={post.img || '/default-cover-image.webp'}
@@ -189,13 +189,18 @@ function RecentPosts({
                               </p>
 
                               <div
-                                className='line-clamp-4  text-s! max-w-[70%]  dark:text-baseline-300 text-baseline-500'
+                                className='line-clamp-4 sm:line-clamp-1 sm:h-[20px]  text-s! max-w-[70%]  dark:text-baseline-300 text-baseline-500'
                                 dangerouslySetInnerHTML={{
                                   // parse headings and images to paragraphs
-                                  __html: post.desc.replace(
-                                    /<(\/?)h[12345](.*?)>|<img.*?>/g,
-                                    '<$1p$2>'
-                                  ),
+                                  __html: post.desc
+                                    .replace(
+                                      /<(\/?)h[1-5](.*?)>/g,
+                                      '<$1p$2>' // Replace heading tags with paragraph tags
+                                    )
+                                    .replace(
+                                      /<img.*?>|<br\s*\/?>|<a.*?>.*?<\/a>/g,
+                                      '' // Replace <img>, <br>, and <a> tags with an empty string
+                                    ),
                                 }}
                               />
 
@@ -218,7 +223,7 @@ function RecentPosts({
                                 {showCategoryType() && (
                                   <>
                                     <p> -</p>
-                                    <p className=' text-error-500 line-clamp-1'>
+                                    <p className=' text-error-500 line-clamp-2'>
                                       {post.cat?.title}
                                     </p>
                                   </>
