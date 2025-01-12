@@ -156,18 +156,20 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
       <Spacer size={6} />
       <Row className='flex items-center'>
         {loading ? (
-          <div className='w-full flex justify-center items-center'>
-            <Spacer size={8} />
-            <Loader size='medium' variant={'primary'} />
-            <Spacer size={8} />
-          </div>
+          <Col>
+            <div className='w-full flex justify-center items-center'>
+              <Spacer size={8} />
+              <Loader size='medium' variant={'primary'} />
+              <Spacer size={8} />
+            </div>
+          </Col>
         ) : postsData.length > 0 ? (
           postsData?.map((post, index) => {
             return (
               <Col key={index} className='mb-6'>
                 <Link href={`/blog/${post.slug}`}>
                   <div
-                    className='flex  gap-4 items-center'
+                    className='flex  gap-4 items-center overflow-hidden p-1'
                     data-aos='fade-up'
                     data-aos-delay={index * 50}
                   >
@@ -181,7 +183,7 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
                       />
                     )}
 
-                    <div>
+                    <div className='sm:w-[75%]'>
                       <div className='flex justify-start'>
                         <p className={cardVariants({ variant: post.catSlug })}>
                           {post.cat.title}
@@ -192,7 +194,7 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
                       <Spacer size={2} />
 
                       <div
-                        className='line-clamp-3 sm:line-clamp-1 sm:h-[20px]'
+                        className='line-clamp-3 sm:line-clamp-2 sm:h-[45px] w-full '
                         dangerouslySetInnerHTML={{
                           // parse headings and images to paragraphs
                           __html: post.desc

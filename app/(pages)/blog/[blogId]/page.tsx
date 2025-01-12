@@ -63,7 +63,8 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 className='flex flex-col justify-between dark:text-white'
               >
                 <div className='flex items-start gap-4 justify-between flex-col'>
-                  <h3 className='font-bold line-clamp-4'>{post?.title}</h3>
+                  <h2 className='font-bold line-clamp-4'>{post?.title}</h2>
+                  <Spacer sm={4} />
                   <div className='flex items-center gap-8'>
                     <div className='flex items-center gap-4'>
                       {post?.user?.image && (
@@ -93,7 +94,8 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
               </Col>
 
               <Col lg={6}>
-                <div className='relative h-[400px] w-full rounded-md'>
+                <Spacer sm={4} />
+                <div className='relative h-[400px] sm:h-[200px] w-full rounded-md'>
                   <Image
                     src={post?.img || '/default-cover-image.webp'}
                     alt='blog image'
@@ -106,7 +108,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
 
             <Row>
               <Col lg={7} className=' dark:text-baseline-200 text:baseline-950'>
-                <Spacer size={16} />
+                <Spacer lg={16} md={12} sm={4} />
                 {post?.desc && (
                   <div
                     dangerouslySetInnerHTML={{
@@ -114,8 +116,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                     }}
                   />
                 )}
-
-                <Spacer size={16} />
+                <Spacer lg={16} md={12} sm={12} />
 
                 <Comments postSlug={post?.slug} />
               </Col>
@@ -124,14 +125,14 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 lgOffset={1}
                 className='dark:text-baseline-200 text:baseline-950'
               >
-                <Spacer size={16} />
+                <Spacer size={16} md={12} sm={12} />
 
                 <EditorPick postEditorEmail={post?.userEmail} />
 
-                <Spacer size={16} />
+                <Spacer size={16} md={12} sm={12} />
                 <MostPopularPosts />
 
-                <Spacer size={16} />
+                <Spacer size={16} md={12} sm={12} />
                 <Categories />
               </Col>
             </Row>

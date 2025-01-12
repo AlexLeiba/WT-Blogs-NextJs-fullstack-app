@@ -334,7 +334,7 @@ function Comments({ postSlug }: { postSlug: string }) {
         >
           {status === 'unauthenticated' ? 'Log in' : 'Send'}
         </Button>
-        <Spacer size={16} />
+        <Spacer size={16} md={12} sm={8} />
 
         {loading ? (
           <div className='flex justify-center items-center'>
