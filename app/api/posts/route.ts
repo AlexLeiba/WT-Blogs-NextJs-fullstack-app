@@ -1,7 +1,7 @@
 import { prisma } from '@/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
-// GET ALL PUBLIC POSTS
+// GET ALL PUBLIC POSTS / GET POSTS BY CATEGORY / GET MOST POPULAR POSTS
 export async function GET(req: NextRequest) {
   const POST_PER_PAGE = 5;
   const { searchParams } = new URL(req.url);
@@ -18,8 +18,9 @@ export async function GET(req: NextRequest) {
           createdAt: 'desc',
         },
         where: {
+          // FILTER BY PUBLIC ONLY
           public: { equals: true },
-
+          // FILTER BY CATEGORY DOMAIN OR CATEGORY SLUG
           ...(categorySlug === 'frontend' || categorySlug === 'backend' //or filter by domain
             ? { catDomain: categorySlug }
             : categorySlug
@@ -31,6 +32,7 @@ export async function GET(req: NextRequest) {
           user: true,
         },
       }),
+      // COUNT ALL POSTS FILTERED BY CATEGORY
       prisma.post.count({
         where: {
           ...(categorySlug === 'frontend' || categorySlug === 'backend' //or filter by domain

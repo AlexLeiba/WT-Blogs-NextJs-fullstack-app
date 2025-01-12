@@ -176,12 +176,12 @@ function RecentPosts({
                               </div>
 
                               <Spacer size={2} />
-                              <p className='text-xl font-bold line-clamp-2 sm:text-xs md:w-[85%]'>
+                              <p className='text-xl font-bold line-clamp-2 sm:text-l md:w-[85%]'>
                                 {post.title}
                               </p>
 
                               <div
-                                className='line-clamp-4 md:line-clamp-2 sm:line-clamp-1 sm:h-[20px]  text-s! max-w-[85%]  dark:text-baseline-300 text-baseline-500'
+                                className='line-clamp-4 md:line-clamp-2 sm:line-clamp-1 sm:h-[20px]  text-xs! max-w-[85%]  dark:text-baseline-300 text-baseline-500'
                                 dangerouslySetInnerHTML={{
                                   // parse headings and images to paragraphs
                                   __html: post.desc
@@ -198,7 +198,7 @@ function RecentPosts({
 
                               <Spacer size={2} />
 
-                              <div className='flex gap-4 items-center  flex-wrap  md:w-[85%]'>
+                              <div className='flex gap-4 items-center  flex-wrap  md:w-[100%] '>
                                 <Button variant={'link'} size={'medium'}>
                                   Read More
                                 </Button>
@@ -206,7 +206,7 @@ function RecentPosts({
                                   <p className='text-sm'>{post.views}</p>
                                   <Eye />
                                 </div>
-                                <div className='mr-8 flex items-center gap-2 '>
+                                <div className=' flex items-center gap-2 '>
                                   {type === 'my-articles' && (
                                     <div className='flex items-center '>
                                       <p>
@@ -214,6 +214,8 @@ function RecentPosts({
                                       </p>
                                     </div>
                                   )}
+
+                                  {/* ON MY ARTICLES PAGE */}
                                   {type === 'my-articles' && (
                                     <div className='flex items-center gap-2 '>
                                       <p> - </p>
@@ -224,9 +226,10 @@ function RecentPosts({
                                   )}
                                 </div>
 
+                                {/* ON HOME PAGE */}
                                 {showCategoryType() && (
                                   <>
-                                    <p className=' text-error-500 line-clamp-2 mr-2 '>
+                                    <p className=' text-error-500 line-clamp-2  mr-1'>
                                       {post.cat?.title}
                                     </p>
                                   </>
