@@ -192,7 +192,7 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
                       <Spacer size={2} />
 
                       <div
-                        className='line-clamp-3'
+                        className='line-clamp-3 sm:line-clamp-1 sm:h-[20px]'
                         dangerouslySetInnerHTML={{
                           // parse headings and images to paragraphs
                           __html: post.desc
