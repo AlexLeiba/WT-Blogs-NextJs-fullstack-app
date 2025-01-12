@@ -173,11 +173,13 @@ function MostPopularPosts() {
                       </div>
                     </div>
                     <Spacer size={2} />
-                    <p className='text-lg font-bold'>{post.title}</p>
+                    <p className='text-lg font-bold lg:line-clamp-2 md:line-clamp-1'>
+                      {post.title}
+                    </p>
                     <Spacer size={2} />
 
                     <div
-                      className=' line-clamp-3 sm:line-clamp-1 sm:h-[20px]'
+                      className=' line-clamp-3 md:line-clamp-1 sm:line-clamp-1 sm:h-[20px]'
                       dangerouslySetInnerHTML={{
                         // parse headings and images to paragraphs
                         __html: post.desc

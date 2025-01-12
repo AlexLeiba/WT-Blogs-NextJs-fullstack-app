@@ -207,7 +207,7 @@ function EditArticle() {
             <Input
               {...register('title')}
               type={'text'}
-              placeholder={'Write your article title here...'}
+              placeholder={'Type title here...'}
               className={' text-4xl dark:bg-black dark:text-white '}
               label={''}
               error={errors?.title?.message}

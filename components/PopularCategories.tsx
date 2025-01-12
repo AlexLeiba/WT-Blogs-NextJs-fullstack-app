@@ -122,7 +122,7 @@ function PopularCategories() {
                       className='  w-8 h-8'
                     />
                   )}
-                  <p className='text-black dark:text-white sm:text-xs'>
+                  <p className='text-black dark:text-white sm:text-xs  md:text-xs'>
                     {category.title}
                   </p>
 

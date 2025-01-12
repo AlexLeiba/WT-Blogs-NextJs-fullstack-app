@@ -65,7 +65,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 <h3 className='sm:text-xl font-bold line-clamp-4'>
                   {post?.title}
                 </h3>
-                <Spacer sm={4} />
+                <Spacer sm={4} md={4} />
 
                 <div className='flex items-center gap-4 justify-between'>
                   <div className='flex items-center gap-4'>
@@ -95,7 +95,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
               </Col>
 
               <Col lg={5}>
-                <Spacer sm={4} />
+                <Spacer sm={4} md={4} />
                 <div className='relative h-[400px] sm:h-[200px] w-full'>
                   <Image
                     src={post?.img || '/default-cover-image.webp'}

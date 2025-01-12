@@ -139,7 +139,7 @@ function RecentPosts({
                         : `/blog/${post.slug}`
                     }
                   >
-                    <Row className='p-2 dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out max-h-[400px]'>
+                    <Row className='relative  dark:border-baseline-100 border-baseline-400  rounded-lg overflow-hidden shadow-lg dark:shadow-baseline-800 lg:scale-100 lg:hover:scale-105 transition-all duration-200 ease-in-out max-h-[400px] '>
                       <Col lg={6} md={2}>
                         <Row>
                           <div className='h-[250px] sm:h-[200px] w-full relative rounded'>
@@ -155,41 +155,33 @@ function RecentPosts({
                       <Col
                         lg={6}
                         md={2}
-                        className='flex  items-center justify-between'
+                        className='flex  items-center justify-between  '
                       >
-                        <div className='flex justify-between flex-col items-start max-w-[100%] p-1'>
-                          <div className='flex justify-between w-full '>
+                        <div className='flex  flex-col items-start  py-3 '>
+                          <div className='flex  w-full'>
                             <div>
                               <div className='flex  gap-1 text-s text-baseline-400'>
-                                <p className=' text-baseline-400 font-bold'>
+                                <p className=' text-baseline-400 font-bold sm:text-xs'>
                                   {post.user?.name.length > 12
                                     ? post.user?.name.slice(0, 12) + '...'
                                     : post.user?.name}
                                 </p>
                                 -
-                                <p>
+                                <p className='sm:text-xs'>
                                   {format(
                                     new Date(post.createdAt),
                                     'MMM dd yyyy'
                                   )}
                                 </p>
-                                {type === 'my-articles' && (
-                                  <>
-                                    <p> -</p>
-                                    <p className=' text-error-500 line-clamp-1'>
-                                      {post.cat?.title}
-                                    </p>
-                                  </>
-                                )}
                               </div>
 
                               <Spacer size={2} />
-                              <p className='text-xl font-bold line-clamp-2'>
+                              <p className='text-xl font-bold line-clamp-2 sm:text-xs md:w-[85%]'>
                                 {post.title}
                               </p>
 
                               <div
-                                className='line-clamp-4 sm:line-clamp-1 sm:h-[20px]  text-s! max-w-[70%]  dark:text-baseline-300 text-baseline-500'
+                                className='line-clamp-4 md:line-clamp-2 sm:line-clamp-1 sm:h-[20px]  text-s! max-w-[85%]  dark:text-baseline-300 text-baseline-500'
                                 dangerouslySetInnerHTML={{
                                   // parse headings and images to paragraphs
                                   __html: post.desc
@@ -206,7 +198,7 @@ function RecentPosts({
 
                               <Spacer size={2} />
 
-                              <div className='flex gap-4 items-center'>
+                              <div className='flex gap-4 items-center  flex-wrap  md:w-[85%]'>
                                 <Button variant={'link'} size={'medium'}>
                                   Read More
                                 </Button>
@@ -214,16 +206,27 @@ function RecentPosts({
                                   <p className='text-sm'>{post.views}</p>
                                   <Eye />
                                 </div>
-                                {type === 'my-articles' && (
-                                  <div className='ml-4 flex items-center'>
-                                    <p>{post.public ? 'Public' : 'Private'}</p>
-                                  </div>
-                                )}
+                                <div className='mr-8 flex items-center gap-2 '>
+                                  {type === 'my-articles' && (
+                                    <div className='flex items-center '>
+                                      <p>
+                                        {post.public ? 'Public' : 'Private'}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {type === 'my-articles' && (
+                                    <div className='flex items-center gap-2 '>
+                                      <p> - </p>
+                                      <p className=' text-error-500 line-clamp-1 sm:text-xs'>
+                                        {post.cat?.title}
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
 
                                 {showCategoryType() && (
                                   <>
-                                    <p> -</p>
-                                    <p className=' text-error-500 line-clamp-2'>
+                                    <p className=' text-error-500 line-clamp-2 mr-2 '>
                                       {post.cat?.title}
                                     </p>
                                   </>
@@ -232,27 +235,31 @@ function RecentPosts({
                             </div>
                           </div>
                         </div>
+                        {/* EDIT AND DELETE BUTTONS */}
                         {type === 'my-articles' && (
-                          <div className='flex h-full flex-col justify-start gap-4 mt-2'>
-                            <X
-                              className=' cursor-pointer dark:text-white'
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                handleDeletePost(post.slug);
-                              }}
-                            />
-
-                            <Edit
-                              className=' cursor-pointer dark:text-white'
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                router.push(
-                                  `/my-articles/edit-article/${post.slug}`
-                                );
-                              }}
-                            />
+                          <div className='  flex flex-col  gap-4 absolute right-3 bottom-3  '>
+                            <div>
+                              <X
+                                className=' cursor-pointer dark:text-white'
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                  handleDeletePost(post.slug);
+                                }}
+                              />
+                            </div>
+                            <div>
+                              <Edit
+                                className=' cursor-pointer dark:text-white'
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  e.preventDefault();
+                                  router.push(
+                                    `/my-articles/edit-article/${post.slug}`
+                                  );
+                                }}
+                              />
+                            </div>
                           </div>
                         )}
                       </Col>

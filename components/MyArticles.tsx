@@ -62,7 +62,7 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
             <Button variant={'primary'}>Add new</Button>
           </Link>
         </div>
-        <Spacer size={8} sm={4} md={4} />
+        <Spacer size={8} />
         {loading ? (
           <div className='flex justify-center items-center'>
             <Spacer size={8} sm={4} md={4} />

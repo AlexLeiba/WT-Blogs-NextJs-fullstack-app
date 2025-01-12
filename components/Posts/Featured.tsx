@@ -87,7 +87,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
               <p className=' text-error-500'>{post?.cat?.title}</p>
             </div>
             <div data-aos='fade-up' data-aos-delay={200}>
-              <h5 className='font-bold'>{post?.title}</h5>
+              <p className='text-xl font-bold line-clamp-2'>{post?.title}</p>
 
               <div
                 className=' line-clamp-4 sm:line-clamp-1 sm:h-[20px]'
