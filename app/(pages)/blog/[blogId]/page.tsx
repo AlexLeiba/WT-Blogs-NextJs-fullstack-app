@@ -63,7 +63,9 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 className='flex flex-col justify-between dark:text-white'
               >
                 <div className='flex items-start gap-4 justify-between flex-col'>
-                  <h3 className='font-bold line-clamp-4'>{post?.title}</h3>
+                  <h3 className='sm:text-xl font-bold line-clamp-4'>
+                    {post?.title}
+                  </h3>
                   <Spacer sm={4} />
                   <div className='flex items-center gap-8'>
                     <div className='flex items-center gap-4'>
@@ -95,7 +97,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
 
               <Col lg={5}>
                 <Spacer sm={4} />
-                <div className='relative h-[400px] sm:h-[200px] w-full rounded-md'>
+                <div className='relative h-[400px] sm:h-[300px] w-full rounded-md'>
                   <Image
                     src={post?.img || '/default-cover-image.webp'}
                     alt='blog image'

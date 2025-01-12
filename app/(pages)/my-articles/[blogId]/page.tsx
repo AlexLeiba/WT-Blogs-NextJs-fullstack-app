@@ -62,7 +62,9 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 lg={7}
                 className='flex flex-col justify-between dark:text-white'
               >
-                <h3 className='font-bold line-clamp-4'>{post?.title}</h3>
+                <h3 className='sm:text-xl font-bold line-clamp-4'>
+                  {post?.title}
+                </h3>
                 <Spacer sm={4} />
 
                 <div className='flex items-center gap-4 justify-between'>
