@@ -67,8 +67,11 @@ export default async function Home({
             </Col>
 
             <Col lg={3} lgOffset={1} md={1}>
-              <Spacer sm={12} md={12} />
-              <Categories />
+              <div id='all-categories'>
+                <Spacer sm={16} md={12} />
+
+                <Categories />
+              </div>
 
               <Spacer size={16} sm={12} md={12} />
 

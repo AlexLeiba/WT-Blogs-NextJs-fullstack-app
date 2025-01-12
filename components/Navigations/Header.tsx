@@ -1,9 +1,9 @@
-import { Code2, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 import React from 'react';
-import AuthLinks from './AuthLinks';
-import ThemeToggle from './ThemeToggle';
-import { Col, Container, Row } from './UI/Grid';
+import AuthLinks from '../AuthLinks';
+import ThemeToggle from '../ThemeToggle';
+import { Col, Container, Row } from '../UI/Grid';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -23,7 +23,7 @@ function Header() {
                 <div className='flex gap-4 dark:text-white'>
                   {/* Logo */}
                   <Link href={'/'}>
-                    <div className='flex font-bold dark:text-white'>
+                    <div className='flex font-bold dark:text-white bg-white rounded-full'>
                       <Image
                         src={'/favicon.ico'}
                         alt='logo'

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Col, Container, Row } from './UI/Grid';
+import { Col, Container, Row } from '../UI/Grid';
 import { Code2 } from 'lucide-react';
 import Link from 'next/link';
-import { Spacer } from './UI/spacer/spacer';
+import { Spacer } from '../UI/spacer/spacer';
+import Image from 'next/image';
 
 function Footer() {
   return (
@@ -24,13 +25,20 @@ function Footer() {
             {/* Logo */}
             <div className='flex flex-col lg:items-start   lg:justify-start md:justify-start md:items-start justify-center items-center'>
               <Link href='/'>
-                <div className='flex font-bold '>
-                  <Code2 />
-                  WT-BLOGS
+                <div className='font-bold  flex gap-2'>
+                  <div className='flex font-bold dark:text-white bg-white rounded-full w-[25px]'>
+                    <Image
+                      src={'/favicon.ico'}
+                      alt='logo'
+                      width={25}
+                      height={25}
+                    />
+                  </div>
+                  WT-Blogs
                 </div>
               </Link>
               <Spacer size={2} />
-              <div className='flex gap-4'>
+              <div className='flex gap-4 sm:hidden'>
                 <p>{new Date().getFullYear()}</p>•<p>Alexandru Leiba</p>
               </div>
             </div>
@@ -88,6 +96,11 @@ function Footer() {
               <Link href={'mailto:alexleiba@gmail.com'}>
                 <p>Gmail</p>
               </Link>
+            </div>
+
+            <Spacer sm={4} />
+            <div className='flex gap-4 md:hidden lg:hidden justify-center items-center'>
+              <p>{new Date().getFullYear()}</p>•<p>Alexandru Leiba</p>
             </div>
           </Col>
         </Row>

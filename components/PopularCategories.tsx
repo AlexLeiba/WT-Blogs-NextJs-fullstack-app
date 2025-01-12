@@ -51,9 +51,9 @@ function PopularCategories() {
   return (
     <Row>
       <Col>
-        <div className='flex justify-between gap-4 items-center sm:flex-col'>
+        <div className='flex justify-between gap-2 items-center sm:flex-col'>
           <h5 className='text-xl font-bold'>Popular Categories</h5>
-          <div className='flex gap-2'>
+          <div className='flex gap-4'>
             <Button
               onClick={() => {
                 setCategoryType({ name: 'frontend' });
@@ -83,6 +83,10 @@ function PopularCategories() {
             >
               Back-end
             </Button>
+            {/* ON MOBILE */}
+            <Link href={'/#all-categories'} className='md:hidden lg:hidden'>
+              <Button variant={'link'}>All categories</Button>
+            </Link>
           </div>
         </div>
         <Spacer size={6} />

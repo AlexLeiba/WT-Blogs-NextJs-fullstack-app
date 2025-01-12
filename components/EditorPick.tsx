@@ -150,7 +150,9 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
       <p className='text-baseline-400'>
         Popular posts written by the current editor
       </p>
-      <h5 className=' font-bold'>Editor Picks</h5>
+      <h5 className='text-xl font-bold dark:text-baseline-200 '>
+        Editor Picks
+      </h5>
       <Spacer size={6} />
       <Row className='flex items-center'>
         {loading ? (
@@ -192,10 +194,16 @@ function EditorPick({ postEditorEmail }: { postEditorEmail: string }) {
                       <div
                         className='line-clamp-3'
                         dangerouslySetInnerHTML={{
-                          __html: post.desc.replace(
-                            /<(\/?)h[12](.*?)>|<img.*?>/g,
-                            '<$1p$2>'
-                          ),
+                          // parse headings and images to paragraphs
+                          __html: post.desc
+                            .replace(
+                              /<(\/?)h[1-5](.*?)>/g,
+                              '<$1p$2>' // Replace heading tags with paragraph tags
+                            )
+                            .replace(
+                              /<img.*?>|<br\s*\/?>|<a.*?>.*?<\/a>/g,
+                              '' // Replace <img>, <br>, and <a> tags with an empty string
+                            ),
                         }}
                       />
                       <div className='flex gap-2 text-s text-baseline-400'>

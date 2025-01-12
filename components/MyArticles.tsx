@@ -55,11 +55,11 @@ export function MyArticles({ currentPage }: { currentPage: number }) {
   return (
     <Row>
       <Col lg={8} md={3}>
-        <div className='flex justify-between items-center'>
-          <h2 className='sm:text-6xl'>My articles</h2>
+        <div className='flex justify-between items-center ' data-aos='fade-up'>
+          <h2 className='text-6xl'>My articles</h2>
 
           <Link href='/my-articles/new-article'>
-            <Button variant={'primary'}>Add new article</Button>
+            <Button variant={'primary'}>Add new</Button>
           </Link>
         </div>
         <Spacer size={8} sm={4} md={4} />

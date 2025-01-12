@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import AuthSessionProvider from '@/providers/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import AosInit from '../lib/aosInit';
+import Header from '@/components/Navigations/Header';
+import Footer from '@/components/Navigations/Footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

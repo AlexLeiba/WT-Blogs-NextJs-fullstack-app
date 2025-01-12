@@ -179,10 +179,16 @@ function MostPopularPosts() {
                     <div
                       className=' line-clamp-3'
                       dangerouslySetInnerHTML={{
-                        __html: post.desc.replace(
-                          /<(\/?)h[12](.*?)>|<img.*?>/g,
-                          '<$1p$2>'
-                        ),
+                        // parse headings and images to paragraphs
+                        __html: post.desc
+                          .replace(
+                            /<(\/?)h[1-5](.*?)>/g,
+                            '<$1p$2>' // Replace heading tags with paragraph tags
+                          )
+                          .replace(
+                            /<img.*?>|<br\s*\/?>|<a.*?>.*?<\/a>/g,
+                            '' // Replace <img>, <br>, and <a> tags with an empty string
+                          ),
                       }}
                     />
 
@@ -197,7 +203,7 @@ function MostPopularPosts() {
           })
         ) : (
           <Col>
-            <p>No posts found</p>
+            <p>No articles found</p>
           </Col>
         )}
       </Row>

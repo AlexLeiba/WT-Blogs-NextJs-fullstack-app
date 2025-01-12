@@ -117,7 +117,7 @@ function RecentPosts({
           <div>
             {type === 'category' && (
               <Link href='/'>
-                <Button variant={'secondary'} className='font-bold '>
+                <Button variant={'link'} className='font-bold '>
                   All posts
                 </Button>
               </Link>

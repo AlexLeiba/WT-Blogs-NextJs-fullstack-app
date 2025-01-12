@@ -14,7 +14,7 @@ function Signin() {
           <Row>
             <Col lg={12}>
               <div className='flex  justify-center items-center h-[calc(100vh-278px)]'>
-                <div className='    shadow-lg text-center w-[700px] dark:text-white dark:bg-baseline-900 bg-baseline-100 p-4  rounded-lg  flex justify-center items-center flex-col gap-4'>
+                <div className='shadow-lg text-center w-[700px] dark:text-white dark:bg-baseline-900 bg-baseline-100 p-4  rounded-lg  flex justify-center items-center flex-col gap-4'>
                   <div>
                     <h4 className='text-xl font-bold'>Sign in</h4>
                     <p className=' dark:text-baseline-200 text-black'>
@@ -22,15 +22,19 @@ function Signin() {
                     </p>
                   </div>
 
-                  <div className='flex flex-col gap-2 p-16'>
+                  <Spacer size={6} />
+
+                  <div className='flex flex-col gap-2 p-2'>
                     <Button
                       leftIcon={
-                        <Image
-                          src='/social-icons/company=google.svg'
-                          alt='google'
-                          width={20}
-                          height={20}
-                        />
+                        <div>
+                          <Image
+                            src='/social-icons/company=google.svg'
+                            alt='google'
+                            width={20}
+                            height={20}
+                          />
+                        </div>
                       }
                       variant={'tonal'}
                       onClick={() => signIn('google', { redirectTo: '/' })}
@@ -40,18 +44,22 @@ function Signin() {
                     <Spacer size={6} />
                     <Button
                       leftIcon={
-                        <Image
-                          src='/social-icons/company=github.svg'
-                          alt='github'
-                          width={20}
-                          height={20}
-                        />
+                        <div>
+                          <Image
+                            src='/social-icons/company=github.svg'
+                            alt='github'
+                            width={20}
+                            height={20}
+                          />
+                        </div>
                       }
                       onClick={() => signIn('github', { redirectTo: '/' })}
                       variant={'baseline'}
                     >
                       Sign in with Github
                     </Button>
+
+                    <Spacer size={6} />
                     {/* <Spacer size={6} />
                     <Button
                       leftIcon={

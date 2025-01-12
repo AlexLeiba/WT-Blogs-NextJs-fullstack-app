@@ -111,6 +111,8 @@ function AuthLinks() {
           </>
         )}
       </div>
+
+      {/* MOBILE MENU */}
       <div className='lg:hidden md:hidden '>
         {isOpen ? (
           <X
@@ -147,7 +149,7 @@ function AuthLinks() {
                   className='cursor-pointer'
                   onClick={() => handleMobieNav(navLink.link)}
                 >
-                  <h4
+                  <h5
                     className={cn(
                       'text-xl  dark:text-baseline-100 dark:hover:text-baseline-200 hover:text-baseline-500 ',
                       navLink.linkName === pathname &&
@@ -155,7 +157,7 @@ function AuthLinks() {
                     )}
                   >
                     {navLink.name}
-                  </h4>
+                  </h5>
 
                   <div
                     className={cn(
@@ -175,7 +177,7 @@ function AuthLinks() {
                       className='cursor-pointer'
                       onClick={() => handleMobieNav('my-profile')}
                     >
-                      <h4
+                      <h5
                         className={cn(
                           ' transition-all text-xl dark:text-baseline-100 dark:hover:text-baseline-200 hover:text-baseline-500 ',
                           '/my-profile' === pathname &&
@@ -183,7 +185,7 @@ function AuthLinks() {
                         )}
                       >
                         Profile
-                      </h4>
+                      </h5>
                       <div
                         className={cn(
                           'w-[0%] h-[1px] dark:bg-white bg-black transition-all ease-in-out',
@@ -195,9 +197,9 @@ function AuthLinks() {
                       onClick={() => signOut({ redirectTo: '/sign-in' })}
                       className=' cursor-pointer '
                     >
-                      <h4 className='text-xl dark:text-baseline-100 dark:hover:text-baseline-200  hover:text-baseline-500 text-black font-bold'>
+                      <h5 className='text-xl dark:text-baseline-100 dark:hover:text-baseline-200  hover:text-baseline-500 text-black font-bold'>
                         Logout
-                      </h4>
+                      </h5>
                     </div>
                   </>
                 ) : (
@@ -205,9 +207,9 @@ function AuthLinks() {
                     className='cursor-pointer'
                     onClick={() => handleMobieNav('sign-in')}
                   >
-                    <h4 className='text-xl dark:text-baseline-200 dark:hover:text-white hover:text-baseline-500 text-black font-bold'>
+                    <h5 className='text-xl dark:text-baseline-200 dark:hover:text-white hover:text-baseline-500 text-black font-bold'>
                       Sign in
-                    </h4>
+                    </h5>
                   </div>
                 )}
               </>
