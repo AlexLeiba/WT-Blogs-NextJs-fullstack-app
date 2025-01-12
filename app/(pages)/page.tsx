@@ -1,10 +1,10 @@
 import React from 'react';
 import Categories from '@/components/Categories';
 import PopularCategories from '@/components/PopularCategories';
-import Featured from '@/components/Featured';
+import Featured from '@/components/Posts/Featured';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
-import RecentPosts from '@/components/RecentPosts';
+import RecentPosts from '@/components/Posts/RecentPosts';
 import { Col, Container, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import toast from 'react-hot-toast';

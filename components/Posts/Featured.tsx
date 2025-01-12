@@ -1,8 +1,8 @@
 import React from 'react';
-import { Spacer } from './UI/spacer/spacer';
+import { Spacer } from '../UI/spacer/spacer';
 import Image from 'next/image';
-import { Button } from './UI/Button/Button';
-import { Col, Row } from './UI/Grid';
+import { Button } from '../UI/Button/Button';
+import { Col, Row } from '../UI/Grid';
 import toast from 'react-hot-toast';
 import { SinglePostType } from '@/consts/types';
 import Link from 'next/link';
@@ -90,12 +90,18 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
               <h5 className='font-bold'>{post?.title}</h5>
 
               <div
-                className=' line-clamp-4'
+                className=' line-clamp-4 sm:line-clamp-1 sm:h-[20px]'
                 dangerouslySetInnerHTML={{
-                  __html: post.desc.replace(
-                    /<(\/?)h[12345](.*?)>|<img.*?>/g,
-                    '<$1p$2>'
-                  ),
+                  // parse headings and images to paragraphs
+                  __html: post.desc
+                    .replace(
+                      /<(\/?)h[1-5](.*?)>/g,
+                      '<$1p$2>' // Replace heading tags with paragraph tags
+                    )
+                    .replace(
+                      /<img.*?>|<br\s*\/?>|<a.*?>.*?<\/a>/g,
+                      '' // Replace <img>, <br>, and <a> tags with an empty string
+                    ),
                 }}
               />
 

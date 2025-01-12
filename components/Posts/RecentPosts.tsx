@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import { Spacer } from './UI/spacer/spacer';
+import { Spacer } from '../UI/spacer/spacer';
 import Image from 'next/image';
-import { Button } from './UI/Button/Button';
-import { Col, Row } from './UI/Grid';
+import { Button } from '../UI/Button/Button';
+import { Col, Row } from '../UI/Grid';
 import Link from 'next/link';
 import { PostArrayType } from '@/consts/types';
 import { format } from 'date-fns';

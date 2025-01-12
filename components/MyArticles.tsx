@@ -2,7 +2,7 @@
 import Categories from '@/components/Categories';
 import MostPopularPosts from '@/components/MostPopularPosts';
 import Pagination from '@/components/Pagination';
-import RecentPosts from '@/components/RecentPosts';
+import RecentPosts from '@/components/Posts/RecentPosts';
 import { Col, Row } from '@/components/UI/Grid';
 import { Spacer } from '@/components/UI/spacer/spacer';
 import toast from 'react-hot-toast';

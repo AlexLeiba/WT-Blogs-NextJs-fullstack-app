@@ -59,11 +59,11 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
           <Container spacing='none'>
             <Row>
               <Col
-                lg={6}
+                lg={7}
                 className='flex flex-col justify-between dark:text-white'
               >
                 <div className='flex items-start gap-4 justify-between flex-col'>
-                  <h2 className='font-bold line-clamp-4'>{post?.title}</h2>
+                  <h3 className='font-bold line-clamp-4'>{post?.title}</h3>
                   <Spacer sm={4} />
                   <div className='flex items-center gap-8'>
                     <div className='flex items-center gap-4'>
@@ -93,7 +93,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 </div>
               </Col>
 
-              <Col lg={6}>
+              <Col lg={5}>
                 <Spacer sm={4} />
                 <div className='relative h-[400px] sm:h-[200px] w-full rounded-md'>
                   <Image
@@ -107,7 +107,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
             </Row>
 
             <Row>
-              <Col lg={7} className=' dark:text-baseline-200 text:baseline-950'>
+              <Col lg={8} className=' dark:text-baseline-200 text:baseline-950'>
                 <Spacer lg={16} md={12} sm={4} />
                 {post?.desc && (
                   <div
@@ -121,7 +121,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 <Comments postSlug={post?.slug} />
               </Col>
               <Col
-                lg={4}
+                lg={3}
                 lgOffset={1}
                 className='dark:text-baseline-200 text:baseline-950'
               >
