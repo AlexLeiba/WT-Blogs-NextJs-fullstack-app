@@ -211,7 +211,7 @@ function EditArticle({ articleSlug }: { articleSlug: string }) {
           <Col lg={12}>
             <div className='flex justify-between items-center '>
               <div className='flex gap-4 items-center'>
-                <h3 className='dark:text-white'>Edit Article</h3>
+                <h2 className='text-6xl'>Edit Article</h2>
 
                 {loading && <Loader variant={'primary'} size={'medium'} />}
               </div>

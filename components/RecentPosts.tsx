@@ -233,7 +233,7 @@ function RecentPosts({
                           </div>
                         </div>
                         {type === 'my-articles' && (
-                          <div className='flex h-full flex-col justify-start gap-4'>
+                          <div className='flex h-full flex-col justify-start gap-4 mt-2'>
                             <X
                               className=' cursor-pointer dark:text-white'
                               onClick={(e) => {

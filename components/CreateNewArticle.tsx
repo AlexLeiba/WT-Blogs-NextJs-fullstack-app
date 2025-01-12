@@ -173,7 +173,8 @@ function EditArticle() {
         <Row>
           <Col lg={12}>
             <div className='flex justify-between items-center '>
-              <h3 className='dark:text-white'>New Article</h3>
+              <h2 className='text-6xl'>New Article</h2>
+
               <div className='flex justify-end flex-col gap-2'>
                 <Button
                   variant={'primary'}
