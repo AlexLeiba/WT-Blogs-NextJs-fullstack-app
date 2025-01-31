@@ -12,6 +12,7 @@ import { Eye } from 'lucide-react';
 import EditorPick from '@/components/EditorPick';
 import { getServerSession } from '@/auth';
 import GoBackButton from '@/components/GoBackButton';
+import { cn } from '@/lib/utils';
 
 async function getPost(slug: string, sessionData: any) {
   try {
@@ -112,7 +113,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 <Spacer lg={16} md={12} sm={4} />
                 {post?.desc && (
                   <div
-                    className='text-wrap '
+                    className={cn('text-wrap ', ' html-content')}
                     dangerouslySetInnerHTML={{
                       __html: post.desc,
                     }}

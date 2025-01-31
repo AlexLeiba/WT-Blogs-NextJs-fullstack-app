@@ -181,7 +181,7 @@ function RecentPosts({
                               </p>
 
                               <div
-                                className='line-clamp-4 md:line-clamp-2 sm:line-clamp-1 sm:h-[20px]  text-xs! max-w-[85%]  dark:text-baseline-300 text-baseline-500'
+                                className='line-clamp-4 md:line-clamp-2 sm:line-clamp-1 sm:h-[20px]  text-xs! max-w-[85%]  dark:text-baseline-300 text-baseline-500 '
                                 dangerouslySetInnerHTML={{
                                   // parse headings and images to paragraphs
                                   __html: post.desc

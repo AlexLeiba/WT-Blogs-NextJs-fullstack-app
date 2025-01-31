@@ -93,7 +93,7 @@ async function Featured({ type }: { type: 'category' | 'home' }) {
               </p>
 
               <div
-                className=' line-clamp-4 sm:line-clamp-1 sm:h-[20px] text-s! dark:text-baseline-300 text-baseline-500'
+                className=' line-clamp-4 sm:line-clamp-1 sm:h-[20px] text-s! dark:text-baseline-300 text-baseline-500 '
                 dangerouslySetInnerHTML={{
                   // parse headings and images to paragraphs
                   __html: post.desc

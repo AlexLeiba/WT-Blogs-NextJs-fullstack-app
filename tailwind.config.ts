@@ -175,34 +175,34 @@ export default {
     fontSize: {
       // Headings
       // h1 desktop
-      '9xl': ['5.2rem', { lineHeight: '6.4rem', letterSpacing: '-1.28px' }],
+      '9xl': ['3.25rem', { lineHeight: '4rem' }],
 
       // h2 desktop
-      '8xl': ['4.4rem', { lineHeight: '5.4rem', letterSpacing: '-0.48px' }],
+      '8xl': ['2.75rem', { lineHeight: '3.37rem' }],
 
       // h1 mobile
-      '7xl': ['3.6rem', { lineHeight: '4.8rem', letterSpacing: '-0.4px' }],
+      '7xl': ['2.25rem', { lineHeight: '3rem' }],
 
       // h2 mobile
-      '6xl': ['1.8rem', { lineHeight: '2rem', letterSpacing: '-0.36px' }],
+      '6xl': ['2rem', { lineHeight: '2.62rem' }],
 
       // h3 desktop
-      '5xl': ['3.6rem', { lineHeight: '4.8rem', letterSpacing: '-0.32px' }],
+      '5xl': ['2.25rem', { lineHeight: '3rem' }],
 
       // h3 mobile
-      '4xl': ['2rem', { lineHeight: '2rem', letterSpacing: '-0.3px' }],
+      '4xl': ['1.75rem', { lineHeight: '2.37rem' }],
 
       // h4 desktop
-      '3xl': ['2.8rem', { lineHeight: '3.8rem' }],
+      '3xl': ['1.75rem', { lineHeight: '2.37rem' }],
 
       // h4 mobile
-      '2xl': ['2.4rem', { lineHeight: '3.2rem' }],
+      '2xl': ['1.5rem', { lineHeight: '2rem' }],
 
       xl: ['1.25rem', { lineHeight: '1.875rem' }],
-      l: ['1.125rem', { lineHeight: '1.75rem', letterSpacing: '0.18px' }],
-      base: ['1rem', { lineHeight: '1.5rem', letterSpacing: '0.16px' }],
-      s: ['0.875rem', { lineHeight: '1.375rem', letterSpacing: '0.28px' }],
-      xs: ['0.75rem', { lineHeight: '1.125rem', letterSpacing: '0.24px' }],
+      l: ['1.125rem', { lineHeight: '1.75rem' }],
+      base: ['1rem', { lineHeight: '1.5rem' }],
+      s: ['0.875rem', { lineHeight: '1.375rem' }],
+      xs: ['0.75rem', { lineHeight: '1.125rem' }],
     },
     extend: {
       colors: {

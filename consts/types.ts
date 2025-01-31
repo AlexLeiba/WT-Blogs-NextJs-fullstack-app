@@ -7,6 +7,16 @@ export type CategoryType = {
   domain: string;
 };
 
+export type CommentType = {
+  id: string;
+  createdAt: string;
+  desc: string;
+  userEmail: string;
+  user: UserType;
+  postSlug: string;
+  post: SinglePostType;
+};
+
 export type PostType = {
   count: number;
   posts: {
@@ -42,16 +52,6 @@ export type SinglePostType = {
   public: boolean;
 };
 export type PostArrayType = PostType['posts'];
-
-export type CommentType = {
-  id: string;
-  createdAt: string;
-  desc: string;
-  userEmail: string;
-  user: UserType;
-  postSlug: string;
-  post: SinglePostType;
-};
 
 export type UserType = {
   id: string;

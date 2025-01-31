@@ -113,6 +113,7 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
                 <Spacer lg={16} md={12} sm={4} />
                 {post?.desc && (
                   <div
+                    className='html-content'
                     dangerouslySetInnerHTML={{
                       __html: post.desc,
                     }}
