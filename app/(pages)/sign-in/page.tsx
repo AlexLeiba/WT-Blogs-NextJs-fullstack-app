@@ -8,12 +8,12 @@ import { signIn } from 'next-auth/react';
 
 function Signin() {
   return (
-    <Container variant={'fluid'} className='min-h-[calc(100vh-278px)]'>
+    <Container variant={'fluid'}>
       <Row>
         <Container spacing='none'>
           <Row>
             <Col lg={12}>
-              <div className='flex  justify-center items-center h-[calc(100vh-278px)]'>
+              <div className='flex  justify-center items-center lg:h-[calc(100vh-450px)] md:h-[calc(100vh-450px)] h-[calc(100vh-200px)]'>
                 <div className='shadow-lg text-center w-[700px] dark:text-white dark:bg-baseline-900 bg-baseline-100 p-4  rounded-lg  flex justify-center items-center flex-col gap-4'>
                   <div>
                     <h4 className='text-xl font-bold'>Sign in</h4>

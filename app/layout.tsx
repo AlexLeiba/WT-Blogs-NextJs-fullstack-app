@@ -35,12 +35,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthSessionProvider>
-          <div className='flex min-h-[100vh] bg-white dark:bg-black flex-col text-black dark:text-white '>
+          <div className='flex h-screen bg-white dark:bg-black flex-col text-black dark:text-white '>
             <header>
               <Header />
             </header>
             <Spacer size={14} /> {/*Header size*/}
-            <main className='flex-grow'>
+            <main className='flex flex-grow'>
               <AosInit>{children}</AosInit>
             </main>
             <footer>

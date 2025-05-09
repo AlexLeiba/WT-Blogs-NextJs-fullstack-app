@@ -63,7 +63,7 @@ function Footer() {
             <Spacer sm={4} md={4} />
             <p className='text-xl font-bold'>Categories</p>
             <div className='dark:text-baseline-200'>
-              <Link href='/blog?category=react&page=1'>
+              <Link href='/blog?category=reactjs&page=1'>
                 <p>React.js</p>
               </Link>
               <Link href='/blog?category=nextjs&page=1'>
@@ -81,11 +81,12 @@ function Footer() {
             <Spacer sm={4} md={4} />
             <p className='text-xl font-bold'>Social</p>
             <div className='dark:text-baseline-200'>
-              <Link href={'href="https://github.com/AlexLeiba"'}>
+              <Link href={'https://github.com/AlexLeiba'} target='_blank'>
                 <p>Github</p>
               </Link>
 
               <Link
+                target='_blank'
                 href={
                   'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
                 }
@@ -93,7 +94,7 @@ function Footer() {
                 <p>Linkedin</p>
               </Link>
 
-              <Link href={'mailto:alexleiba@gmail.com'}>
+              <Link target='_blank' href={'mailto:alexleiba@gmail.com'}>
                 <p>Gmail</p>
               </Link>
             </div>

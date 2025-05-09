@@ -33,16 +33,17 @@ function Header() {
                     </div>
                   </Link>
                   <div className='sm:hidden flex gap-4 items-center'>
-                    <Link href={'href="https://github.com/AlexLeiba"'}>
-                      <Github width={20} height={20} cursor={'pointer'} />{' '}
+                    <Link href={'https://github.com/AlexLeiba'} target='_blank'>
+                      <Github width={20} height={20} cursor={'pointer'} />
                     </Link>
-                    <Link href={'mailto:alexleiba@gmail.com'}>
-                      <Mail width={20} height={20} cursor={'pointer'} />{' '}
+                    <Link href={'mailto:alexleiba@gmail.com'} target='_blank'>
+                      <Mail width={20} height={20} cursor={'pointer'} />
                     </Link>
                     <Link
                       href={
                         'https://www.linkedin.com/in/alex-leiba-9205801ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
                       }
+                      target='_blank'
                     >
                       <Linkedin width={20} height={20} cursor={'pointer'} />
                     </Link>
