@@ -10,11 +10,11 @@ function SelectedCategory({ categorySlug }: { categorySlug: string }) {
 
   return (
     <Row>
-      <Col>
+      <Col className='!px-0'>
         <p className='text-xl dark:text-white '>Selected category</p>
       </Col>
 
-      <Col lg={12} md={4} className='md:mb-6 sm:mb-6'>
+      <Col lg={12} md={4} className='md:mb-6 sm:mb-6 !px-0'>
         <div
           className={cardVariants({
             variant: filteredCategoryBySlug?.title

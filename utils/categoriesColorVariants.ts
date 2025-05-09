@@ -28,7 +28,7 @@ export const cardVariants: any = cva(
         ],
         tailwind: [
           'bg-tertiary-100  hover:bg-tertiary-300',
-          ' dark:bg-tertiary-900 dark:hover:bg-tertiary-700',
+          'dark:bg-tertiary-900 dark:hover:bg-tertiary-700',
         ],
         css: [
           'bg-error-100  hover:bg-error-300',

@@ -50,14 +50,11 @@ async function SingleBlog({ params }: { params: Promise<{ blogId: string }> }) {
 
   return (
     <>
-      <Container spacing='none'>
-        <Spacer size={8} />
-        <GoBackButton />
-      </Container>
-
       <Container variant={'fluid'}>
         <Row>
           <Container spacing='none'>
+            <GoBackButton />
+            <Spacer size={8} />
             <Row>
               <Col
                 lg={7}
